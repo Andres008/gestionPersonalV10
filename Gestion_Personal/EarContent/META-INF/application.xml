@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd" id="Application_ID" version="8">
-  <display-name>GestionPersonal</display-name>
+  <display-name>Gestion_Personal</display-name>
   <module>
-    <ejb>GestionPersonalEJB.jar</ejb>
+    <ejb>Gestion_PersonalEJB.jar</ejb>
   </module>
   <module>
     <web>
-      <web-uri>GestionPersonalWeb.war</web-uri>
-      <context-root>GestionPersonalWeb</context-root>
+      <web-uri>Gestion_PersonalWeb.war</web-uri>
+      <context-root>Gestion_PersonalWeb</context-root>
     </web>
   </module>
   <module>
-    <ejb>Ds_GestionPersonal.jar</ejb>
+    <ejb>GestionPersonal_DS.jar</ejb>
   </module>
 </application>
