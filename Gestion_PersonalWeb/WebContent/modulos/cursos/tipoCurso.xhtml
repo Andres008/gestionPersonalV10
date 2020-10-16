@@ -36,7 +36,8 @@
     };
 </script>
 </h:head>
-<body style="font-size:70%">
+<body style="font-size: 70%"
+	onload="#{controladorCursos.inicializarTipoCurso()}">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
 			onsuccess="PF('statusDialog').hide()" />
@@ -70,8 +71,77 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
+				<h1>TIPOS DE CURSOS</h1>
 				<h:form>
-
+					<p:growl id="msgs" showDetail="true" />
+					<p:panel header="Ingreso de Informacion" toggleable="true"
+						collapsed="true">
+						<p:panelGrid columns="2" styleClass="ui-noborder">
+							<p:outputLabel value="Tipo Curso" />
+							<p:inputText value="#{controladorCursos.objAcaTipoCurso.nombre}"
+								style="text-transform: uppercase" />
+							<p:outputLabel value="Descripción" />
+							<p:inputText
+								value="#{controladorCursos.objAcaTipoCurso.descripcion}"
+								style="text-transform: uppercase" />
+						</p:panelGrid>
+						<p:commandButton value="Ingresar"
+							actionListener="#{controladorCursos.ingresarTipoCurso()}"
+							update="@form" />
+					</p:panel>
+					<p:panel header="Cursos Ingresados">
+						<p:dataTable value="#{controladorCursos.lstAcaTipoCurso}"
+							emptyMessage="No existe curso ingresados" editable="true"
+							var="curso">
+							<p:ajax event="rowEdit" listener="#{controladorCursos.onRowEdit}"
+								update="@form:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{dtEditView.onRowCancel}" update="@form:msgs" />
+							<p:column headerText="Nombre">
+								<p:cellEditor>
+									<f:facet name="output">
+										<p:outputLabel value="#{curso.nombre}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{curso.nombre}" style="width:100%"
+											label="Nombre" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Descripción">
+								<p:cellEditor>
+									<f:facet name="output">
+										<p:outputLabel value="#{curso.descripcion}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{curso.descripcion}" style="width:100%"
+											label="Descripción" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Fecha Inicial">
+								<p:outputLabel value="#{curso.fechaInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Fecha Final">
+								<p:outputLabel value="#{curso.fechaFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Estado">
+								<p:outputLabel value="#{curso.estado}" />
+							</p:column>
+							<p:column style="width:35px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Inactivar">
+								<p:commandButton icon="ui-icon-close"
+									action="#{controladorCursos.inactivarTipoCurso(curso)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
 				</h:form>
 			</div>
 		</div>

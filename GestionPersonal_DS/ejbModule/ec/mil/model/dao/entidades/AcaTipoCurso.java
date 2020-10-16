@@ -17,7 +17,7 @@ public class AcaTipoCurso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ACA_TIPO_CURSO_ID_GENERATOR", sequenceName="SEQ_ACA_TIPO_CURSO")
+	@SequenceGenerator(name="ACA_TIPO_CURSO_ID_GENERATOR", sequenceName="SEQ_ACA_TIPO_CURSO", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ACA_TIPO_CURSO_ID_GENERATOR")
 	private long id;
 
