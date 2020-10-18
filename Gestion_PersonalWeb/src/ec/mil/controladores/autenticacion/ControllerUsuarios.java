@@ -151,4 +151,12 @@ public class ControllerUsuarios  {
 		this.busqueda = busqueda;
 	}
 
+	public BeanLogin getBeanLogin() {
+		return beanLogin;
+	}
+
+	public void setBeanLogin(BeanLogin beanLogin) {
+		this.beanLogin = beanLogin;
+	}
+
 }
