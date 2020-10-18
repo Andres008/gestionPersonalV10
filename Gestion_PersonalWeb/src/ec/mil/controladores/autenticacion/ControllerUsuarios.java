@@ -66,7 +66,7 @@ public class ControllerUsuarios  {
 			usuario.setClave(ModelUtil.md5(usuario.getCedula()));
 			usuario.setPrimerInicio("SI");
 			managerUsuarios.actualizarUsuario(usuario);
-			JSFUtil.crearMensajeINFO("Atenci�n", "Restablecimiento de contrase�a correcto");
+			JSFUtil.crearMensajeINFO("Atención", "Restablecimiento de contraseña correcto");
 			// managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(),
 			// "restablercerContrasenia", "Se actualiz� contrase�a. "+usuario.getCedula());
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class ControllerUsuarios  {
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarUsuario();
-			JSFUtil.crearMensajeERROR("Atenci�n", e.getMessage());
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			/*
 			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
 			 * "inicializarUsuario", e.getMessage());
@@ -116,10 +116,10 @@ public class ControllerUsuarios  {
 			objAutUsuario.setPrimerInicio("SI");
 			objAutUsuario.setEstado("A");
 			managerUsuarios.ingresarUsuario(objAutUsuario);
-			JSFUtil.crearMensajeINFO("Atenci�n", "Usuario creado correctamente");
+			JSFUtil.crearMensajeINFO("Atención", "Usuario creado correctamente");
 			inicializarUsuario();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Atenci�n", e.getMessage());
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			e.printStackTrace();
 		}
 	}

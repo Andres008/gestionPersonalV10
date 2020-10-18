@@ -93,7 +93,7 @@
 						<p:dataTable value="#{controladorCursos.lstAcaTipoCurso}"
 							emptyMessage="No existe curso ingresados" editable="true"
 							var="curso">
-							<p:ajax event="rowEdit" listener="#{controladorCursos.onRowEdit}"
+							<p:ajax event="rowEdit" listener="#{controladorCursos.onRowEditTipoCurso}"
 								update="@form:msgs" />
 							<p:ajax event="rowEditCancel"
 								listener="#{dtEditView.onRowCancel}" update="@form:msgs" />

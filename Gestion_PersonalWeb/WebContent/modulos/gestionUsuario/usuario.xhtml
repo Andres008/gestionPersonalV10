@@ -107,7 +107,7 @@
 							</p:selectOneMenu>
 						</p:panelGrid>
 						<p:commandButton value="Ingresar" rendered="#{controllerUsuarios.busqueda}"
-							action="#{controllerUsuarios.ingresarUsuario()}" update="form" />
+							action="#{controllerUsuarios.ingresarUsuario()}" update="@form" />
 					</p:panel>
 					<p:panel header="Usuarios Ingresados">
 						<p:dataTable value="#{controllerUsuarios.lstAutUsuario}"
