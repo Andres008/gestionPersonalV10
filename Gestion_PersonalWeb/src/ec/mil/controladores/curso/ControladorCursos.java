@@ -55,7 +55,7 @@ public class ControladorCursos {
 	public List<SelectItem> siTipoCursoActivo() {
 		List<SelectItem> lstSiTipoCurso = new ArrayList<SelectItem>();
 		try {
-			List<AcaTipoCurso> lstTipoCursoAux = managerCurso.findCursoActivo();
+			List<AcaTipoCurso> lstTipoCursoAux = managerCurso.findTipoCursoActivo();
 			for (AcaTipoCurso acaTipoCurso : lstTipoCursoAux) {
 				SelectItem siAcaCurso = new SelectItem(acaTipoCurso.getId(), acaTipoCurso.getNombre());
 				lstSiTipoCurso.add(siAcaCurso);
@@ -87,7 +87,7 @@ public class ControladorCursos {
 			managerCurso.actualizarTipoCurso(objAcatipoCursoAux);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "inactivarCurso",
 					"Se inactivo curso id: " + objAcatipoCursoAux.getId());
-			JSFUtil.crearMensajeINFO("Atención", "Se inactivo Correctamente.");
+			JSFUtil.crearMensajeINFO("Atenciï¿½n", "Se inactivo Correctamente.");
 			inicializarTipoCurso();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -104,7 +104,7 @@ public class ControladorCursos {
 			managerCurso.actualizarCurso(objAcaCursoAux);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "inactivarCurso",
 					"Se inactivo curso id: " + objAcaCursoAux.getId());
-			JSFUtil.crearMensajeINFO("Atención", "Se inactivo Correctamente.");
+			JSFUtil.crearMensajeINFO("Atenciï¿½n", "Se inactivo Correctamente.");
 			inicializarAcaCurso();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -118,8 +118,8 @@ public class ControladorCursos {
 		try {
 			managerCurso.actualizarTipoCurso(event.getObject());
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoCurso",
-					"Se actualizò tipo curso id: " + event.getObject().getId());
-			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");
+					"Se actualizï¿½ tipo curso id: " + event.getObject().getId());
+			JSFUtil.crearMensajeINFO("Atenciï¿½n", "Actualizaciï¿½n Correcta.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoCurso",
@@ -133,8 +133,8 @@ public class ControladorCursos {
 		try {
 			managerCurso.actualizarCurso(event.getObject());
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditCurso",
-					"Se actualizò curso id: " + event.getObject().getId());
-			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");
+					"Se actualizï¿½ curso id: " + event.getObject().getId());
+			JSFUtil.crearMensajeINFO("Atenciï¿½n", "Actualizaciï¿½n Correcta.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "onRowEditCurso",
@@ -151,13 +151,13 @@ public class ControladorCursos {
 			objAcaTipoCurso.setNombre(objAcaTipoCurso.getNombre().toUpperCase());
 			objAcaTipoCurso.setDescripcion(objAcaTipoCurso.getDescripcion().toUpperCase());
 			managerCurso.ingresarTipoCurso(objAcaTipoCurso);
-			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
+			JSFUtil.crearMensajeINFO("Atenciï¿½n", "Ingreso correcto.");
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarTipoCurso",
 					"Ingreso tipo de curso id: " + objAcaTipoCurso.getNombre());
 
 			inicializarTipoCurso();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			JSFUtil.crearMensajeERROR("Atenciï¿½n", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTipoCurso",
 					e.getMessage());
 			e.printStackTrace();
@@ -171,12 +171,12 @@ public class ControladorCursos {
 			objAcaCurso.setNombre(objAcaCurso.getNombre().toUpperCase());
 			objAcaCurso.setDescripcion(objAcaCurso.getDescripcion().toUpperCase());
 			managerCurso.ingresarCurso(objAcaCurso);
-			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
+			JSFUtil.crearMensajeINFO("Atenciï¿½n", "Ingreso correcto.");
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarCurso",
 					"Ingreso tipo de curso id: " + objAcaCurso.getNombre());
 			inicializarAcaCurso();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			JSFUtil.crearMensajeERROR("Atenciï¿½n", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarCurso",
 					e.getMessage());
 			e.printStackTrace();

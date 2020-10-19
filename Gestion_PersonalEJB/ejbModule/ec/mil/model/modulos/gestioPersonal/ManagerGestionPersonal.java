@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -91,10 +92,19 @@ public class ManagerGestionPersonal {
 		try {
 			GesPersona v_persona = (GesPersona) managerDAOGestionPersonal.findById(GesPersona.class, cedula);
 			if (v_persona == null)
-				throw new Exception("Atención, persona no existe.");
+				throw new Exception("Atenciï¿½n, persona no existe.");
 			return v_persona;
 		} catch (Exception e) {
 			throw new Exception("Persona no registrada.");
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AcaPersonasCurso> buscarTodoPersonaCurso() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(AcaPersonasCurso.class, "o.acaCurso.nombre ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar Curso Persona.");
 		}
 	}
 

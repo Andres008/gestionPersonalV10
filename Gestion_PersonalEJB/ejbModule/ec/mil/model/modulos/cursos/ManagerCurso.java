@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import ec.mil.model.dao.entidades.AcaCurso;
+import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaTipoCurso;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
 
@@ -66,7 +67,7 @@ public class ManagerCurso {
 		}
 	}
 	@SuppressWarnings("unchecked")
-	public List<AcaTipoCurso> findCursoActivo() throws Exception {
+	public List<AcaTipoCurso> findTipoCursoActivo() throws Exception {
 		try {
 			return managerDAOGestionPersonal.findWhere(AcaTipoCurso.class, "o.estado='A'", "o.nombre ASC");
 		} catch (Exception e) {
@@ -80,6 +81,21 @@ public class ManagerCurso {
 			throw new Exception("Error al Ingresar Curso.");
 		}
 		
+	}
+	@SuppressWarnings("unchecked")
+	public List<AcaCurso> findCursoActivo() throws Exception {
+		try {
+			return  managerDAOGestionPersonal.findWhere(AcaCurso.class, "o.estado='A'", "o.nombre") ;
+		} catch (Exception e) {
+			throw new Exception("Error al buscar cursos.");
+		}
+	}
+	public void ingresarCursoPersona(AcaPersonasCurso objAcaPersonasCurso) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objAcaPersonasCurso);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar Curso a Persona.");
+		}
 	}
 
 }

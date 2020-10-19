@@ -4,6 +4,7 @@
 package ec.mil.controladores.gestionPersonal;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,12 +14,15 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import ec.mil.controladores.session.BeanLogin;
+import ec.mil.model.dao.entidades.AcaCurso;
+import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.entidades.GesTipoSangre;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
 import ec.mil.model.modulos.ModelUtil.ModelUtil;
+import ec.mil.model.modulos.cursos.ManagerCurso;
 import ec.mil.model.modulos.gestioPersonal.ManagerGestionPersonal;
 import ec.mil.model.modulos.log.ManagerLog;
 
@@ -30,11 +34,17 @@ public class ControllerPersonal{
 	@EJB
 	private ManagerGestionPersonal managerGestionPersonal;
 	@EJB
+	private ManagerCurso managerGestionCurso;
+	@EJB
 	private ManagerLog managerLog;
 	@ManagedProperty(value = "#{beanLogin}")
 	private BeanLogin beanLogin;
 	private GesPersona objGesPersona;
 	private List<GesPersona> lstGesPersona;
+	private AcaPersonasCurso objAcaPersonasCurso;
+	private List<AcaPersonasCurso> lstAcaPersonasCurso;
+	private boolean busqueda;
+	
 
 	/**
 	 * 
@@ -42,9 +52,24 @@ public class ControllerPersonal{
 	public ControllerPersonal() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void inicializarAcaPersonasCurso()
+	{
+		
+		try {
+			lstAcaPersonasCurso = managerGestionPersonal.buscarTodoPersonaCurso();
+			objAcaPersonasCurso= new AcaPersonasCurso();
+			objAcaPersonasCurso.setGesPersona(new GesPersona());
+			objAcaPersonasCurso.setAcaCurso(new AcaCurso());
+			busqueda =false;
+		} catch (Exception e) {
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "inicializarAcaPersonasCurso", e.getMessage());
+			e.printStackTrace();
+		}
+		
+	}
 
 	public void inicializarPersona() {
-		System.out.println(beanLogin);
 		objGesPersona = new GesPersona();
 		objGesPersona.setGesEstadoCivil(new GesEstadoCivil());
 		objGesPersona.setGesGrado(new GesGrado());
@@ -56,6 +81,53 @@ public class ControllerPersonal{
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "inicializarPersona",
 					e.getMessage());
 			e.printStackTrace();
+		}
+	}
+	
+	public void cargarCursoSeleccion( AcaCurso acaCursoSel) {
+		objAcaPersonasCurso.setAcaCurso(acaCursoSel);
+	}
+	
+	public void buscarPersona() {
+		try {
+			String cedula = objAcaPersonasCurso.getGesPersona().getCedula();
+			inicializarAcaPersonasCurso();
+			objAcaPersonasCurso.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			busqueda = true;
+		} catch (Exception e) {
+			inicializarAcaPersonasCurso();
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			/*
+			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
+			 * "inicializarUsuario", e.getMessage());
+			 */
+			e.printStackTrace();
+		}
+	}
+	
+	public void ingresarCursoPersona()
+	{
+		objAcaPersonasCurso.setFechaInicial(new Date());
+		try {
+			managerGestionCurso.ingresarCursoPersona(objAcaPersonasCurso);
+			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
+			inicializarAcaPersonasCurso();
+			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarCursoPersona", "Se ingreso curso persona: "+objAcaPersonasCurso.getIdPersonasCursos());
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarCursoPersona", e.getMessage());
+		}
+	}
+	
+	public List<AcaCurso> getListAcaCursoActivo()
+	{
+		try {
+			return managerGestionCurso.findCursoActivo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			return null;
 		}
 	}
 
@@ -162,6 +234,30 @@ public class ControllerPersonal{
 
 	public void setBeanLogin(BeanLogin beanLogin) {
 		this.beanLogin = beanLogin;
+	}
+
+	public AcaPersonasCurso getObjAcaPersonasCurso() {
+		return objAcaPersonasCurso;
+	}
+
+	public void setObjAcaPersonasCurso(AcaPersonasCurso objAcaPersonasCurso) {
+		this.objAcaPersonasCurso = objAcaPersonasCurso;
+	}
+
+	public List<AcaPersonasCurso> getLstAcaPersonasCurso() {
+		return lstAcaPersonasCurso;
+	}
+
+	public void setLstAcaPersonasCurso(List<AcaPersonasCurso> lstAcaPersonasCurso) {
+		this.lstAcaPersonasCurso = lstAcaPersonasCurso;
+	}
+
+	public boolean isBusqueda() {
+		return busqueda;
+	}
+
+	public void setBusqueda(boolean busqueda) {
+		this.busqueda = busqueda;
 	}
 
 }

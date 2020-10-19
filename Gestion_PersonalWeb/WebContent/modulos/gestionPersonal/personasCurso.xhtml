@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>GESTION PERSONAL</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día'
+    };
+</script>
+</h:head>
+<body onload="#{controllerPersonal.inicializarAcaPersonasCurso()}"
+	style="font-size: 70%">
+	<h:form id="statusBar">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../imagenes/espera.gif" />
+		</p:dialog>
+	</h:form>
+	<div id="div_menu" align="left"
+		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
+		<div id="logo" align="center">
+			<p:graphicImage url="/imagenes/bannerGestionPersonal.png" alt="COAD"
+				style="width:100%"></p:graphicImage>
+		</div>
+
+		<div align="center"
+			style="width: 99.9%; min-height: 99.9%; background-image:">
+			<div id="titulo_header"
+				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
+				<span>Sistema de Gestión de Personal - <h:outputText
+						value="correo" /></span>
+			</div>
+			<h:form style="width:100%;font-size:80%">
+
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<p:menubar style="font-size:12px;">
+					<f:facet name="options">
+						<p:commandButton value="Menu principal" icon="ui-icon-home"
+							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+							value="Salir" icon="ui-icon-extlink" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+			<div id="posicion" align="center">
+				<h:form id="principal">
+					<p:growl id="growl" showDetail="true" sticky="true" />
+					<p:panel header="Ingresar Usuarios" toggleable="true"
+						collapsed="true">
+						<p:panelGrid columns="2" styleClass="ui-noborder">
+							<p:outputLabel value="Ingrese cedula" />
+							<p:panelGrid columns="2">
+								<p:inputMask
+									value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.cedula}" />
+								<p:commandButton icon="ui-icon-search"
+									actionListener="#{controllerPersonal.buscarPersona()}"
+									update="@form" />
+							</p:panelGrid>
+							<p:outputLabel value="Grado"
+								rendered="#{controllerPersonal.busqueda}" />
+							<p:outputLabel
+								value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.gesGrado.grado}"
+								rendered="#{controllerPersonal.busqueda}" />
+							<p:outputLabel value="Apellido"
+								rendered="#{controllerPersonal.busqueda}" />
+							<p:outputLabel
+								value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.apellido}"
+								rendered="#{controllerPersonal.busqueda}" />
+							<p:outputLabel value="Nombre"
+								rendered="#{controllerPersonal.busqueda}" />
+							<p:outputLabel
+								value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.nombre}"
+								rendered="#{controllerPersonal.busqueda}" />
+							<p:outputLabel value="Buscar Curso"
+								rendered="#{controllerPersonal.busqueda}" />
+							<p:panelGrid styleClass="ui-noborder" columns="2" rendered="#{controllerPersonal.busqueda}">
+								<p:outputLabel value="#{controllerPersonal.objAcaPersonasCurso.acaCurso.nombre}" />
+								<p:commandButton icon="ui-icon-search"
+									oncomplete="PF('infCurso').show()" update="@form" />
+							</p:panelGrid>
+						</p:panelGrid>
+						<p:commandButton value="Ingresar"
+							rendered="#{controllerPersonal.busqueda}" actionListener="#{controllerPersonal.ingresarCursoPersona()}" update="@form" />
+					</p:panel>
+					<p:panel header="Usuarios Ingresados">
+						<p:dataTable value="#{controllerPersonal.lstAcaPersonasCurso}"
+							var="usuario">
+							<p:column headerText="Id Usuario">
+								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
+							</p:column>
+							<p:column headerText="Apellido">
+								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
+							</p:column>
+							<p:column headerText="Nombre">
+								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
+							</p:column>
+							<p:column headerText="Curso">
+								<p:outputLabel value="#{usuario.acaCurso.nombre}" />
+							</p:column>
+							<p:column headerText="Fecha Registro">
+								<p:outputLabel value="#{usuario.fechaInicial}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"
+							modal="true" position="top" showEffect="fade" hideEffect="fade"
+							resizable="false" width="1100">
+								<p:dataTable value="#{controllerPersonal.listAcaCursoActivo}"
+									var="curso">
+									<p:column headerText="Curso">
+										<p:outputLabel value="#{curso.nombre}" />
+									</p:column>
+									<p:column headerText="Descripción">
+										<p:outputLabel value="#{curso.descripcion}" />
+									</p:column>
+									<p:column headerText="Horas">
+										<p:outputLabel value="#{curso.horas}" />
+									</p:column>
+									<p:column headerText="Seleccionar">
+										<p:commandButton icon="	ui-icon-check"
+											actionListener="#{controllerPersonal.cargarCursoSeleccion(curso)}"
+											update="@form" />
+									</p:column>
+								</p:dataTable>
+						</p:dialog>
+				</h:form>
+				
+			</div>
+		</div>
+		<div id="footer" align="center">
+			<div
+				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
+				<span>(c) Centro de Operaciones Aereas y Defensa - COAD.
+					#{beanLogin.anioActual()} - </span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

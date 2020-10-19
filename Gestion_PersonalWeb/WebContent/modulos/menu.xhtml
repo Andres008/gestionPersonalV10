@@ -50,7 +50,7 @@
     };
 </script>
 </h:head>
-<body>
+<body style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
 			onsuccess="PF('statusDialog').hide()" />
@@ -73,7 +73,7 @@
 				<span>Sistema de Gestión de Personal - <h:outputText
 						value="correo" /></span>
 			</div>
-			<h:form style="width:100%;font-size:80%">
+			<h:form style="width:100%">
 				<p:growl id="messages" showDetail="false" />
 				<p:menubar style="font-size:12px;" model="#{formAcceso.menuModel}">
 					<f:facet name="options">
