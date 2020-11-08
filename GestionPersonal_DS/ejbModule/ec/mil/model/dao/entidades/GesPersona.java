@@ -2,6 +2,8 @@ package ec.mil.model.dao.entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +75,10 @@ public class GesPersona implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_tipo_sangre")
 	private GesTipoSangre gesTipoSangre;
+	
+	//bi-directional many-to-one association to AcaTituloPersona
+		@OneToMany(mappedBy="gesPersona")
+		private List<AcaTituloPersona> acaTituloPersonas;
 
 	public GesPersona() {
 	}
@@ -260,5 +266,14 @@ public class GesPersona implements Serializable {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+
+	public List<AcaTituloPersona> getAcaTituloPersonas() {
+		return acaTituloPersonas;
+	}
+
+	public void setAcaTituloPersonas(List<AcaTituloPersona> acaTituloPersonas) {
+		this.acaTituloPersonas = acaTituloPersonas;
+	}
+	
 
 }

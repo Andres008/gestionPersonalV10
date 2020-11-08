@@ -1,14 +1,20 @@
 package ec.mil.model.modulos.cursos;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import ec.mil.model.dao.entidades.AcaCurso;
+import ec.mil.model.dao.entidades.AcaInstitucionEducativa;
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaTipoCurso;
+import ec.mil.model.dao.entidades.AcaTipoTitulo;
+import ec.mil.model.dao.entidades.AcaTitulo;
+import ec.mil.model.dao.entidades.AcaTituloPersona;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
 
 /**
@@ -96,6 +102,76 @@ public class ManagerCurso {
 		} catch (Exception e) {
 			throw new Exception("Error al ingresar Curso a Persona.");
 		}
+	}
+	@SuppressWarnings("unchecked")
+	public List<AcaTipoTitulo> findAllTipoTitulo() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(AcaTipoTitulo.class, "o.descripcion ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar AcaTipoTitulo");
+		}
+	}
+	public void ingresarTipoTitulo(AcaTipoTitulo objAcaTipoTitulo) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objAcaTipoTitulo);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar tipo título");
+		}
+		
+	}
+	public void actualizarTipoTitulo(AcaTipoTitulo object) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(object);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar Tipo Titulo");
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public List<AcaInstitucionEducativa> findAllInstituciones() throws Exception {
+		return managerDAOGestionPersonal.findAll(AcaInstitucionEducativa.class, "o.estado ASC, o.nombre ASC");
+	}
+	public void ingresarInstitucion(AcaInstitucionEducativa objAcaInstitucionEducativa) throws Exception {
+		managerDAOGestionPersonal.insertar(objAcaInstitucionEducativa);
+	}
+	public void actualizarInstituto(AcaInstitucionEducativa object) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(object);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar Instituto.");
+		}
+		
+	}
+	@SuppressWarnings("unchecked")
+	public List<AcaTitulo> findAllTitulo() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(AcaTitulo.class, "o.titulo ASC, o.acaInstitucionEducativa.descripcion ASC ") ;
+		} catch (Exception e) {
+			throw new Exception("Error al buscar titulos.");
+		}
+	}
+	public void ingresarTitulo(AcaTitulo objAcaTitulo) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objAcaTitulo);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar titulo. "+e.getMessage());
+		}
+		
+	}
+	@SuppressWarnings("unchecked")
+	public List<AcaTitulo> findTituloActivo() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findWhere(AcaTitulo.class, "o.estado='A'", "o.titulo");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar titulos activos. "+e.getMessage());
+		}
+	}
+	public void ingresarTituloPersona(AcaTituloPersona objAcaTituloPersona) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objAcaTituloPersona);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar titulo persona. "+e.getMessage());
+		}
+		
 	}
 
 }

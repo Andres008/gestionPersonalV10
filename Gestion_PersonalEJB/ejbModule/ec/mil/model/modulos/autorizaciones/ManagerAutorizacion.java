@@ -1,16 +1,15 @@
 package ec.mil.model.modulos.autorizaciones;
 
-
-
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import ec.mil.model.dao.entidades.AutRolMenu;
+import ec.mil.model.dao.entidades.AutRolPerfil;
 import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.AutUsuario;
+import ec.mil.model.dao.entidades.VAutMenuRol;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
 
 /**
@@ -22,16 +21,15 @@ public class ManagerAutorizacion {
 
 	@EJB
 	ManagerDAOGestionPersonal managerDAOGestionPersonal;
-	
-    /**
-     * Default constructor. 
-     */
-    public ManagerAutorizacion() {
-        // TODO Auto-generated constructor stub
-    }
-    
-    
-    /***********************************************************************************
+
+	/**
+	 * Default constructor.
+	 */
+	public ManagerAutorizacion() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/***********************************************************************************
 	 * METODOS PARA MANEJO DE ACCESOS
 	 ***********************************************************************************/
 
@@ -47,15 +45,14 @@ public class ManagerAutorizacion {
 	public Credencial obtenerAcceso(String pIdUsuario, String pClave) throws Exception {
 		AutUsuario usuario = findByIdAutUsuario(pIdUsuario);
 		Credencial credencial = new Credencial();
-		
-		
+
 		if (usuario == null)
 			throw new Exception("Usuario no existe, verifique su código.");
 		if (usuario.getEstado().equalsIgnoreCase("N"))
 			throw new Exception("El usuario no está activo.");
 		if (!pClave.equals(usuario.getClave()))
 			throw new Exception("Verifique su contraseña.");
-		
+
 		// System.out.println(usuario.getApellidos()+" "+usuario.getNombres()+"
 		// "+pIdUsuario);
 		credencial = new Credencial();
@@ -64,7 +61,7 @@ public class ManagerAutorizacion {
 		credencial.setPrimerInicio(usuario.getPrimerInicio());
 		return credencial;
 	}
-	
+
 	/**
 	 * Finder para buscar un usuario especifico.
 	 * 
@@ -77,19 +74,33 @@ public class ManagerAutorizacion {
 		return usuario;
 	}
 
-
 	@SuppressWarnings("unchecked")
-	public List<AutRolMenu> findRolMenuByRol(AutRole objAutRol) throws Exception {
+	public List<AutRolPerfil> findRolMenuByRol(AutRole objAutRol) throws Exception {
 		try {
-			List<AutRolMenu> lstAutRolMenu=managerDAOGestionPersonal.findWhere(AutRolMenu.class, "o.autRole.id="+objAutRol.getId(), "o.autMenu.orden ASC") ;
-			for (AutRolMenu autRolMenu : lstAutRolMenu) {
-				autRolMenu.getAutMenu().getAutPerfiles().forEach(perfiles->{
-					perfiles.getNombre();
-				});
-			}
+			List<AutRolPerfil> lstAutRolMenu = managerDAOGestionPersonal.findWhere(AutRolPerfil.class,
+					"o.autRole.id=" + objAutRol.getId(), "o.autMenu.orden ASC");
 			return lstAutRolMenu;
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Menu por Rol");
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<VAutMenuRol> findVAutMenuRol(AutRole objAutRol) throws Exception {
+		try {
+			return managerDAOGestionPersonal.findWhere(VAutMenuRol.class, "o.idRol=" + objAutRol.getId(),
+					"o.orden ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar VAutMenuRol. " + e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AutRolPerfil> findRolPerfilbyRol(AutRole objAutRol, VAutMenuRol vAutMenuRol) throws Exception {
+		try {
+			return managerDAOGestionPersonal.findWhere(AutRolPerfil.class, "o.autRole.id="+objAutRol.getId()+" and o.autPerfile.autMenu.id="+vAutMenuRol.getId(), "o.autPerfile.nombre ASC");
+		} catch (Exception e) {
+		throw new Exception("Error al buscar Rol Perfil");
 		}
 	}
 

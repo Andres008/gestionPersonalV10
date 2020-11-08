@@ -16,6 +16,8 @@ import javax.faces.model.SelectItem;
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AcaCurso;
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
+import ec.mil.model.dao.entidades.AcaTitulo;
+import ec.mil.model.dao.entidades.AcaTituloPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -43,6 +45,8 @@ public class ControllerPersonal{
 	private List<GesPersona> lstGesPersona;
 	private AcaPersonasCurso objAcaPersonasCurso;
 	private List<AcaPersonasCurso> lstAcaPersonasCurso;
+	private AcaTituloPersona objAcaTituloPersona;
+	private List<AcaTituloPersona> lstAcaTituloPersona;
 	private boolean busqueda;
 	
 
@@ -51,6 +55,19 @@ public class ControllerPersonal{
 	 */
 	public ControllerPersonal() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void inicializarTituloPersona()
+	{
+		objAcaTituloPersona = new AcaTituloPersona();
+		objAcaTituloPersona.setAcaTitulo(new AcaTitulo());
+		objAcaTituloPersona.setGesPersona(new GesPersona());
+		busqueda =false;
+		try {
+			lstAcaTituloPersona = managerGestionPersonal.findAllAcaTituloPersona();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+		}
 	}
 	
 	public void inicializarAcaPersonasCurso()
@@ -88,6 +105,10 @@ public class ControllerPersonal{
 		objAcaPersonasCurso.setAcaCurso(acaCursoSel);
 	}
 	
+	public void cargarTituloSeleccion( AcaTitulo acaTituloSel) {
+		objAcaTituloPersona.setAcaTitulo(acaTituloSel);
+	}
+	
 	public void buscarPersona() {
 		try {
 			String cedula = objAcaPersonasCurso.getGesPersona().getCedula();
@@ -96,6 +117,23 @@ public class ControllerPersonal{
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarAcaPersonasCurso();
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			/*
+			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
+			 * "inicializarUsuario", e.getMessage());
+			 */
+			e.printStackTrace();
+		}
+	}
+	
+	public void buscarPersonaTitulo() {
+		try {
+			String cedula = objAcaTituloPersona.getGesPersona().getCedula();
+			inicializarTituloPersona();
+			objAcaTituloPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			busqueda = true;
+		} catch (Exception e) {
+			inicializarTituloPersona();
 			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			/*
 			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
@@ -120,10 +158,35 @@ public class ControllerPersonal{
 		}
 	}
 	
+	public void ingresarTituloPersona()
+	{
+		try {
+			managerGestionCurso.ingresarTituloPersona(objAcaTituloPersona);
+			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
+			inicializarTituloPersona();
+			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTituloPersona", "Se ingreso titulo persona: "+getObjAcaTituloPersona().getId());
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTituloPersona", e.getMessage());
+		}
+	}
+	
 	public List<AcaCurso> getListAcaCursoActivo()
 	{
 		try {
 			return managerGestionCurso.findCursoActivo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<AcaTitulo> getListAcaTituloActivo()
+	{
+		try {
+			return managerGestionCurso.findTituloActivo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
@@ -258,6 +321,22 @@ public class ControllerPersonal{
 
 	public void setBusqueda(boolean busqueda) {
 		this.busqueda = busqueda;
+	}
+
+	public AcaTituloPersona getObjAcaTituloPersona() {
+		return objAcaTituloPersona;
+	}
+
+	public void setObjAcaTituloPersona(AcaTituloPersona objAcaTituloPersona) {
+		this.objAcaTituloPersona = objAcaTituloPersona;
+	}
+
+	public List<AcaTituloPersona> getLstAcaTituloPersona() {
+		return lstAcaTituloPersona;
+	}
+
+	public void setLstAcaTituloPersona(List<AcaTituloPersona> lstAcaTituloPersona) {
+		this.lstAcaTituloPersona = lstAcaTituloPersona;
 	}
 
 }

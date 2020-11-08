@@ -3,6 +3,7 @@ package ec.mil.model.dao.entidades;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -16,7 +17,7 @@ public class AutPerfile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AUT_PERFILES_ID_GENERATOR", sequenceName="SEQ_AUT_PERFILES")
+	@SequenceGenerator(name="AUT_PERFILES_ID_GENERATOR", sequenceName="SEQ_AUT_PERFILES", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AUT_PERFILES_ID_GENERATOR")
 	private long id;
 
@@ -38,6 +39,10 @@ public class AutPerfile implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_menu")
 	private AutMenu autMenu;
+
+	//bi-directional many-to-one association to AutRolPerfil
+	@OneToMany(mappedBy="autPerfile")
+	private List<AutRolPerfil> autRolPerfils;
 
 	public AutPerfile() {
 	}
@@ -96,6 +101,28 @@ public class AutPerfile implements Serializable {
 
 	public void setAutMenu(AutMenu autMenu) {
 		this.autMenu = autMenu;
+	}
+
+	public List<AutRolPerfil> getAutRolPerfils() {
+		return this.autRolPerfils;
+	}
+
+	public void setAutRolPerfils(List<AutRolPerfil> autRolPerfils) {
+		this.autRolPerfils = autRolPerfils;
+	}
+
+	public AutRolPerfil addAutRolPerfil(AutRolPerfil autRolPerfil) {
+		getAutRolPerfils().add(autRolPerfil);
+		autRolPerfil.setAutPerfile(this);
+
+		return autRolPerfil;
+	}
+
+	public AutRolPerfil removeAutRolPerfil(AutRolPerfil autRolPerfil) {
+		getAutRolPerfils().remove(autRolPerfil);
+		autRolPerfil.setAutPerfile(null);
+
+		return autRolPerfil;
 	}
 
 }

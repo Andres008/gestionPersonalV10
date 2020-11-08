@@ -42,10 +42,6 @@ public class AutMenu implements Serializable {
 	@OneToMany(mappedBy="autMenu")
 	private List<AutPerfile> autPerfiles;
 
-	//bi-directional many-to-one association to AutRolMenu
-	@OneToMany(mappedBy="autMenu")
-	private List<AutRolMenu> autRolMenus;
-
 	public AutMenu() {
 	}
 
@@ -125,28 +121,6 @@ public class AutMenu implements Serializable {
 		autPerfile.setAutMenu(null);
 
 		return autPerfile;
-	}
-
-	public List<AutRolMenu> getAutRolMenus() {
-		return this.autRolMenus;
-	}
-
-	public void setAutRolMenus(List<AutRolMenu> autRolMenus) {
-		this.autRolMenus = autRolMenus;
-	}
-
-	public AutRolMenu addAutRolMenus(AutRolMenu autRolMenus) {
-		getAutRolMenus().add(autRolMenus);
-		autRolMenus.setAutMenu(this);
-
-		return autRolMenus;
-	}
-
-	public AutRolMenu removeAutRolMenus(AutRolMenu autRolMenus) {
-		getAutRolMenus().remove(autRolMenus);
-		autRolMenus.setAutMenu(null);
-
-		return autRolMenus;
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
+import ec.mil.model.dao.entidades.AcaTituloPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -105,6 +106,15 @@ public class ManagerGestionPersonal {
 			return managerDAOGestionPersonal.findAll(AcaPersonasCurso.class, "o.acaCurso.nombre ASC");
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Curso Persona.");
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AcaTituloPersona> findAllAcaTituloPersona() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(AcaTituloPersona.class, "o.gesPersona.apellido ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar Titulos Persona");
 		}
 	}
 

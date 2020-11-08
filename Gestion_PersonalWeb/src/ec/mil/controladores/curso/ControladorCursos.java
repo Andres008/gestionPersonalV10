@@ -18,7 +18,10 @@ import org.primefaces.event.RowEditEvent;
 
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AcaCurso;
+import ec.mil.model.dao.entidades.AcaInstitucionEducativa;
 import ec.mil.model.dao.entidades.AcaTipoCurso;
+import ec.mil.model.dao.entidades.AcaTipoTitulo;
+import ec.mil.model.dao.entidades.AcaTitulo;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
 import ec.mil.model.modulos.cursos.ManagerCurso;
 import ec.mil.model.modulos.log.ManagerLog;
@@ -35,11 +38,40 @@ public class ControladorCursos {
 	private List<AcaTipoCurso> lstAcaTipoCurso;
 	private AcaCurso objAcaCurso;
 	private List<AcaCurso> lstAcaCurso;
+	private AcaTipoTitulo objAcaTipoTitulo;
+	private List<AcaTipoTitulo> lstAcaTipoTitulo;
+	private AcaInstitucionEducativa objAcaInstitucionEducativa;
+	private AcaTitulo objAcaTitulo;
+	private List<AcaTitulo> lstAcaTitulo;
+	private List<AcaInstitucionEducativa> lstAcaInstitucionEducativa;
 	@ManagedProperty(value = "#{beanLogin}")
 	private BeanLogin beanLogin;
 
 	public ControladorCursos() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void inicializarTipoTitulo()
+	{
+		objAcaTipoTitulo = new AcaTipoTitulo();
+		try {
+			lstAcaTipoTitulo = managerCurso.findAllTipoTitulo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+		}
+	}
+	
+	public void inicializarTitulo()
+	{
+		objAcaTitulo = new AcaTitulo();
+		objAcaTitulo.setAcaTipoTitulo(new AcaTipoTitulo());
+		objAcaTitulo.setAcaInstitucionEducativa(new AcaInstitucionEducativa());
+		try {
+			lstAcaTitulo = managerCurso.findAllTitulo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+		}
+		
 	}
 
 	public void inicializarAcaCurso() {
@@ -50,6 +82,43 @@ public class ControladorCursos {
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
+	}
+	
+	public void inicializarInstituciones()
+	{
+		try {
+			objAcaInstitucionEducativa = new AcaInstitucionEducativa();
+			lstAcaInstitucionEducativa = managerCurso.findAllInstituciones();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public List<SelectItem> tipoTituloSI()
+	{
+		List<SelectItem> tipoTituloSI = new ArrayList<SelectItem>();
+		inicializarTipoTitulo();
+		lstAcaTipoTitulo.stream().filter(x -> x.getEstado().equals("A")).forEach(tipoTitulo->{
+			SelectItem siTipoTitulo = new SelectItem();
+			siTipoTitulo.setValue(tipoTitulo.getId());
+			siTipoTitulo.setLabel(tipoTitulo.getNombre());
+			tipoTituloSI.add(siTipoTitulo);
+		});
+		return tipoTituloSI;
+	}
+	
+	public List<SelectItem> institucionesEducativasSI()
+	{
+		List<SelectItem> institucionSI = new ArrayList<SelectItem>();
+		inicializarInstituciones();
+		lstAcaInstitucionEducativa.stream().filter(x -> x.getEstado().equals("A")).forEach(institucion->{
+			SelectItem siTipoTitulo = new SelectItem();
+			siTipoTitulo.setValue(institucion.getId());
+			siTipoTitulo.setLabel(institucion.getNombre());
+			institucionSI.add(siTipoTitulo);
+		});
+		return institucionSI;
 	}
 
 	public List<SelectItem> siTipoCursoActivo() {
@@ -97,6 +166,23 @@ public class ControladorCursos {
 		}
 	}
 	
+	public void inactivarTipoTitulo(AcaTipoTitulo objAcatipoTituloAux) {
+		objAcatipoTituloAux.setFechaFinal(new Date());
+		objAcatipoTituloAux.setEstado("I");
+		try {
+			managerCurso.actualizarTipoTitulo(objAcatipoTituloAux);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "inactivarTipoTitulo",
+					"Se inactivo titulo id: " + objAcatipoTituloAux.getId());
+			JSFUtil.crearMensajeINFO("Atención", "Se inactivo Correctamente.");
+			inicializarTipoCurso();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "inactivarTipoTitulo",
+					e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 	public void inactivarCurso(AcaCurso objAcaCursoAux) {
 		objAcaCursoAux.setFechaFinal(new Date());
 		objAcaCursoAux.setEstado("I");
@@ -128,6 +214,41 @@ public class ControladorCursos {
 		}
 
 	}
+	
+	public void onRowEditTipoTitulo(RowEditEvent<AcaTipoTitulo> event) {
+		try {
+			managerCurso.actualizarTipoTitulo(event.getObject());
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoTitulo",
+					"Se actualizó tipo titulo id: " + event.getObject().getId());
+			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoTitulo",
+					e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void onRowEditInstituto(RowEditEvent<AcaInstitucionEducativa> event) {
+		try {
+			managerCurso.actualizarInstituto(event.getObject());
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditInstituto",
+					"Se actualizó institución id: " + event.getObject().getId());
+			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "onRowEditInstituto",
+					e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public void onRowCancel(RowEditEvent<Object> event) {
+        JSFUtil.crearMensajeINFO("Atención", "Edición cancelada.");
+    }
 
 	public void onRowEditCurso(RowEditEvent<AcaCurso> event) {
 		try {
@@ -142,6 +263,63 @@ public class ControladorCursos {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void ingresarTipoTitulo() {
+		try {
+			objAcaTipoTitulo.setFechaInicial(new Date());
+			objAcaTipoTitulo.setEstado("A");
+			objAcaTipoTitulo.setNombre(objAcaTipoTitulo.getNombre().toUpperCase());
+			objAcaTipoTitulo.setDescripcion(objAcaTipoTitulo.getDescripcion().toUpperCase());
+			managerCurso.ingresarTipoTitulo(objAcaTipoTitulo);
+			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarTipoTitulo",
+					"Ingreso tipo de titulo id: " + objAcaTipoTitulo.getNombre());
+			inicializarTipoTitulo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTipoTitulo",
+					e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void ingresarTitulo() {
+		try {
+			objAcaTitulo.setFechaInicial(new Date());
+			objAcaTitulo.setEstado("A");
+			objAcaTitulo.setTitulo(objAcaTitulo.getTitulo().toUpperCase());
+			managerCurso.ingresarTitulo(objAcaTitulo);
+			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarTitulo",
+					"Ingreso  titulo id: " + objAcaTitulo.getTitulo());
+			inicializarTitulo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTitulo",
+					e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void ingresarInstitucionEducativa() {
+		try {
+			objAcaInstitucionEducativa.setFechaInicial(new Date());
+			objAcaInstitucionEducativa.setEstado("A");
+			objAcaInstitucionEducativa.setNombre(objAcaInstitucionEducativa.getNombre().toUpperCase());
+			objAcaInstitucionEducativa.setDescripcion(objAcaInstitucionEducativa.getDescripcion().toUpperCase());
+			managerCurso.ingresarInstitucion(objAcaInstitucionEducativa);
+			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarInstitucionEducativa",
+					"Ingreso institución id: " + objAcaInstitucionEducativa.getNombre());
+			inicializarInstituciones();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarInstitucionEducativa",
+					e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public void ingresarTipoCurso() {
@@ -228,4 +406,53 @@ public class ControladorCursos {
 		this.lstAcaCurso = lstAcaCurso;
 	}
 
+	public AcaTipoTitulo getObjAcaTipoTitulo() {
+		return objAcaTipoTitulo;
+	}
+
+	public void setObjAcaTipoTitulo(AcaTipoTitulo objAcaTipoTitulo) {
+		this.objAcaTipoTitulo = objAcaTipoTitulo;
+	}
+
+	public List<AcaTipoTitulo> getLstAcaTipoTitulo() {
+		return lstAcaTipoTitulo;
+	}
+
+	public void setLstAcaTipoTitulo(List<AcaTipoTitulo> lstAcaTipoTitulo) {
+		this.lstAcaTipoTitulo = lstAcaTipoTitulo;
+	}
+
+	public AcaInstitucionEducativa getObjAcaInstitucionEducativa() {
+		return objAcaInstitucionEducativa;
+	}
+
+	public void setObjAcaInstitucionEducativa(AcaInstitucionEducativa objAcaInstitucionEducativa) {
+		this.objAcaInstitucionEducativa = objAcaInstitucionEducativa;
+	}
+
+	public List<AcaInstitucionEducativa> getLstAcaInstitucionEducativa() {
+		return lstAcaInstitucionEducativa;
+	}
+
+	public void setLstAcaInstitucionEducativa(List<AcaInstitucionEducativa> lstAcaInstitucionEducativa) {
+		this.lstAcaInstitucionEducativa = lstAcaInstitucionEducativa;
+	}
+
+	public AcaTitulo getObjAcaTitulo() {
+		return objAcaTitulo;
+	}
+
+	public void setObjAcaTitulo(AcaTitulo objAcaTitulo) {
+		this.objAcaTitulo = objAcaTitulo;
+	}
+
+	public List<AcaTitulo> getLstAcaTitulo() {
+		return lstAcaTitulo;
+	}
+
+	public void setLstAcaTitulo(List<AcaTitulo> lstAcaTitulo) {
+		this.lstAcaTitulo = lstAcaTitulo;
+	}
+	
+	
 }

@@ -17,7 +17,7 @@ public class AutRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AUT_ROLES_ID_GENERATOR", sequenceName="SEQ_AUT_ROLES")
+	@SequenceGenerator(name="AUT_ROLES_ID_GENERATOR", sequenceName="SEQ_AUT_ROLES", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AUT_ROLES_ID_GENERATOR")
 	private long id;
 
@@ -41,7 +41,7 @@ public class AutRole implements Serializable {
 
 	//bi-directional many-to-one association to AutRolMenu
 	@OneToMany(mappedBy="autRole")
-	private List<AutRolMenu> autRolMenus;
+	private List<AutRolPerfil> autRolPerfils;
 
 	public AutRole() {
 	}
@@ -116,26 +116,26 @@ public class AutRole implements Serializable {
 		return autUsuario;
 	}
 
-	public List<AutRolMenu> getAutRolMenus() {
-		return this.autRolMenus;
+	public List<AutRolPerfil> getAutRolMenus() {
+		return this.autRolPerfils;
 	}
 
-	public void setAutRolMenus(List<AutRolMenu> autRolMenus) {
-		this.autRolMenus = autRolMenus;
+	public void setAutRolMenus(List<AutRolPerfil> autRolPerfils) {
+		this.autRolPerfils = autRolPerfils;
 	}
 
-	public AutRolMenu addAutRolMenus(AutRolMenu autRolMenus) {
-		getAutRolMenus().add(autRolMenus);
-		autRolMenus.setAutRole(this);
+	public AutRolPerfil addAutRolMenus(AutRolPerfil autRolPerfils) {
+		getAutRolMenus().add(autRolPerfils);
+		autRolPerfils.setAutRole(this);
 
-		return autRolMenus;
+		return autRolPerfils;
 	}
 
-	public AutRolMenu removeAutRolMenus(AutRolMenu autRolMenus) {
-		getAutRolMenus().remove(autRolMenus);
-		autRolMenus.setAutRole(null);
+	public AutRolPerfil removeAutRolMenus(AutRolPerfil autRolPerfils) {
+		getAutRolMenus().remove(autRolPerfils);
+		autRolPerfils.setAutRole(null);
 
-		return autRolMenus;
+		return autRolPerfils;
 	}
 
 }

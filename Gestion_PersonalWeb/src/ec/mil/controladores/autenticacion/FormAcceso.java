@@ -17,9 +17,10 @@ import org.primefaces.model.menu.MenuModel;
 
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AutPerfile;
-import ec.mil.model.dao.entidades.AutRolMenu;
+import ec.mil.model.dao.entidades.AutRolPerfil;
 import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.AutUsuario;
+import ec.mil.model.dao.entidades.VAutMenuRol;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
 import ec.mil.model.modulos.ModelUtil.ModelUtil;
 import ec.mil.model.modulos.autUsuarios.ManagerUsuarios;
@@ -88,14 +89,15 @@ public class FormAcceso  {
 	}
 
 	public void menuByRol(AutRole objAutRol) throws Exception {
-		List<AutRolMenu> lstAutRolMenu = managerAutorizacion.findRolMenuByRol(objAutRol);
+		List<VAutMenuRol> lstVAutMenuRol = managerAutorizacion.findVAutMenuRol(objAutRol);
+		//List<AutRolPerfil> lstAutRolMenu = managerAutorizacion.findRolMenuByRol(objAutRol);
 		model = new DefaultMenuModel();
-		for (AutRolMenu autRolMenu : lstAutRolMenu) {
+		for (VAutMenuRol vAutMenuRol : lstVAutMenuRol) {
 			// First submenu
-			DefaultSubMenu submenu = DefaultSubMenu.builder().label(autRolMenu.getAutMenu().getNombre()).build();
-			for (AutPerfile autPerfile : autRolMenu.getAutMenu().getAutPerfiles()) {
-				DefaultMenuItem item = DefaultMenuItem.builder().value(autPerfile.getNombre()).icon("pi pi-save")
-						.command("#{formAcceso.acceso('" + autPerfile.getUrl() + "')}").update("messages").build();
+			DefaultSubMenu submenu = DefaultSubMenu.builder().label(vAutMenuRol.getNombre()).build();
+			for (AutRolPerfil autRolPerfil : managerAutorizacion.findRolPerfilbyRol(objAutRol, vAutMenuRol)) {
+				DefaultMenuItem item = DefaultMenuItem.builder().value(autRolPerfil.getAutPerfile().getNombre()).icon("ui-icon-signal-diag")
+						.command("#{formAcceso.acceso('" + autRolPerfil.getAutPerfile().getUrl() + "')}").update("messages").build();
 				submenu.getElements().add(item);
 			}
 			model.getElements().add(submenu);
