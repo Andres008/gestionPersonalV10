@@ -10,6 +10,7 @@ import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaTituloPersona;
 import ec.mil.model.dao.entidades.AutMenu;
 import ec.mil.model.dao.entidades.AutPerfile;
+import ec.mil.model.dao.entidades.AutRolPerfil;
 import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
@@ -187,6 +188,20 @@ public class ManagerGestionPersonal {
 			managerDAOGestionPersonal.actualizar(perfil);
 		} catch (Exception e) {
 			throw new Exception("Error al actualizar ");
+		}
+		
+	}
+
+	public void ingresarRolPerfil(AutRolPerfil objRolPerfil) throws Exception {
+		managerDAOGestionPersonal.insertar(objRolPerfil);
+		
+	}
+
+	public void actualizarRolPerfil(AutRolPerfil rolPerfil) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(rolPerfil);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar Rol perfil. "+e.getMessage());			
 		}
 		
 	}

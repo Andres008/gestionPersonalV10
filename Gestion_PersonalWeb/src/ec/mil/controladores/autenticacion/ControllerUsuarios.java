@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AutMenu;
 import ec.mil.model.dao.entidades.AutPerfile;
+import ec.mil.model.dao.entidades.AutRolPerfil;
 import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.AutUsuario;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -53,9 +54,9 @@ public class ControllerUsuarios {
 	public ControllerUsuarios() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void inicializarPerfil()
-	{
+
+	public void inicializarPerfil() {
+		objAutRole= new AutRole();
 		objAutPerfile = new AutPerfile();
 		objAutPerfile.setAutMenu(new AutMenu());
 		inicializarMenu();
@@ -66,10 +67,9 @@ public class ControllerUsuarios {
 			e.printStackTrace();
 		}
 	}
-	
-	public void inicializarMenu()
-	{
-		objAutMenu= new AutMenu();
+
+	public void inicializarMenu() {
+		objAutMenu = new AutMenu();
 	}
 
 	public void inicializarRol() {
@@ -81,12 +81,62 @@ public class ControllerUsuarios {
 			e.printStackTrace();
 		}
 	}
-	
-	public void cargarPerfil(AutPerfile perfil)
-	{
-		objAutPerfile= perfil;
+
+	public void cargarPerfil(AutPerfile perfil) {
+		objAutPerfile = perfil;
+		objAutRole = new AutRole();
+	}
+
+	public void ingresarRolPeril() {
+		AutRolPerfil objRolPerfil = new AutRolPerfil();
+		objRolPerfil.setAutPerfile(objAutPerfile);
+		objRolPerfil.setAutRole(objAutRole);
+		objRolPerfil.setEstado("A");
+		objRolPerfil.setFechaInicial(new Date());
+		try {
+			managerGestionPersonal.ingresarRolPerfil(objRolPerfil);
+			JSFUtil.crearMensajeINFO("Ateción", "Se ingreso correctamente la información.");
+			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarRolPeril",
+					"Ingreso coreccto Rol Menu. " + objRolPerfil.getId());
+			inicializarPerfil();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Atención", "Error al ingresar Rol Perfil. " + e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarRolPeril",
+					e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
+	
+	public List<AutRolPerfil> filtrarRolPerfilActios(List<AutRolPerfil> lstAutRolPerfil) {
+		List<AutRolPerfil> lstAutRolPerAct = new ArrayList<AutRolPerfil>(); 
+		lstAutRolPerfil.forEach(autRolPerfil ->
+		{
+			if (autRolPerfil.getEstado().equals("A"))
+				lstAutRolPerAct.add(autRolPerfil);
+		});
+		return lstAutRolPerAct;
+	}
+	
+	public void desactivarRolPerfil(AutRolPerfil rolPerfil)
+	{
+		rolPerfil.setEstado("I");
+		rolPerfil.setFechaFinal(new Date());
+		try {
+			managerGestionPersonal.actualizarRolPerfil(rolPerfil);
+			JSFUtil.crearMensajeINFO("Ateción", "Se actualizó correctamente la información.");
+			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "desactivarRolPerfil",
+					"Actualización correcta Rol Menu. " + rolPerfil.getId());
+			inicializarPerfil();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Atención", "Error al actualizar información. " + e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "desactivarRolPerfil",
+					e.getMessage());
+			inicializarPerfil();
+			e.printStackTrace();
+		}
+	}
+
 	public void desactivarRol(AutRole rol) {
 		try {
 			rol.setFechaFinal(new Date());
@@ -102,7 +152,7 @@ public class ControllerUsuarios {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void desactivarPerfil(AutPerfile perfil) {
 		try {
 			perfil.setFechaFinal(new Date());
@@ -166,7 +216,7 @@ public class ControllerUsuarios {
 			return null;
 		}
 	}
-	
+
 	public List<SelectItem> SIMenu() {
 		try {
 			List<AutMenu> lstMenu = managerUsuarios.findAutMenuActivo();
@@ -232,8 +282,7 @@ public class ControllerUsuarios {
 		}
 
 	}
-	
-	
+
 	public void ingresarPerfil() {
 		objAutPerfile.setNombre(ModelUtil.cambiarMayusculas(objAutPerfile.getNombre()));
 		objAutPerfile.setFechaInicial(new Date());
@@ -252,7 +301,7 @@ public class ControllerUsuarios {
 		}
 
 	}
-	
+
 	public void ingresarMenu() {
 		objAutMenu.setNombre(ModelUtil.cambiarMayusculas(objAutMenu.getNombre()));
 		objAutMenu.setObservacion(ModelUtil.cambiarMayusculas(objAutMenu.getObservacion()));

@@ -1,6 +1,8 @@
 package ec.mil.model.dao.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -28,6 +30,16 @@ public class AutRolPerfil implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_rol")
 	private AutRole autRole;
+	
+	private String estado;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_final")
+	private Date fechaFinal;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_inicial")
+	private Date fechaInicial;
 
 	public AutRolPerfil() {
 	}
@@ -54,6 +66,30 @@ public class AutRolPerfil implements Serializable {
 
 	public void setAutRole(AutRole autRole) {
 		this.autRole = autRole;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Date getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(Date fechaFinal) {
+		this.fechaFinal = fechaFinal;
+	}
+
+	public Date getFechaInicial() {
+		return fechaInicial;
+	}
+
+	public void setFechaInicial(Date fechaInicial) {
+		this.fechaInicial = fechaInicial;
 	}
 
 }
