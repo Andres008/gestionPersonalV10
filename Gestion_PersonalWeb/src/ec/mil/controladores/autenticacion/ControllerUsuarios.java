@@ -14,6 +14,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import ec.mil.controladores.session.BeanLogin;
+import ec.mil.model.dao.entidades.AutMenu;
+import ec.mil.model.dao.entidades.AutPerfile;
 import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.AutUsuario;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -25,10 +27,14 @@ import ec.mil.model.modulos.log.ManagerLog;
 
 @ManagedBean
 @SessionScoped
-public class ControllerUsuarios  {
+public class ControllerUsuarios {
 
 	private AutUsuario objAutUsuario;
 	private List<AutUsuario> lstAutUsuario;
+	private AutRole objAutRole;
+	private List<AutRole> lstAutRole;
+	private AutMenu objAutMenu;
+	private List<AutMenu> lstAutMenu;
 	@ManagedProperty(value = "#{beanLogin}")
 	private BeanLogin beanLogin;
 	@EJB
@@ -38,12 +44,79 @@ public class ControllerUsuarios  {
 	@EJB
 	private ManagerGestionPersonal managerGestionPersonal;
 	private Boolean busqueda;
+	private AutPerfile objAutPerfile;
+	private List<AutPerfile> lstAutPerfile;
 
 	/**
 	 * 
 	 */
 	public ControllerUsuarios() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void inicializarPerfil()
+	{
+		objAutPerfile = new AutPerfile();
+		objAutPerfile.setAutMenu(new AutMenu());
+		inicializarMenu();
+		try {
+			lstAutPerfile = managerGestionPersonal.findAllPerfil();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void inicializarMenu()
+	{
+		objAutMenu= new AutMenu();
+	}
+
+	public void inicializarRol() {
+		objAutRole = new AutRole();
+		try {
+			lstAutRole = managerGestionPersonal.findAllRol();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void cargarPerfil(AutPerfile perfil)
+	{
+		objAutPerfile= perfil;
+	}
+	
+	public void desactivarRol(AutRole rol) {
+		try {
+			rol.setFechaFinal(new Date());
+			rol.setEstado("I");
+			managerGestionPersonal.actualizarAutRol(rol);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "desactivarRol",
+					"Se actualizó rol " + rol.getId());
+			inicializarRol();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "desactivarRol",
+					e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void desactivarPerfil(AutPerfile perfil) {
+		try {
+			perfil.setFechaFinal(new Date());
+			perfil.setEstado("I");
+			managerGestionPersonal.actualizarAutPerfil(perfil);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "desactivarPerfil",
+					"Se actualizó perfil " + perfil.getId());
+			inicializarRol();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "desactivarPerfil",
+					e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public void inicializarUsuario() {
@@ -67,12 +140,12 @@ public class ControllerUsuarios  {
 			usuario.setPrimerInicio("SI");
 			managerUsuarios.actualizarUsuario(usuario);
 			JSFUtil.crearMensajeINFO("Atención", "Restablecimiento de contraseña correcto");
-			// managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(),
-			// "restablercerContrasenia", "Se actualiz� contrase�a. "+usuario.getCedula());
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "restablercerContrasenia",
+					"Se actualiz� contrase�a. " + usuario.getCedula());
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
-			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
-			 "restablercerContrasenia", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "restablercerContrasenia",
+					e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -88,6 +161,23 @@ public class ControllerUsuarios  {
 				siRol.add(rol);
 			}
 			return siRol;
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			return null;
+		}
+	}
+	
+	public List<SelectItem> SIMenu() {
+		try {
+			List<AutMenu> lstMenu = managerUsuarios.findAutMenuActivo();
+			List<SelectItem> siPerfil = new ArrayList<SelectItem>();
+			for (AutMenu autMenu : lstMenu) {
+				SelectItem perfil = new SelectItem();
+				perfil.setLabel(autMenu.getNombre());
+				perfil.setValue(autMenu.getId());
+				siPerfil.add(perfil);
+			}
+			return siPerfil;
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			return null;
@@ -124,6 +214,65 @@ public class ControllerUsuarios  {
 		}
 	}
 
+	public void ingresarRol() {
+		objAutRole.setNombre(ModelUtil.cambiarMayusculas(objAutRole.getNombre()));
+		objAutRole.setDescripcion(ModelUtil.cambiarMayusculas(objAutRole.getDescripcion()));
+		objAutRole.setFechaInicial(new Date());
+		objAutRole.setEstado("A");
+		try {
+			managerGestionPersonal.ingresarRol(objAutRole);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarRol",
+					"Se ingresó el rol " + objAutRole.getId() + " " + objAutRole.getNombre());
+			inicializarRol();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarRol",
+					e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public void ingresarPerfil() {
+		objAutPerfile.setNombre(ModelUtil.cambiarMayusculas(objAutPerfile.getNombre()));
+		objAutPerfile.setFechaInicial(new Date());
+		objAutPerfile.setEstado("A");
+		try {
+			managerGestionPersonal.ingresarPerfil(objAutPerfile);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPerfil",
+					"Se ingresó el rol " + objAutPerfile.getId() + " " + objAutPerfile.getNombre());
+			inicializarPerfil();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarPerfil",
+					e.getMessage());
+			e.printStackTrace();
+			inicializarPerfil();
+		}
+
+	}
+	
+	public void ingresarMenu() {
+		objAutMenu.setNombre(ModelUtil.cambiarMayusculas(objAutMenu.getNombre()));
+		objAutMenu.setObservacion(ModelUtil.cambiarMayusculas(objAutMenu.getObservacion()));
+		objAutMenu.setFechaInicial(new Date());
+		objAutMenu.setEstado("A");
+		try {
+			managerGestionPersonal.ingresarMenu(objAutMenu);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarMenu",
+					"Se ingresó el rol " + objAutMenu.getId() + " " + objAutMenu.getNombre());
+			inicializarMenu();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarMenu",
+					e.getMessage());
+			e.printStackTrace();
+			inicializarPerfil();
+		}
+
+	}
+
 	/***
 	 * Metodos accesores y modificadores
 	 */
@@ -157,6 +306,54 @@ public class ControllerUsuarios  {
 
 	public void setBeanLogin(BeanLogin beanLogin) {
 		this.beanLogin = beanLogin;
+	}
+
+	public AutRole getObjAutRole() {
+		return objAutRole;
+	}
+
+	public void setObjAutRole(AutRole objAutRole) {
+		this.objAutRole = objAutRole;
+	}
+
+	public List<AutRole> getLstAutRole() {
+		return lstAutRole;
+	}
+
+	public void setLstAutRole(List<AutRole> lstAutRole) {
+		this.lstAutRole = lstAutRole;
+	}
+
+	public AutPerfile getObjAutPerfile() {
+		return objAutPerfile;
+	}
+
+	public void setObjAutPerfile(AutPerfile objAutPerfile) {
+		this.objAutPerfile = objAutPerfile;
+	}
+
+	public List<AutPerfile> getLstAutPerfile() {
+		return lstAutPerfile;
+	}
+
+	public void setLstAutPerfile(List<AutPerfile> lstAutPerfile) {
+		this.lstAutPerfile = lstAutPerfile;
+	}
+
+	public AutMenu getObjAutMenu() {
+		return objAutMenu;
+	}
+
+	public void setObjAutMenu(AutMenu objAutMenu) {
+		this.objAutMenu = objAutMenu;
+	}
+
+	public List<AutMenu> getLstAutMenu() {
+		return lstAutMenu;
+	}
+
+	public void setLstAutMenu(List<AutMenu> lstAutMenu) {
+		this.lstAutMenu = lstAutMenu;
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import ec.mil.model.dao.entidades.AutMenu;
 import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.AutUsuario;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
@@ -54,6 +55,10 @@ public class ManagerUsuarios {
 		} catch (Exception e) {
 			throw new Exception("Error an actualizar "+usuario.getCedula());
 		}		
+	}
+	@SuppressWarnings("unchecked")
+	public List<AutMenu> findAutMenuActivo() throws Exception {
+		return managerDAOGestionPersonal.findWhere(AutMenu.class, "o.estado ='A'", "o.orden ASC");
 	}
     
     

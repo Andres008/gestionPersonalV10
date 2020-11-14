@@ -96,7 +96,7 @@ public class FormAcceso  {
 			// First submenu
 			DefaultSubMenu submenu = DefaultSubMenu.builder().label(vAutMenuRol.getNombre()).build();
 			for (AutRolPerfil autRolPerfil : managerAutorizacion.findRolPerfilbyRol(objAutRol, vAutMenuRol)) {
-				DefaultMenuItem item = DefaultMenuItem.builder().value(autRolPerfil.getAutPerfile().getNombre()).icon("ui-icon-signal-diag")
+				DefaultMenuItem item = DefaultMenuItem.builder().value(autRolPerfil.getAutPerfile().getNombre()).icon(autRolPerfil.getAutPerfile().getIcon())
 						.command("#{formAcceso.acceso('" + autRolPerfil.getAutPerfile().getUrl() + "')}").update("messages").build();
 				submenu.getElements().add(item);
 			}

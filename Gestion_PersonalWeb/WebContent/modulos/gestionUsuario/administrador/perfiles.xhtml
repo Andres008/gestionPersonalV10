@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>GESTION PERSONAL</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día'
+    };
+</script>
+</h:head>
+<body onload="#{controllerUsuarios.inicializarPerfil()}"
+	style="font-size: 70%">
+	<h:form id="statusBar">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../imagenes/espera.gif" />
+		</p:dialog>
+	</h:form>
+	<div id="div_menu" align="left"
+		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
+		<div id="logo" align="center">
+			<p:graphicImage url="/imagenes/bannerGestionPersonal.png" alt="COAD"
+				style="width:100%"></p:graphicImage>
+		</div>
+
+		<div align="center"
+			style="width: 99.9%; min-height: 99.9%; background-image:">
+			<div id="titulo_header"
+				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
+				<span>Sistema de Gestión de Personal - <h:outputText
+						value="correo" /></span>
+			</div>
+			<h:form style="width:100%;font-size:80%">
+
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<p:menubar style="font-size:12px;">
+					<f:facet name="options">
+						<p:commandButton value="Menu principal" icon="ui-icon-home"
+							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+							value="Salir" icon="ui-icon-extlink" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+			<div id="posicion" align="center">
+				<h:form>
+					<p:growl id="growl" showDetail="true" sticky="true" />
+					<p:panel header="Ingresar Perfiles" toggleable="true"
+						collapsed="true">
+						<p:panelGrid columns="2" styleClass="ui-noborder">
+							<p:outputLabel value="Menu Padre" />
+							<p:panelGrid columns="2" styleClass="ui-noborder">
+								<p:selectOneMenu
+									value="#{controllerUsuarios.objAutPerfile.autMenu.id}">
+									<f:selectItem itemLabel="Seleccione un Menú" />
+									<f:selectItems value="#{controllerUsuarios.SIMenu()}" />
+								</p:selectOneMenu>
+								<p:commandButton value="Nuevo"
+									actionListener="#{controllerUsuarios.inicializarMenu()}"
+									oncomplete="PF('infPDF').show()" update="@form:menu" />
+							</p:panelGrid>
+							<p:outputLabel value="Nombre" />
+							<p:inputText value="#{controllerUsuarios.objAutPerfile.nombre}"
+								style="text-transform: uppercase" />
+							<p:outputLabel value="Url" />
+							<p:inputText value="#{controllerUsuarios.objAutPerfile.url}" />
+							<p:outputLabel value="Icono" />
+							<p:inputText value="#{controllerUsuarios.objAutPerfile.icon}" />
+						</p:panelGrid>
+						<p:commandButton value="Ingresar"
+							action="#{controllerUsuarios.ingresarPerfil()}" update="@form" />
+					</p:panel>
+					<p:panel header="Perfiles Ingresados">
+						<p:dataTable value="#{controllerUsuarios.lstAutPerfile}" var="rol"
+							sortBy="#{rol.autMenu.orden}" expandableRowGroups="true">
+							<p:headerRow>
+								<p:column colspan="7">
+									<p:outputLabel value="#{rol.autMenu.nombre}" />
+								</p:column>
+							</p:headerRow>
+							<p:column headerText="Perfil">
+								<p:outputLabel value="#{rol.nombre}" />
+							</p:column>
+							<p:column headerText="Url">
+								<p:outputLabel value="#{rol.url}" />
+							</p:column>
+							<p:column headerText="Icono" width="30">
+								<p:commandButton icon="#{rol.icon}" disabled="true" />
+							</p:column>
+							<p:column headerText="Fecha Inicial">
+								<p:outputLabel value="#{rol.fechaInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Fecha Final">
+								<p:outputLabel value="#{rol.fechaFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Estado">
+								<p:outputLabel value="#{rol.estado}" />
+							</p:column>
+							<p:column headerText="Inactivar" width="70">
+								<p:commandButton icon=" ui-icon-close"
+									actionListener="#{controllerUsuarios.desactivarPerfil(rol)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+					<p:dialog header="pdf" widgetVar="infPDF" id="inf" modal="true"
+						position="center" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:panelGrid id="menu" columns="2" styleClass="ui-noborder">
+							<p:outputLabel value="Nombre" />
+							<p:inputText value="#{controllerUsuarios.objAutMenu.nombre}" style="text-transform: uppercase"/>
+							<p:outputLabel value="Observación" />
+							<p:inputText value="#{controllerUsuarios.objAutMenu.observacion}" style="text-transform: uppercase"/>
+							<p:outputLabel value="Orden" />
+							<p:spinner value="#{controllerUsuarios.objAutMenu.orden}" min="1" />
+						</p:panelGrid>
+						<p:commandButton value="Ingresar"
+							actionListener="#{controllerUsuarios.ingresarMenu()}"
+							update="@form" />
+					</p:dialog>
+				</h:form>
+
+			</div>
+		</div>
+		<div id="footer" align="center">
+			<div
+				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
+				<span>(c) Centro de Operaciones Aereas y Defensa - COAD.
+					#{beanLogin.anioActual()} - </span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

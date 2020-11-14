@@ -22,6 +22,8 @@ public class AutPerfile implements Serializable {
 	private long id;
 
 	private String estado;
+	
+	private String icon;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_final")
@@ -123,6 +125,14 @@ public class AutPerfile implements Serializable {
 		autRolPerfil.setAutPerfile(null);
 
 		return autRolPerfil;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 }

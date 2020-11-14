@@ -8,6 +8,9 @@ import javax.ejb.Stateless;
 
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaTituloPersona;
+import ec.mil.model.dao.entidades.AutMenu;
+import ec.mil.model.dao.entidades.AutPerfile;
+import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -116,6 +119,76 @@ public class ManagerGestionPersonal {
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Titulos Persona");
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AutRole> findAllRol() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(AutRole.class, "o.estado ASC, o.nombre ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar roles. " + e.getMessage());
+		}
+	}
+
+	public void ingresarRol(AutRole objAutRole) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objAutRole);
+		} catch (Exception e) {
+			throw new Exception("Error al guardar Rol. " + e.getMessage());
+		}
+
+	}
+
+	public void actualizarAutRol(AutRole rol) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(rol);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar rol. " + e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AutPerfile> findAllPerfil() throws Exception{
+		try {
+			 List<AutPerfile> lstAutPerfile =
+			 managerDAOGestionPersonal.findAll(AutPerfile.class, " o.autMenu.nombre ASC,o.estado ASC, o.nombre ASC");
+			 lstAutPerfile.forEach(perfil->{
+				 perfil.getAutRolPerfils().forEach(rol->{
+					 rol.getAutRole().getId();
+				 });
+			 });
+			 return lstAutPerfile;
+		} catch (Exception e) {
+			throw new Exception("Error al buscar Perfiles");
+		}
+		
+	}
+
+	public void ingresarPerfil(AutPerfile objAutPerfile) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objAutPerfile);
+		} catch (Exception e) {
+			throw new Exception("Error al insertar perfil. "+e.getMessage());
+		}
+		
+	}
+
+	public void ingresarMenu(AutMenu objAutMenu) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(objAutMenu);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar Menú. "+e.getMessage());
+		}
+		
+	}
+
+	public void actualizarAutPerfil(AutPerfile perfil) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(perfil);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar ");
+		}
+		
 	}
 
 }
