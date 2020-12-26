@@ -17,14 +17,13 @@ public class GesReparto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GES_REPARTOS_ID_GENERATOR", sequenceName="SEQ_GES_REPARTOS")
+	@SequenceGenerator(name="GES_REPARTOS_ID_GENERATOR", sequenceName="SEQ_GES_REPARTOS", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GES_REPARTOS_ID_GENERATOR")
 	private long id;
 
 	private String descripcion;
 
-	@Temporal(TemporalType.DATE)
-	private Date estado;
+	private String estado;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_final")
@@ -59,11 +58,11 @@ public class GesReparto implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Date getEstado() {
-		return this.estado;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setEstado(Date estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

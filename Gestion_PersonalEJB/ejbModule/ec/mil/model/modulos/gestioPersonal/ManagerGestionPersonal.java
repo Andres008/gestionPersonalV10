@@ -12,9 +12,12 @@ import ec.mil.model.dao.entidades.AutMenu;
 import ec.mil.model.dao.entidades.AutPerfile;
 import ec.mil.model.dao.entidades.AutRolPerfil;
 import ec.mil.model.dao.entidades.AutRole;
+import ec.mil.model.dao.entidades.GesDependencia;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
+import ec.mil.model.dao.entidades.GesRegione;
+import ec.mil.model.dao.entidades.GesReparto;
 import ec.mil.model.dao.entidades.GesTipoEstimulo;
 import ec.mil.model.dao.entidades.GesTipoSangre;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
@@ -204,6 +207,43 @@ public class ManagerGestionPersonal {
 			throw new Exception("Error al actualizar Rol perfil. "+e.getMessage());			
 		}
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesDependencia> buscarAllGesDependencia() throws Exception {
+		return managerDAOGestionPersonal.findAll(GesDependencia.class, "o.nombre ASC");
+	}
+
+	public void ingresarDependencia(GesDependencia objGesDependencia) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objGesDependencia);
+		} catch (Exception e) {
+			throw new Exception("Error al insertar Dependencia. "+e.getMessage());
+		}
+		
+	}
+
+	public void ingresarRegion(GesRegione objGesRegione) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objGesRegione);
+		} catch (Exception e) {
+			throw new Exception("Error al insertar Region. "+e.getMessage());
+		}
+		
+	}
+
+	public List<GesRegione> buscarRegionesActivas() throws Exception {
+		return managerDAOGestionPersonal.findWhere(GesRegione.class, "o.estado='A'", "o.nombre ASC");
+	}
+
+	public void ingresarReparto(GesReparto objGesReparto) throws Exception {
+		managerDAOGestionPersonal.insertar(objGesReparto);
+		
+	}
+
+	public List<GesReparto> buscarRepartoActivo() throws Exception {
+		// TODO Auto-generated method stub
+		return managerDAOGestionPersonal.findWhere(GesReparto.class, "o.estado='A'", "o.nombre ASC");
 	}
 
 }

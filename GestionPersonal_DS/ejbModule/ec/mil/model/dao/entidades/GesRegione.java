@@ -17,7 +17,7 @@ public class GesRegione implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GES_REGIONES_ID_GENERATOR", sequenceName="SEQ_GES_REGIONES")
+	@SequenceGenerator(name="GES_REGIONES_ID_GENERATOR", sequenceName="SEQ_GES_REGIONES", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GES_REGIONES_ID_GENERATOR")
 	private long id;
 
