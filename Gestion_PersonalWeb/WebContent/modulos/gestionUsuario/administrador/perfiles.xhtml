@@ -94,8 +94,8 @@
 							<p:outputLabel value="Nombre" />
 							<p:inputText value="#{controllerUsuarios.objAutPerfile.nombre}"
 								style="text-transform: uppercase" />
-							<p:outputLabel value="Url" />
-							<p:inputText value="#{controllerUsuarios.objAutPerfile.url}" />
+							<p:outputLabel value="Url"  />
+							<p:inputText size="150" value="#{controllerUsuarios.objAutPerfile.url}" />
 							<p:outputLabel value="Icono" />
 							<p:inputText value="#{controllerUsuarios.objAutPerfile.icon}" />
 						</p:panelGrid>
@@ -106,7 +106,7 @@
 						<p:dataTable value="#{controllerUsuarios.lstAutPerfile}" var="rol"
 							sortBy="#{rol.autMenu.orden}" expandableRowGroups="true">
 							<p:headerRow>
-								<p:column colspan="7">
+								<p:column colspan="8">
 									<p:outputLabel value="#{rol.autMenu.nombre}" />
 								</p:column>
 							</p:headerRow>
@@ -137,6 +137,12 @@
 									actionListener="#{controllerUsuarios.desactivarPerfil(rol)}"
 									update="@form" />
 							</p:column>
+							<p:column headerText="Actualizar" width="70">
+								<p:commandButton icon="ui-icon-pencil"
+									actionListener="#{controllerUsuarios.cargarPerfil(rol)}"
+									update="@form" />
+							</p:column>
+							
 						</p:dataTable>
 					</p:panel>
 					<p:dialog header="pdf" widgetVar="infPDF" id="inf" modal="true"

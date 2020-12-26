@@ -8,41 +8,19 @@
 	<title>GESTION PERSONAL</title>
 	<h:outputStylesheet library="css" name="estilos.css" />
 	<style>
+.fondo {
+	min-height: 100%;
+	height: auto !important;
+	background-image: url("imagenes/PORTADA.png");
+	background-size: 101% 101%;
+}
 
 #posicion {
 	margin: 120px auto;
 	width: 99%;
 	font-size: 12px;
 }
-
-
-.ui-noborder td {
-	border: none;
-}
-.ui-widget-content{
-background: 0px;
-}
-.ui-growl-item-container{
-		opacity: 1;
-		}
-.fondo {
-  background-image: url("imagenes/PORTADA.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-.ui-button-icon-left {
-left: 30%;
-}
-.ui-widget{
-	font-size:14px
-		}
-
-
-
-
 </style>
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	<script type="text/javascript">
     PrimeFaces.locales['es'] = {
         closeText: 'Cerrar',
@@ -99,56 +77,38 @@ left: 30%;
 			<div id="posicion">
 				<h:form id="form1">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel id="pnlAcceso" header="ACCESO DE USUARIOS"
-						style=";margin: auto; margin-top:20px; width: 35%;text-align:center;background:#ebfafa">
-						<br></br>
-						<p:graphicImage url="/resources/images/usuario.png" width="25%" />
-						<br></br>
-						<div align="center">
-							<h:panelGrid columns="2" styleClass="ui-noborder"
-								style="width:100%">
-								<p:panelGrid columns="2" styleClass="ui-noborder"
-									style="width:100%">
-									<p:outputLabel for="user" value="Usuario " />
-									<h:panelGrid columns="2">
-										<p:inputText id="user" style="width:110%"
-											value="#{formAcceso.idUsuario}" rendered="true"
-											requiredMessage="Debe ingresar el usuario" required="true" />
-									</h:panelGrid>
-									<p:outputLabel for="pwd" value="Clave" />
-									<h:panelGrid columns="2">
-										<p:password id="pwd" style="width:110%"
-											value="#{formAcceso.clave}" maxlength="20" rendered="true"
-											requiredMessage="Debe ingresar la contraseña" required="true" />
-									</h:panelGrid>
-									<p:outputLabel />
-									<p:commandButton value="Ingresar"
-										style="width:75%;height:35px;background: #0086b3;color: white; font-size:14px;border:1px solid  #0086b3"
-										icon="fa fa-sign-in" update="@form"
-										action="#{formAcceso.actionObtenerAcceso()}"
-										onmouseover="this.style.opacity=0.6;this.filter.alpha(opacity=100)"
-										onmouseout="this.style.opacity=1;this.filter.alpha(opacity=40)" />
-								</p:panelGrid>
-							</h:panelGrid>
-						</div>
-						<br></br>
-						<br></br>
-						<div align="right"
-							style="margin-right: 20px; margin-top: 5px; width: 100%">
-							<h:panelGrid cellpadding="5" columns="1"
-								style="text-align:right;">
-								<p:commandLink style=" font-size: 12px; font-weight:bold;"
-									onmouseover="this.style.opacity=0.6;this.filter.alpha(opacity=100)"
-									onmouseout="this.style.opacity=1;this.filter.alpha(opacity=40)"
-									value="Olvidó su usuario o contraseña">
-								</p:commandLink>
-								<p:commandLink style=" font-size: 12px; font-weight:bold;"
-									onmouseover="this.style.opacity=0.6;this.filter.alpha(opacity=100)"
-									onmouseout="this.style.opacity=1;this.filter.alpha(opacity=40)"
-									value="Manual de usuario">
-								</p:commandLink>
-							</h:panelGrid>
-						</div>
+					<p:panel id="panel1" header="ACCESO DE USUARIOS"
+						rendered="#{!formAcceso.panelCambioContr}"
+						style="width:450px;border: 2px groove navy;background-color: transparent !important;">
+						<p:messages id="messages" />
+						<table align="center"
+							style="background-color: transparent !important;">
+							<tr>
+								<td width="80"><p:graphicImage url="/imagenes/login.png"
+										width="90%" /></td>
+								<td><p:panelGrid columns="2"
+										style="background-color: transparent !important;">
+										<h:outputText value="Código de Usuario:"
+											style="font-weight:bold;" />
+										<h:panelGroup>
+											<p:inputText id="idUsuario" required="true"
+												value="#{formAcceso.idUsuario}"
+												requiredMessage="Ingrese su código de usuario" />
+											<p:message for="idUsuario" />
+										</h:panelGroup>
+										<h:outputText value="Clave:" style="font-weight:bold;" />
+										<h:panelGroup>
+											<p:password id="clave" required="true"
+												value="#{formAcceso.clave}"
+												requiredMessage="Se requiere una contraseña" />
+											<p:message for="clave" />
+										</h:panelGroup>
+									</p:panelGrid></td>
+								<p:commandButton value="Ingresar" update="@form"
+									action="#{formAcceso.actionObtenerAcceso()}"
+									style="width:150px" icon="ui-icon-newwin" />
+							</tr>
+						</table>
 					</p:panel>
 					<p:panel id="panel2" header="Cambio de Contraseña"
 						rendered="#{formAcceso.panelCambioContr}"

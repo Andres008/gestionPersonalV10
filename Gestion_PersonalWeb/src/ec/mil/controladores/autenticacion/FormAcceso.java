@@ -121,7 +121,6 @@ public class FormAcceso  {
 	 * if(userAgent.contains("Safari")){ return "Safari"; } return "Unknown"; }
 	 */
 	public String actionObtenerAcceso() {
-		System.out.println(beanLogin);
 		try {
 			Credencial credencial = managerAutorizacion.obtenerAcceso(idUsuario, ModelUtil.md5(clave));
 			objAutUsuario = managerAutorizacion.findByIdAutUsuario(idUsuario);

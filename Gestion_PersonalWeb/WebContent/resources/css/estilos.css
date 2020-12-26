@@ -1,0 +1,22 @@
+.editar:hover {
+    box-shadow: 0 0 3px 2px rgba(0, 140, 186, 0.5);
+    background-color:#0000CD;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.imagen:hover{
+margin-top: 4px;
+ opacity: 0.5;
+ filter: alpha(opacity=50);
+}
+.imagenn:hover{
+ opacity: 0.5;
+ filter: alpha(opacity=50);
+}
+
+
+.titulo{
+	font: 150% sans-serif;
+	font-size: 20px;
+}

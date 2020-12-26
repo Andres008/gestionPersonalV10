@@ -167,6 +167,23 @@ public class ManagerGestionPersonal {
 		}
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<AutPerfile> findAllPerfilActivos() throws Exception{
+		try {
+			 List<AutPerfile> lstAutPerfile =
+			 managerDAOGestionPersonal.findWhere(AutPerfile.class, "o.estado='A'"," o.autMenu.nombre ASC,o.estado ASC, o.nombre ASC");
+			 lstAutPerfile.forEach(perfil->{
+				 perfil.getAutRolPerfils().forEach(rol->{
+					 rol.getAutRole().getId();
+				 });
+			 });
+			 return lstAutPerfile;
+		} catch (Exception e) {
+			throw new Exception("Error al buscar Perfiles");
+		}
+		
+	}
 
 	public void ingresarPerfil(AutPerfile objAutPerfile) throws Exception {
 		try {

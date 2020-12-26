@@ -67,6 +67,18 @@ public class ControllerUsuarios {
 			e.printStackTrace();
 		}
 	}
+	public void inicializarPerfilRol() {
+		objAutRole= new AutRole();
+		objAutPerfile = new AutPerfile();
+		objAutPerfile.setAutMenu(new AutMenu());
+		inicializarMenu();
+		try {
+			lstAutPerfile = managerGestionPersonal.findAllPerfilActivos();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public void inicializarMenu() {
 		objAutMenu = new AutMenu();
@@ -98,7 +110,7 @@ public class ControllerUsuarios {
 			JSFUtil.crearMensajeINFO("Ateción", "Se ingreso correctamente la información.");
 			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarRolPeril",
 					"Ingreso coreccto Rol Menu. " + objRolPerfil.getId());
-			inicializarPerfil();
+			inicializarPerfilRol();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Atención", "Error al ingresar Rol Perfil. " + e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarRolPeril",
@@ -168,6 +180,7 @@ public class ControllerUsuarios {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public void inicializarUsuario() {
 		try {
@@ -288,7 +301,10 @@ public class ControllerUsuarios {
 		objAutPerfile.setFechaInicial(new Date());
 		objAutPerfile.setEstado("A");
 		try {
-			managerGestionPersonal.ingresarPerfil(objAutPerfile);
+			if ( objAutPerfile.getId()>0 )
+				managerGestionPersonal.actualizarAutPerfil(objAutPerfile);
+			else
+				managerGestionPersonal.ingresarPerfil(objAutPerfile);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPerfil",
 					"Se ingresó el rol " + objAutPerfile.getId() + " " + objAutPerfile.getNombre());
 			inicializarPerfil();
