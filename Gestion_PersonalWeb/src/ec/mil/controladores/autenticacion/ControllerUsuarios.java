@@ -189,7 +189,6 @@ public class ControllerUsuarios {
 			objAutUsuario.setAutRole(new AutRole());
 			lstAutUsuario = managerUsuarios.buscarTodosUsuarios();
 			busqueda = false;
-			System.out.println(beanLogin);
 		} catch (Exception e) {
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "inicializarUsuario",
 					e.getMessage());

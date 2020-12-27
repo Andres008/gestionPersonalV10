@@ -5,20 +5,19 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the ges_tipo_grado database table.
  * 
  */
 @Entity
-@Table(name="ges_tipo_grado")
-@NamedQuery(name="GesTipoGrado.findAll", query="SELECT g FROM GesTipoGrado g")
+@Table(name = "ges_tipo_grado")
+@NamedQuery(name = "GesTipoGrado.findAll", query = "SELECT g FROM GesTipoGrado g")
 public class GesTipoGrado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GES_TIPO_GRADO_ID_GENERATOR", sequenceName="SEQ_GES_TIPO_GRADO")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GES_TIPO_GRADO_ID_GENERATOR")
+	@SequenceGenerator(name = "GES_TIPO_GRADO_ID_GENERATOR", sequenceName = "SEQ_GES_TIPO_GRADO")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GES_TIPO_GRADO_ID_GENERATOR")
 	private long id;
 
 	private String descripcion;
@@ -26,18 +25,22 @@ public class GesTipoGrado implements Serializable {
 	private String estado;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_final")
+	@Column(name = "fecha_final")
 	private Date fechaFinal;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_inicial")
+	@Column(name = "fecha_inicial")
 	private Date fechaInicial;
 
 	private String nombre;
 
-	//bi-directional many-to-one association to GesGrado
-	@OneToMany(mappedBy="gesTipoGrado")
+	// bi-directional many-to-one association to GesGrado
+	@OneToMany(mappedBy = "gesTipoGrado")
 	private List<GesGrado> gesGrados;
+
+	// bi-directional many-to-one association to GesPromocion
+	@OneToMany(mappedBy = "gesTipoGrado")
+	private List<GesPromocion> gesPromocions;
 
 	public GesTipoGrado() {
 	}
@@ -110,6 +113,14 @@ public class GesTipoGrado implements Serializable {
 		gesGrado.setGesTipoGrado(null);
 
 		return gesGrado;
+	}
+
+	public List<GesPromocion> getGesPromocions() {
+		return gesPromocions;
+	}
+
+	public void setGesPromocions(List<GesPromocion> gesPromocions) {
+		this.gesPromocions = gesPromocions;
 	}
 
 }

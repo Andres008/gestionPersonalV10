@@ -105,6 +105,14 @@
 								<f:selectItem itemLabel="Grado Actual" noSelectionOption="true" />
 								<f:selectItems value="#{controladorPersonal.SIgrados()}" />
 							</p:selectOneMenu>
+							<p:outputLabel value="Promoción" />
+							<p:selectOneMenu
+								value="#{controladorPersonal.objGesPersona.gesPromocion.id}">
+								<f:selectItem itemLabel="Promoción" noSelectionOption="true" />
+								<f:selectItems value="#{controladorPersonal.SIPromocion()}" />
+							</p:selectOneMenu>
+							<p:outputLabel value="Antiguedad" />
+							<p:spinner min="1" value="#{controladorPersonal.objGesPersona.antiguedad}" />
 							<p:outputLabel value="Fecha Alta" />
 							<p:calendar
 								value="#{controladorPersonal.objGesPersona.fechaAlta}"

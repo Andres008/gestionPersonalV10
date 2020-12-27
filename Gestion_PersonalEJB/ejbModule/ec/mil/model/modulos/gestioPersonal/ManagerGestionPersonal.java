@@ -17,9 +17,11 @@ import ec.mil.model.dao.entidades.GesDependencia;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
+import ec.mil.model.dao.entidades.GesPromocion;
 import ec.mil.model.dao.entidades.GesRegione;
 import ec.mil.model.dao.entidades.GesReparto;
 import ec.mil.model.dao.entidades.GesTipoEstimulo;
+import ec.mil.model.dao.entidades.GesTipoGrado;
 import ec.mil.model.dao.entidades.GesTipoSangre;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
 
@@ -275,6 +277,16 @@ public class ManagerGestionPersonal {
 			throw new Exception("Error al actualizar persona: " + objGesPersona.getCedula());
 		}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesTipoGrado> buscarTodosTipoGrado() throws Exception {
+		return managerDAOGestionPersonal.findAll(GesTipoGrado.class, "o.id ASC");
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesPromocion> buscarPromocionByGrado(GesTipoGrado gesTipoGrado) throws Exception {
+		return managerDAOGestionPersonal.findWhere(GesPromocion.class, "o.gesTipoGrado.id="+gesTipoGrado.getId(), "o.promocion ASC");
 	}
 
 }

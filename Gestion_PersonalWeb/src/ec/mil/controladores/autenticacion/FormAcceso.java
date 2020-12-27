@@ -51,7 +51,7 @@ public class FormAcceso  {
 
 	@PostConstruct
 	public void inicializar() {
-		System.out.println(beanLogin);
+		
 	}
 	
 	public FormAcceso() {
@@ -105,7 +105,6 @@ public class FormAcceso  {
 	}
 
 	public String acceso(String ruta) {
-		System.out.println(ruta + "?faces-redirect=true");
 		return ruta + "?faces-redirect=true";
 	}
 

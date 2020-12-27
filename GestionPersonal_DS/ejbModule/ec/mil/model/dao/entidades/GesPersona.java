@@ -1,84 +1,91 @@
 package ec.mil.model.dao.entidades;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.math.BigDecimal;
 
+import javax.persistence.*;
 
 import java.util.Date;
 import java.util.List;
-
 
 /**
  * The persistent class for the ges_personas database table.
  * 
  */
 @Entity
-@Table(name="ges_personas")
-@NamedQuery(name="GesPersona.findAll", query="SELECT g FROM GesPersona g")
+@Table(name = "ges_personas")
+@NamedQuery(name = "GesPersona.findAll", query = "SELECT g FROM GesPersona g")
 public class GesPersona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String cedula;
+	
+	private BigDecimal antiguedad;
 
 	private String apellido;
 
 	private String direccion;
-	
+
 	private String correo;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_alta")
+	@Column(name = "fecha_alta")
 	private Date fechaAlta;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_baja")
+	@Column(name = "fecha_baja")
 	private Date fechaBaja;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_nacimiento")
+	@Column(name = "fecha_nacimiento")
 	private Date fechaNacimiento;
 
 	private String nombre;
 
-	//bi-directional many-to-one association to AcaPersonasCurso
-	@OneToMany(mappedBy="gesPersona")
+	// bi-directional many-to-one association to AcaPersonasCurso
+	@OneToMany(mappedBy = "gesPersona")
 	private List<AcaPersonasCurso> acaPersonasCursos;
 
-	//bi-directional one-to-one association to AutUsuario
-	@OneToOne(mappedBy="gesPersona")
+	// bi-directional one-to-one association to AutUsuario
+	@OneToOne(mappedBy = "gesPersona")
 	private AutUsuario autUsuario;
 
-	//bi-directional many-to-one association to GesDependenciaPersona
-	@OneToMany(mappedBy="gesPersona")
+	// bi-directional many-to-one association to GesDependenciaPersona
+	@OneToMany(mappedBy = "gesPersona")
 	private List<GesDependenciaPersona> gesDependenciaPersonas;
 
-	//bi-directional many-to-one association to GesEstimuloPersona
-	@OneToMany(mappedBy="gesPersona")
+	// bi-directional many-to-one association to GesEstimuloPersona
+	@OneToMany(mappedBy = "gesPersona")
 	private List<GesEstimuloPersona> gesEstimuloPersonas;
 
-	//bi-directional many-to-one association to GesGradosPersona
-	@OneToMany(mappedBy="gesPersona")
+	// bi-directional many-to-one association to GesGradosPersona
+	@OneToMany(mappedBy = "gesPersona")
 	private List<GesGradosPersona> gesGradosPersonas;
 
-	//bi-directional many-to-one association to GesEstadoCivil
+	// bi-directional many-to-one association to GesEstadoCivil
 	@ManyToOne
-	@JoinColumn(name="id_estado_civil")
+	@JoinColumn(name = "id_estado_civil")
 	private GesEstadoCivil gesEstadoCivil;
 
-	//bi-directional many-to-one association to GesGrado
+	// bi-directional many-to-one association to GesGrado
 	@ManyToOne
-	@JoinColumn(name="id_grado_actual")
+	@JoinColumn(name = "id_grado_actual")
 	private GesGrado gesGrado;
 
-	//bi-directional many-to-one association to GesTipoSangre
+	// bi-directional many-to-one association to GesTipoSangre
 	@ManyToOne
-	@JoinColumn(name="id_tipo_sangre")
+	@JoinColumn(name = "id_tipo_sangre")
 	private GesTipoSangre gesTipoSangre;
-	
-	//bi-directional many-to-one association to AcaTituloPersona
-		@OneToMany(mappedBy="gesPersona")
-		private List<AcaTituloPersona> acaTituloPersonas;
+
+	// bi-directional many-to-one association to AcaTituloPersona
+	@OneToMany(mappedBy = "gesPersona")
+	private List<AcaTituloPersona> acaTituloPersonas;
+
+	// bi-directional many-to-one association to GesPromocion
+	@ManyToOne
+	@JoinColumn(name = "id_promocion")
+	private GesPromocion gesPromocion;
 
 	public GesPersona() {
 	}
@@ -274,6 +281,21 @@ public class GesPersona implements Serializable {
 	public void setAcaTituloPersonas(List<AcaTituloPersona> acaTituloPersonas) {
 		this.acaTituloPersonas = acaTituloPersonas;
 	}
-	
+
+	public GesPromocion getGesPromocion() {
+		return gesPromocion;
+	}
+
+	public void setGesPromocion(GesPromocion gesPromocion) {
+		this.gesPromocion = gesPromocion;
+	}
+
+	public BigDecimal getAntiguedad() {
+		return antiguedad;
+	}
+
+	public void setAntiguedad(BigDecimal antiguedad) {
+		this.antiguedad = antiguedad;
+	}
 
 }
