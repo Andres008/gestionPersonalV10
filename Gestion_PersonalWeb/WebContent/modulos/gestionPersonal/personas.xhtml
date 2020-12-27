@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controllerPersonal.inicializarPersona()}"
+<body onload="#{controladorPersonal.inicializarPersona()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -67,92 +67,96 @@
 				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-					<p:commandButton value="Menu principal" icon="ui-icon-home"
-						action="#{beanLogin.actionMostrarMenuPrincipal()}" />
-						<p:commandButton action="#{beanLogin.actionSalirSistema()}" value="Salir" icon="ui-icon-extlink" />
+						<p:commandButton value="Menu principal" icon="ui-icon-home"
+							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+							value="Salir" icon="ui-icon-extlink" />
 					</f:facet>
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
 				<h:form>
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Ingreso de Informacion"  toggleable="true"
-				collapsed="true">
+					<p:panel header="Ingreso de Informacion" toggleable="true"
+						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Cédula"  />
-							<p:inputMask value="#{controllerPersonal.objGesPersona.cedula}"
-								mask="9999999999" required="true"
-								requiredMessage="Ingrese la Cédula" />
+							<p:outputLabel value="Cédula" />
+							<p:inputMask value="#{controladorPersonal.objGesPersona.cedula}"
+								mask="9999999999" />
 							<p:outputLabel value="Apellidos" />
-							<p:inputText required="true" requiredMessage="Ingrese Apellido" style="text-transform: uppercase"
-								value="#{controllerPersonal.objGesPersona.apellido}" />
+							<p:inputText style="text-transform: uppercase"
+								value="#{controladorPersonal.objGesPersona.apellido}" />
 							<p:outputLabel value="Nombres" />
-							<p:inputText required="true" requiredMessage="Ingrese Nombre" style="text-transform: uppercase"
-								value="#{controllerPersonal.objGesPersona.nombre}" />
+							<p:inputText style="text-transform: uppercase"
+								value="#{controladorPersonal.objGesPersona.nombre}" />
 							<p:outputLabel value="Fecha Nacimiento" />
-							<p:calendar required="true"
-								requiredMessage="Ingrese Fecha Nacimiento" pattern="dd/MM/yyyy"
-								value="#{controllerPersonal.objGesPersona.fechaNacimiento}"
+							<p:calendar pattern="dd/MM/yyyy"
+								value="#{controladorPersonal.objGesPersona.fechaNacimiento}"
 								mask="99/99/9999" locale="es" maxdate="today" />
 							<p:outputLabel value="Estado Civil" />
-							<p:selectOneMenu required="true"
-								requiredMessage="Ingrese estado civil"
-								value="#{controllerPersonal.objGesPersona.gesEstadoCivil.id}">
+							<p:selectOneMenu
+								value="#{controladorPersonal.objGesPersona.gesEstadoCivil.id}">
 								<f:selectItem itemLabel="Estado Civil" noSelectionOption="true" />
-								<f:selectItems value="#{controllerPersonal.SIestadoCivil()}" />
+								<f:selectItems value="#{controladorPersonal.SIestadoCivil()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Grado" />
-							<p:selectOneMenu required="true" requiredMessage="Ingrese grado"
-								value="#{controllerPersonal.objGesPersona.gesGrado.id}">
+							<p:selectOneMenu
+								value="#{controladorPersonal.objGesPersona.gesGrado.id}">
 								<f:selectItem itemLabel="Grado Actual" noSelectionOption="true" />
-								<f:selectItems value="#{controllerPersonal.SIgrados()}" />
+								<f:selectItems value="#{controladorPersonal.SIgrados()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Fecha Alta" />
-							<p:calendar required="true" requiredMessage="Ingrese fecha alta"
-								value="#{controllerPersonal.objGesPersona.fechaAlta}"
+							<p:calendar
+								value="#{controladorPersonal.objGesPersona.fechaAlta}"
 								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
 								maxdate="today" />
 							<p:outputLabel value="Tipo de Sangre" />
-							<p:selectOneMenu required="true"
-								requiredMessage="Ingrese tipo de sangre"
-								value="#{controllerPersonal.objGesPersona.gesTipoSangre.id}">
+							<p:selectOneMenu
+								value="#{controladorPersonal.objGesPersona.gesTipoSangre.id}">
 								<f:selectItem itemLabel="Tipo Sangre" noSelectionOption="true" />
-								<f:selectItems value="#{controllerPersonal.SITipoSangre()}" />
+								<f:selectItems value="#{controladorPersonal.SITipoSangre()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Dirección" />
-							<p:inputText required="true" requiredMessage="Ingrese dirección"
-								value="#{controllerPersonal.objGesPersona.direccion}" />
+							<p:inputText
+								value="#{controladorPersonal.objGesPersona.direccion}" />
 							<p:outputLabel value="Correo Electrónico" />
-							<p:inputText required="true" style="text-transform: lowercase"
-								requiredMessage="Ingrese correo electronico"
-								value="#{controllerPersonal.objGesPersona.correo}" />
+							<p:inputText requiredMessage="Ingrese correo electronico"
+								value="#{controladorPersonal.objGesPersona.correo}" />
 						</p:panelGrid>
 						<p:commandButton value="Guardar" update="@form"
-							action="#{controllerPersonal.ingresarPersona()}" />
+							action="#{controladorPersonal.ingresarPersona()}" />
 					</p:panel>
 					<p:panel header="Personas Ingresadas">
-						<p:dataTable value="#{controllerPersonal.lstGesPersona}" paginator="true" rows="20"
-							var="persona">
-							<p:column headerText="Cédula" filterBy="#{persona.cedula}" filterMatchMode="contains" >
+						<p:dataTable value="#{controladorPersonal.lstGesPersona}"
+							paginator="true" rows="20" var="persona">
+							<p:column headerText="Cédula" filterBy="#{persona.cedula}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{persona.cedula}" />
 							</p:column>
-							<p:column headerText="Grado Actual" filterBy="#{persona.gesGrado.grado}" filterMatchMode="exact" >
+							<p:column headerText="Grado Actual"
+								filterBy="#{persona.gesGrado.grado}" filterMatchMode="exact">
 								<p:outputLabel value="#{persona.gesGrado.grado}" />
 							</p:column>
-							<p:column headerText="Apellidos">
+							<p:column headerText="Apellidos" filterBy="#{persona.apellido}" filterMatchMode="contains">
 								<p:outputLabel value="#{persona.apellido}" />
 							</p:column>
 							<p:column headerText="Nombres">
 								<p:outputLabel value="#{persona.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha Nacimiento" >
-							<p:outputLabel value="#{persona.fechaNacimiento}" > <f:convertDateTime pattern="dd/MM/yyyy" locale="es"/> </p:outputLabel>
+							<p:column headerText="Fecha Nacimiento">
+								<p:outputLabel value="#{persona.fechaNacimiento}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+								</p:outputLabel>
 							</p:column>
 							<p:column headerText="Fecha Alta">
-							<p:outputLabel value="#{persona.fechaAlta}" > <f:convertDateTime pattern="dd/MM/yyyy" locale="es"/> </p:outputLabel>
+								<p:outputLabel value="#{persona.fechaAlta}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+								</p:outputLabel>
 							</p:column>
 							<p:column headerText="Fecha Baja">
-							<p:outputLabel value="#{persona.fechaBaja}" > <f:convertDateTime pattern="dd/MM/yyyy" locale="es"/> </p:outputLabel>
+								<p:outputLabel value="#{persona.fechaBaja}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
+								</p:outputLabel>
 							</p:column>
 							<p:column headerText="Correo">
 								<p:outputLabel value="#{persona.correo}" />
@@ -163,8 +167,42 @@
 							<p:column headerText="Dirección">
 								<p:outputLabel value="#{persona.direccion}" />
 							</p:column>
+							<p:column headerText="Editar">
+								<p:commandButton icon="ui-icon-pencil"
+									actionListener="#{controladorPersonal.cargarPersona(persona)}"
+									update="@form" />
+							</p:column>
+							<p:column headerText="Registrar Baja">
+								<p:commandButton icon="ui-icon-closethick"
+									oncomplete="PF('infBaja').show()"
+									actionListener="#{controladorPersonal.cargarPersona(persona)}"
+									update="@form" />
+							</p:column>
 						</p:dataTable>
 					</p:panel>
+					<p:dialog header="Registrar Baja" widgetVar="infBaja" id="infBaja"
+						modal="true" position="center" showEffect="fade" hideEffect="fade"
+						resizable="false" width="50%">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Fecha Baja" />
+							<p:calendar pattern="dd/MM/yyyy"
+								value="#{controladorPersonal.objGesPersona.fechaBaja}"
+								mask="99/99/9999" locale="es" maxdate="today" />
+						</p:panelGrid>
+						<p:commandButton value="Ingresar"
+							actionListener="#{controladorPersonal.registrarBaja()}"
+							update="@form">
+							<p:confirm header="Confirmación"
+								message="Desea registrar la baja?"
+								icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Si" type="button"
+								styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+					</p:dialog>
 				</h:form>
 			</div>
 		</div>

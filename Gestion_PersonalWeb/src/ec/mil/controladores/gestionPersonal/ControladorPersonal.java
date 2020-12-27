@@ -47,7 +47,7 @@ public class ControladorPersonal{
 	private List<AcaPersonasCurso> lstAcaPersonasCurso;
 	private AcaTituloPersona objAcaTituloPersona;
 	private List<AcaTituloPersona> lstAcaTituloPersona;
-	private boolean busqueda;
+	private boolean busqueda, editar;
 	
 
 	/**
@@ -63,11 +63,21 @@ public class ControladorPersonal{
 		objAcaTituloPersona.setAcaTitulo(new AcaTitulo());
 		objAcaTituloPersona.setGesPersona(new GesPersona());
 		busqueda =false;
+		editar= false;
 		try {
 			lstAcaTituloPersona = managerGestionPersonal.findAllAcaTituloPersona();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
+	}
+	
+	public void cargarPersona( GesPersona objPersonaAux ) {
+		objGesPersona= objPersonaAux;
+		editar = true;
+	}
+	
+	public void registrarBaja() {
+		ingresarPersona();
 	}
 	
 	public void inicializarAcaPersonasCurso()
@@ -255,9 +265,12 @@ public class ControladorPersonal{
 			objGesPersona.setApellido(ModelUtil.cambiarMayusculas( objGesPersona.getApellido()));
 			objGesPersona.setNombre(ModelUtil.cambiarMayusculas(objGesPersona.getNombre()));
 			objGesPersona.setCorreo(ModelUtil.cambiarMinusculas(objGesPersona.getCorreo()));
-			managerGestionPersonal.ingresarPersona(objGesPersona);
-			/*managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPersona",
-					"Se ingreso persona id " + objGesPersona.getCedula());*/
+			if (editar) 
+				managerGestionPersonal.actualizarPersona(objGesPersona);
+			else
+				managerGestionPersonal.ingresarPersona(objGesPersona);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPersona",
+					"Se ingreso persona id " + objGesPersona.getCedula());
 			JSFUtil.crearMensajeINFO("Mensaje", "Ingreso Correcto.");
 			inicializarPersona();
 		} catch (Exception e) {

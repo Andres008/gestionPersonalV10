@@ -1,5 +1,6 @@
 package ec.mil.model.modulos.gestioPersonal;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -98,12 +99,16 @@ public class ManagerGestionPersonal {
 
 	public GesPersona buscarPersonaByCedula(String cedula) throws Exception {
 		try {
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 			GesPersona v_persona = (GesPersona) managerDAOGestionPersonal.findById(GesPersona.class, cedula);
 			if (v_persona == null)
-				throw new Exception("Atenci�n, persona no existe.");
+				throw new Exception("Atención, persona no existe.");
+			if (v_persona.getFechaBaja() != null)
+				throw new Exception(
+						"Personal en servicio pasivo desde " + formatoFecha.format(v_persona.getFechaBaja()));
 			return v_persona;
 		} catch (Exception e) {
-			throw new Exception("Persona no registrada.");
+			throw new Exception(e.getMessage());
 		}
 	}
 
@@ -152,55 +157,55 @@ public class ManagerGestionPersonal {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<AutPerfile> findAllPerfil() throws Exception{
+	public List<AutPerfile> findAllPerfil() throws Exception {
 		try {
-			 List<AutPerfile> lstAutPerfile =
-			 managerDAOGestionPersonal.findAll(AutPerfile.class, " o.autMenu.nombre ASC,o.estado ASC, o.nombre ASC");
-			 lstAutPerfile.forEach(perfil->{
-				 perfil.getAutRolPerfils().forEach(rol->{
-					 rol.getAutRole().getId();
-				 });
-			 });
-			 return lstAutPerfile;
+			List<AutPerfile> lstAutPerfile = managerDAOGestionPersonal.findAll(AutPerfile.class,
+					" o.autMenu.nombre ASC,o.estado ASC, o.nombre ASC");
+			lstAutPerfile.forEach(perfil -> {
+				perfil.getAutRolPerfils().forEach(rol -> {
+					rol.getAutRole().getId();
+				});
+			});
+			return lstAutPerfile;
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Perfiles");
 		}
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<AutPerfile> findAllPerfilActivos() throws Exception{
+	public List<AutPerfile> findAllPerfilActivos() throws Exception {
 		try {
-			 List<AutPerfile> lstAutPerfile =
-			 managerDAOGestionPersonal.findWhere(AutPerfile.class, "o.estado='A'"," o.autMenu.nombre ASC,o.estado ASC, o.nombre ASC");
-			 lstAutPerfile.forEach(perfil->{
-				 perfil.getAutRolPerfils().forEach(rol->{
-					 rol.getAutRole().getId();
-				 });
-			 });
-			 return lstAutPerfile;
+			List<AutPerfile> lstAutPerfile = managerDAOGestionPersonal.findWhere(AutPerfile.class, "o.estado='A'",
+					" o.autMenu.nombre ASC,o.estado ASC, o.nombre ASC");
+			lstAutPerfile.forEach(perfil -> {
+				perfil.getAutRolPerfils().forEach(rol -> {
+					rol.getAutRole().getId();
+				});
+			});
+			return lstAutPerfile;
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Perfiles");
 		}
-		
+
 	}
 
 	public void ingresarPerfil(AutPerfile objAutPerfile) throws Exception {
 		try {
 			managerDAOGestionPersonal.insertar(objAutPerfile);
 		} catch (Exception e) {
-			throw new Exception("Error al insertar perfil. "+e.getMessage());
+			throw new Exception("Error al insertar perfil. " + e.getMessage());
 		}
-		
+
 	}
 
 	public void ingresarMenu(AutMenu objAutMenu) throws Exception {
 		try {
 			managerDAOGestionPersonal.actualizar(objAutMenu);
 		} catch (Exception e) {
-			throw new Exception("Error al ingresar Menú. "+e.getMessage());
+			throw new Exception("Error al ingresar Menú. " + e.getMessage());
 		}
-		
+
 	}
 
 	public void actualizarAutPerfil(AutPerfile perfil) throws Exception {
@@ -209,21 +214,21 @@ public class ManagerGestionPersonal {
 		} catch (Exception e) {
 			throw new Exception("Error al actualizar ");
 		}
-		
+
 	}
 
 	public void ingresarRolPerfil(AutRolPerfil objRolPerfil) throws Exception {
 		managerDAOGestionPersonal.insertar(objRolPerfil);
-		
+
 	}
 
 	public void actualizarRolPerfil(AutRolPerfil rolPerfil) throws Exception {
 		try {
 			managerDAOGestionPersonal.actualizar(rolPerfil);
 		} catch (Exception e) {
-			throw new Exception("Error al actualizar Rol perfil. "+e.getMessage());			
+			throw new Exception("Error al actualizar Rol perfil. " + e.getMessage());
 		}
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -235,18 +240,18 @@ public class ManagerGestionPersonal {
 		try {
 			managerDAOGestionPersonal.insertar(objGesDependencia);
 		} catch (Exception e) {
-			throw new Exception("Error al insertar Dependencia. "+e.getMessage());
+			throw new Exception("Error al insertar Dependencia. " + e.getMessage());
 		}
-		
+
 	}
 
 	public void ingresarRegion(GesRegione objGesRegione) throws Exception {
 		try {
 			managerDAOGestionPersonal.insertar(objGesRegione);
 		} catch (Exception e) {
-			throw new Exception("Error al insertar Region. "+e.getMessage());
+			throw new Exception("Error al insertar Region. " + e.getMessage());
 		}
-		
+
 	}
 
 	public List<GesRegione> buscarRegionesActivas() throws Exception {
@@ -255,12 +260,21 @@ public class ManagerGestionPersonal {
 
 	public void ingresarReparto(GesReparto objGesReparto) throws Exception {
 		managerDAOGestionPersonal.insertar(objGesReparto);
-		
+
 	}
 
 	public List<GesReparto> buscarRepartoActivo() throws Exception {
 		// TODO Auto-generated method stub
 		return managerDAOGestionPersonal.findWhere(GesReparto.class, "o.estado='A'", "o.nombre ASC");
+	}
+
+	public void actualizarPersona(GesPersona objGesPersona) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(objGesPersona);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar persona: " + objGesPersona.getCedula());
+		}
+
 	}
 
 }

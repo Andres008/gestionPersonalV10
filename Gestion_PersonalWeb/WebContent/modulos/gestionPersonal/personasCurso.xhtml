@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controllerPersonal.inicializarAcaPersonasCurso()}"
+<body onload="#{controladorPersonal.inicializarAcaPersonasCurso()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -83,39 +83,39 @@
 							<p:outputLabel value="Ingrese cedula" />
 							<p:panelGrid columns="2">
 								<p:inputMask
-									value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.cedula}" />
+									value="#{controladorPersonal.objAcaPersonasCurso.gesPersona.cedula}" />
 								<p:commandButton icon="ui-icon-search"
-									actionListener="#{controllerPersonal.buscarPersona()}"
+									actionListener="#{controladorPersonal.buscarPersona()}"
 									update="@form" />
 							</p:panelGrid>
 							<p:outputLabel value="Grado"
-								rendered="#{controllerPersonal.busqueda}" />
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.gesGrado.grado}"
-								rendered="#{controllerPersonal.busqueda}" />
+								value="#{controladorPersonal.objAcaPersonasCurso.gesPersona.gesGrado.grado}"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel value="Apellido"
-								rendered="#{controllerPersonal.busqueda}" />
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.apellido}"
-								rendered="#{controllerPersonal.busqueda}" />
+								value="#{controladorPersonal.objAcaPersonasCurso.gesPersona.apellido}"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel value="Nombre"
-								rendered="#{controllerPersonal.busqueda}" />
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controllerPersonal.objAcaPersonasCurso.gesPersona.nombre}"
-								rendered="#{controllerPersonal.busqueda}" />
+								value="#{controladorPersonal.objAcaPersonasCurso.gesPersona.nombre}"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel value="Buscar Curso"
-								rendered="#{controllerPersonal.busqueda}" />
-							<p:panelGrid styleClass="ui-noborder" columns="2" rendered="#{controllerPersonal.busqueda}">
-								<p:outputLabel value="#{controllerPersonal.objAcaPersonasCurso.acaCurso.nombre}" />
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:panelGrid styleClass="ui-noborder" columns="2" rendered="#{controladorPersonal.busqueda}">
+								<p:outputLabel value="#{controladorPersonal.objAcaPersonasCurso.acaCurso.nombre}" />
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
-							rendered="#{controllerPersonal.busqueda}" actionListener="#{controllerPersonal.ingresarCursoPersona()}" update="@form" />
+							rendered="#{controladorPersonal.busqueda}" actionListener="#{controladorPersonal.ingresarCursoPersona()}" update="@form" />
 					</p:panel>
 					<p:panel header="Usuarios Ingresados">
-						<p:dataTable value="#{controllerPersonal.lstAcaPersonasCurso}"
+						<p:dataTable value="#{controladorPersonal.lstAcaPersonasCurso}"
 							var="usuario">
 							<p:column headerText="Id Usuario">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
@@ -137,7 +137,7 @@
 					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"
 							modal="true" position="top" showEffect="fade" hideEffect="fade"
 							resizable="false" width="1100">
-								<p:dataTable value="#{controllerPersonal.listAcaCursoActivo}"
+								<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}"
 									var="curso">
 									<p:column headerText="Curso">
 										<p:outputLabel value="#{curso.nombre}" />
@@ -150,7 +150,7 @@
 									</p:column>
 									<p:column headerText="Seleccionar">
 										<p:commandButton icon="	ui-icon-check"
-											actionListener="#{controllerPersonal.cargarCursoSeleccion(curso)}"
+											actionListener="#{controladorPersonal.cargarCursoSeleccion(curso)}"
 											update="@form" />
 									</p:column>
 								</p:dataTable>
