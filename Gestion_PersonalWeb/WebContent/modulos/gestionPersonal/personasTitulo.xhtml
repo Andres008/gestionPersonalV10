@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controllerPersonal.inicializarTituloPersona()}"
+<body onload="#{controladorPersonal.inicializarTituloPersona()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -83,50 +83,50 @@
 							<p:outputLabel value="Ingrese cedula" />
 							<p:panelGrid columns="2">
 								<p:inputMask
-									value="#{controllerPersonal.objAcaTituloPersona.gesPersona.cedula}" />
+									value="#{controladorPersonal.objAcaTituloPersona.gesPersona.cedula}" />
 								<p:commandButton icon="ui-icon-search"
-									actionListener="#{controllerPersonal.buscarPersonaTitulo()}"
+									actionListener="#{controladorPersonal.buscarPersonaTitulo()}"
 									update="@form" />
 							</p:panelGrid>
 							<p:outputLabel value="Grado"
-								rendered="#{controllerPersonal.busqueda}" />
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controllerPersonal.objAcaTituloPersona.gesPersona.gesGrado.grado}"
-								rendered="#{controllerPersonal.busqueda}" />
+								value="#{controladorPersonal.objAcaTituloPersona.gesPersona.gesGrado.grado}"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel value="Apellido"
-								rendered="#{controllerPersonal.busqueda}" />
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controllerPersonal.objAcaTituloPersona.gesPersona.apellido}"
-								rendered="#{controllerPersonal.busqueda}" />
+								value="#{controladorPersonal.objAcaTituloPersona.gesPersona.apellido}"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel value="Nombre"
-								rendered="#{controllerPersonal.busqueda}" />
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controllerPersonal.objAcaTituloPersona.gesPersona.nombre}"
-								rendered="#{controllerPersonal.busqueda}" />
+								value="#{controladorPersonal.objAcaTituloPersona.gesPersona.nombre}"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel value="Buscar Título"
-								rendered="#{controllerPersonal.busqueda}" />
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:panelGrid styleClass="ui-noborder" columns="2"
-								rendered="#{controllerPersonal.busqueda}">
+								rendered="#{controladorPersonal.busqueda}">
 								<p:outputLabel
-									value="#{controllerPersonal.objAcaTituloPersona.acaTitulo.titulo}" />
+									value="#{controladorPersonal.objAcaTituloPersona.acaTitulo.titulo}" />
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
 							<p:outputLabel value="Fecha Registro" 
-								rendered="#{controllerPersonal.busqueda}" />
-							<p:calendar rendered="#{controllerPersonal.busqueda}" locale="es" pattern="dd/MM/yyyy"
-								value="#{controllerPersonal.objAcaTituloPersona.fechaRefrendacion}" />
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:calendar rendered="#{controladorPersonal.busqueda}" locale="es" pattern="dd/MM/yyyy"
+								value="#{controladorPersonal.objAcaTituloPersona.fechaRefrendacion}" />
 							<p:outputLabel value="Registro"
-								rendered="#{controllerPersonal.busqueda}" />
-								<p:inputText value="#{controllerPersonal.objAcaTituloPersona.codigoRegistro}" rendered="#{controllerPersonal.busqueda}"/>
+								rendered="#{controladorPersonal.busqueda}" />
+								<p:inputText value="#{controladorPersonal.objAcaTituloPersona.codigoRegistro}" rendered="#{controladorPersonal.busqueda}"/>
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
-							rendered="#{controllerPersonal.busqueda}"
-							actionListener="#{controllerPersonal.ingresarTituloPersona()}"
+							rendered="#{controladorPersonal.busqueda}"
+							actionListener="#{controladorPersonal.ingresarTituloPersona()}"
 							update="@form" />
 					</p:panel>
 					<p:panel header="Título Persona Ingresados">
-						<p:dataTable value="#{controllerPersonal.lstAcaTituloPersona}" emptyMessage="No existen registros"
+						<p:dataTable value="#{controladorPersonal.lstAcaTituloPersona}" emptyMessage="No existen registros"
 							var="usuario">
 							<p:column headerText="Cédula">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
@@ -155,7 +155,7 @@
 					<p:dialog header="Títulos" widgetVar="infCurso" id="inf"
 						modal="true" position="top" showEffect="fade" hideEffect="fade"
 						resizable="false" width="1100">
-						<p:dataTable value="#{controllerPersonal.listAcaTituloActivo}"
+						<p:dataTable value="#{controladorPersonal.listAcaTituloActivo}"
 							var="curso">
 							<p:column headerText="Título">
 								<p:outputLabel value="#{curso.titulo}" />
@@ -168,7 +168,7 @@
 							</p:column>
 							<p:column headerText="Seleccionar">
 								<p:commandButton icon="	ui-icon-check"
-									actionListener="#{controllerPersonal.cargarTituloSeleccion(curso)}"
+									actionListener="#{controladorPersonal.cargarTituloSeleccion(curso)}"
 									update="@form" />
 							</p:column>
 						</p:dataTable>
