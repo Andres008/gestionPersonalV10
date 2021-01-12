@@ -74,8 +74,7 @@ public class ControladorPersonal {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
 	}
-	
-	
+
 	public void inicializarRepartoPersona() {
 		try {
 			objGesDependenciaPersona = new GesDependenciaPersona();
@@ -138,7 +137,7 @@ public class ControladorPersonal {
 	public void cargarTituloSeleccion(AcaTitulo acaTituloSel) {
 		objAcaTituloPersona.setAcaTitulo(acaTituloSel);
 	}
-	
+
 	public void cargarDependenciaSeleccion(GesDependencia gesDependenciaSel) {
 		objGesDependenciaPersona.setGesDependencia(gesDependenciaSel);
 	}
@@ -176,7 +175,7 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void buscarPersonaDependencia() {
 		try {
 			String cedula = objGesDependenciaPersona.getGesPersona().getCedula();
@@ -224,9 +223,15 @@ public class ControladorPersonal {
 					e.getMessage());
 		}
 	}
-	
+
 	public void ingresarDependenciaPersona() {
 		try {
+			for (GesDependenciaPersona pase : managerGestionPersonal
+					.buscarDependenciaPersonaActiva(objGesDependenciaPersona.getGesPersona().getCedula())) {
+				pase.setFechaFinal(ModelUtil.getSumarDias(objGesDependenciaPersona.getFechaInicial(), -1));
+				managerGestionPersonal.actualizarGesDependenciaPersona(pase);
+			}
+			objGesDependenciaPersona.setEstado("A");
 			managerGestionPersonal.ingresarDependenciaPersona(objGesDependenciaPersona);
 			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
 			inicializarRepartoPersona();
@@ -234,9 +239,9 @@ public class ControladorPersonal {
 					"Se ingreso titulo persona: " + objGesDependenciaPersona.getId());
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
-			e.printStackTrace();
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
 					e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -259,8 +264,8 @@ public class ControladorPersonal {
 			return null;
 		}
 	}
-	
-	public List<GesDependencia> getListGesDependencia(){
+
+	public List<GesDependencia> getListGesDependencia() {
 		try {
 			return managerGestionPersonal.findDependenciasActivo();
 		} catch (Exception e) {

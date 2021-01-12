@@ -316,4 +316,22 @@ public class ManagerGestionPersonal {
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<GesDependenciaPersona> buscarDependenciaPersonaActiva(String cedula) throws Exception {
+		try {
+			return managerDAOGestionPersonal.findWhere(GesDependenciaPersona.class, "o.gesPersona.cedula ='"+cedula+"' and o.estado ='A'", null) ;
+		} catch (Exception e) {
+			throw new Exception("Error al buscar Pase activo.");
+		}
+	}
+
+	public void actualizarGesDependenciaPersona(GesDependenciaPersona pase) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(pase);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar pase.");
+		}
+		
+	}
+
 }
