@@ -19,6 +19,8 @@ import ec.mil.model.dao.entidades.AcaCurso;
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaTitulo;
 import ec.mil.model.dao.entidades.AcaTituloPersona;
+import ec.mil.model.dao.entidades.GesDependencia;
+import ec.mil.model.dao.entidades.GesDependenciaPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -50,12 +52,14 @@ public class ControladorPersonal {
 	private AcaTituloPersona objAcaTituloPersona;
 	private List<AcaTituloPersona> lstAcaTituloPersona;
 	private boolean busqueda, editar;
+	private GesDependenciaPersona objGesDependenciaPersona;
+	private List<GesDependenciaPersona> lstGesDependenciaPersona;
 
 	/**
 	 * 
 	 */
 	public ControladorPersonal() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public void inicializarTituloPersona() {
@@ -68,6 +72,21 @@ public class ControladorPersonal {
 			lstAcaTituloPersona = managerGestionPersonal.findAllAcaTituloPersona();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+		}
+	}
+	
+	
+	public void inicializarRepartoPersona() {
+		try {
+			objGesDependenciaPersona = new GesDependenciaPersona();
+			objGesDependenciaPersona.setGesPersona(new GesPersona());
+			objGesDependenciaPersona.setGesDependencia(new GesDependencia());
+			busqueda = false;
+			editar = false;
+			lstGesDependenciaPersona = managerGestionPersonal.findAllGesDependenciaPersonal();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -119,6 +138,10 @@ public class ControladorPersonal {
 	public void cargarTituloSeleccion(AcaTitulo acaTituloSel) {
 		objAcaTituloPersona.setAcaTitulo(acaTituloSel);
 	}
+	
+	public void cargarDependenciaSeleccion(GesDependencia gesDependenciaSel) {
+		objGesDependenciaPersona.setGesDependencia(gesDependenciaSel);
+	}
 
 	public void buscarPersona() {
 		try {
@@ -142,6 +165,23 @@ public class ControladorPersonal {
 			String cedula = objAcaTituloPersona.getGesPersona().getCedula();
 			inicializarTituloPersona();
 			objAcaTituloPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			busqueda = true;
+		} catch (Exception e) {
+			inicializarTituloPersona();
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			/*
+			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
+			 * "inicializarUsuario", e.getMessage());
+			 */
+			e.printStackTrace();
+		}
+	}
+	
+	public void buscarPersonaDependencia() {
+		try {
+			String cedula = objGesDependenciaPersona.getGesPersona().getCedula();
+			inicializarTituloPersona();
+			objGesDependenciaPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarTituloPersona();
@@ -184,6 +224,21 @@ public class ControladorPersonal {
 					e.getMessage());
 		}
 	}
+	
+	public void ingresarDependenciaPersona() {
+		try {
+			managerGestionPersonal.ingresarDependenciaPersona(objGesDependenciaPersona);
+			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
+			inicializarRepartoPersona();
+			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
+					"Se ingreso titulo persona: " + objGesDependenciaPersona.getId());
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
+					e.getMessage());
+		}
+	}
 
 	public List<AcaCurso> getListAcaCursoActivo() {
 		try {
@@ -198,6 +253,16 @@ public class ControladorPersonal {
 	public List<AcaTitulo> getListAcaTituloActivo() {
 		try {
 			return managerGestionCurso.findTituloActivo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<GesDependencia> getListGesDependencia(){
+		try {
+			return managerGestionPersonal.findDependenciasActivo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
@@ -374,6 +439,22 @@ public class ControladorPersonal {
 
 	public void setLstAcaTituloPersona(List<AcaTituloPersona> lstAcaTituloPersona) {
 		this.lstAcaTituloPersona = lstAcaTituloPersona;
+	}
+
+	public GesDependenciaPersona getObjGesDependenciaPersona() {
+		return objGesDependenciaPersona;
+	}
+
+	public void setObjGesDependenciaPersona(GesDependenciaPersona objGesDependenciaPersona) {
+		this.objGesDependenciaPersona = objGesDependenciaPersona;
+	}
+
+	public List<GesDependenciaPersona> getLstGesDependenciaPersona() {
+		return lstGesDependenciaPersona;
+	}
+
+	public void setLstGesDependenciaPersona(List<GesDependenciaPersona> lstGesDependenciaPersona) {
+		this.lstGesDependenciaPersona = lstGesDependenciaPersona;
 	}
 
 }

@@ -14,6 +14,7 @@ import ec.mil.model.dao.entidades.AutPerfile;
 import ec.mil.model.dao.entidades.AutRolPerfil;
 import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.GesDependencia;
+import ec.mil.model.dao.entidades.GesDependenciaPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
@@ -287,6 +288,32 @@ public class ManagerGestionPersonal {
 	@SuppressWarnings("unchecked")
 	public List<GesPromocion> buscarPromocionByGrado(GesTipoGrado gesTipoGrado) throws Exception {
 		return managerDAOGestionPersonal.findWhere(GesPromocion.class, "o.gesTipoGrado.id="+gesTipoGrado.getId(), "o.promocion ASC");
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesDependenciaPersona> findAllGesDependenciaPersonal() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(GesDependenciaPersona.class, "o.gesDependencia.id ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar GesDependenciaPersona. "+e.getMessage());
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<GesDependencia> findDependenciasActivo() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findWhere(GesDependencia.class, "o.estado='A'", "o.nombre");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar dependencias activas. "+e.getMessage());
+		}
+	}
+	public void ingresarDependenciaPersona(GesDependenciaPersona objGesDependenciaPersona) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objGesDependenciaPersona);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar pase persona. "+e.getMessage());
+		}
+		
 	}
 
 }
