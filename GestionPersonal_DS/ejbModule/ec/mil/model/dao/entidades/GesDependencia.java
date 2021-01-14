@@ -17,7 +17,7 @@ public class GesDependencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GES_DEPENDENCIAS_ID_GENERATOR", sequenceName="SEQ_GES_DEPENDENCIAS")
+	@SequenceGenerator(name="GES_DEPENDENCIAS_ID_GENERATOR", sequenceName="SEQ_GES_DEPENDENCIAS", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GES_DEPENDENCIAS_ID_GENERATOR")
 	private long id;
 

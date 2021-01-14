@@ -16,7 +16,7 @@ public class GesEstimuloPersona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GES_ESTIMULO_PERSONAS_ID_GENERATOR", sequenceName="SEQ_GES_ESTIMULO_PERSONAS")
+	@SequenceGenerator(name="GES_ESTIMULO_PERSONAS_ID_GENERATOR", sequenceName="SEQ_GES_ESTIMULO_PERSONAS", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GES_ESTIMULO_PERSONAS_ID_GENERATOR")
 	private long id;
 

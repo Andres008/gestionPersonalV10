@@ -16,6 +16,8 @@ import ec.mil.model.dao.entidades.AutRole;
 import ec.mil.model.dao.entidades.GesDependencia;
 import ec.mil.model.dao.entidades.GesDependenciaPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
+import ec.mil.model.dao.entidades.GesEstimulo;
+import ec.mil.model.dao.entidades.GesEstimuloPersona;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.entidades.GesPromocion;
@@ -287,7 +289,8 @@ public class ManagerGestionPersonal {
 
 	@SuppressWarnings("unchecked")
 	public List<GesPromocion> buscarPromocionByGrado(GesTipoGrado gesTipoGrado) throws Exception {
-		return managerDAOGestionPersonal.findWhere(GesPromocion.class, "o.gesTipoGrado.id="+gesTipoGrado.getId(), "o.promocion ASC");
+		return managerDAOGestionPersonal.findWhere(GesPromocion.class, "o.gesTipoGrado.id=" + gesTipoGrado.getId(),
+				"o.promocion ASC");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -295,31 +298,33 @@ public class ManagerGestionPersonal {
 		try {
 			return managerDAOGestionPersonal.findAll(GesDependenciaPersona.class, "o.gesDependencia.id ASC");
 		} catch (Exception e) {
-			throw new Exception("Error al buscar GesDependenciaPersona. "+e.getMessage());
+			throw new Exception("Error al buscar GesDependenciaPersona. " + e.getMessage());
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<GesDependencia> findDependenciasActivo() throws Exception {
 		try {
 			return managerDAOGestionPersonal.findWhere(GesDependencia.class, "o.estado='A'", "o.nombre");
 		} catch (Exception e) {
-			throw new Exception("Error al buscar dependencias activas. "+e.getMessage());
+			throw new Exception("Error al buscar dependencias activas. " + e.getMessage());
 		}
 	}
+
 	public void ingresarDependenciaPersona(GesDependenciaPersona objGesDependenciaPersona) throws Exception {
 		try {
 			managerDAOGestionPersonal.insertar(objGesDependenciaPersona);
 		} catch (Exception e) {
-			throw new Exception("Error al ingresar pase persona. "+e.getMessage());
+			throw new Exception("Error al ingresar pase persona. " + e.getMessage());
 		}
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<GesDependenciaPersona> buscarDependenciaPersonaActiva(String cedula) throws Exception {
 		try {
-			return managerDAOGestionPersonal.findWhere(GesDependenciaPersona.class, "o.gesPersona.cedula ='"+cedula+"' and o.estado ='A'", null) ;
+			return managerDAOGestionPersonal.findWhere(GesDependenciaPersona.class,
+					"o.gesPersona.cedula ='" + cedula + "' and o.estado ='A'", null);
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Pase activo.");
 		}
@@ -331,7 +336,86 @@ public class ManagerGestionPersonal {
 		} catch (Exception e) {
 			throw new Exception("Error al actualizar pase.");
 		}
+
+	}
+
+	public void ingresarGesTipoEstimulo(GesTipoEstimulo objGesTipoEstimulo) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objGesTipoEstimulo);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar Tipo Estimulo. "+e.getMessage());
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesTipoEstimulo> buscarTodoGesTipoEstimulo() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(GesTipoEstimulo.class, "o.nombre ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar GesTipoEstimulo. "+e.getMessage());
+		}
+	}
+
+	public void actualizarTipoEstimulo(GesTipoEstimulo object) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(object);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar Tipo Estimulo." + e.getMessage());
+		}
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesEstimulo> buscarAllEstimulos() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(GesEstimulo.class, "o.nombre") ;
+		} catch (Exception e) {
+			throw new Exception("Error al buscar GesEstimulo. "+e.getMessage());
+		}
+	}
+
+	public List<GesTipoEstimulo> buscarTipoEstimuloActivo() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findWhere(GesTipoEstimulo.class, "o.estado='A'", "o.nombre ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar Tipo Estimulo Activo. "+e.getMessage());
+		}
+	}
+
+	public void ingresarGesEstimulo(GesEstimulo objGesEstimulo) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objGesEstimulo);
+		} catch (Exception e) {
+			throw new Exception("Error al insertar Estimulo. "+e.getMessage());
+		}
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesEstimuloPersona> buscarAllEstimuloPersona() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findAll(GesEstimuloPersona.class, "o.id ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al nuscar Estimulo Persona. "+e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesEstimulo> buscarAllEstimulosActivo() throws Exception {
+		try {
+			return managerDAOGestionPersonal.findWhere(GesEstimulo.class, "o.estado='A'", "o.nombre ASC");
+		} catch (Exception e) {
+			throw new Exception("Error al buscar Estimulos. "+e.getMessage());
+		}
+	}
+
+	public void ingresarEstimuloPersona(GesEstimuloPersona objGesEstimuloPersona) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(objGesEstimuloPersona);
+		} catch (Exception e) {
+			throw new Exception("Error al ingresar Estimulo Persona. "+e.getMessage());
+		}
 	}
 
 }

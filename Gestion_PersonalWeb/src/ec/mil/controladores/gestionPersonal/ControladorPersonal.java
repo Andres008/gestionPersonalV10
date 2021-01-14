@@ -22,6 +22,8 @@ import ec.mil.model.dao.entidades.AcaTituloPersona;
 import ec.mil.model.dao.entidades.GesDependencia;
 import ec.mil.model.dao.entidades.GesDependenciaPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
+import ec.mil.model.dao.entidades.GesEstimulo;
+import ec.mil.model.dao.entidades.GesEstimuloPersona;
 import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.entidades.GesPromocion;
@@ -54,6 +56,10 @@ public class ControladorPersonal {
 	private boolean busqueda, editar;
 	private GesDependenciaPersona objGesDependenciaPersona;
 	private List<GesDependenciaPersona> lstGesDependenciaPersona;
+	private GesEstimuloPersona objGesEstimuloPersona;
+	private List<GesEstimuloPersona> lstGesEstimuloPersona;
+	
+	
 
 	/**
 	 * 
@@ -87,6 +93,19 @@ public class ControladorPersonal {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	public void inicializarEstimuloPersona() {
+		objGesEstimuloPersona = new GesEstimuloPersona();
+		objGesEstimuloPersona.setGesPersona(new GesPersona());
+		objGesEstimuloPersona.setGesEstimulo(new GesEstimulo());
+		try {
+			lstGesEstimuloPersona= managerGestionPersonal.buscarAllEstimuloPersona();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error",e.getMessage());
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void cargarPersona(GesPersona objPersonaAux) {
@@ -141,6 +160,10 @@ public class ControladorPersonal {
 	public void cargarDependenciaSeleccion(GesDependencia gesDependenciaSel) {
 		objGesDependenciaPersona.setGesDependencia(gesDependenciaSel);
 	}
+	
+	public void cargarEstimuloSeleccion(GesEstimulo gesEstimuloSel) {
+		objGesEstimuloPersona.setGesEstimulo(gesEstimuloSel);
+	}
 
 	public void buscarPersona() {
 		try {
@@ -184,6 +207,23 @@ public class ControladorPersonal {
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarTituloPersona();
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			/*
+			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
+			 * "inicializarUsuario", e.getMessage());
+			 */
+			e.printStackTrace();
+		}
+	}
+	
+	public void buscarPersonaEstimulo() {
+		try {
+			String cedula = objGesEstimuloPersona.getGesPersona().getCedula();
+			inicializarTituloPersona();
+			objGesEstimuloPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			busqueda = true;
+		} catch (Exception e) {
+			inicializarEstimuloPersona();
 			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			/*
 			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
@@ -244,6 +284,23 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void ingresarEstimuloPersona() {
+		try {
+			objGesEstimuloPersona.setFechaRegistro(new Date());
+			managerGestionPersonal.ingresarEstimuloPersona(objGesEstimuloPersona);
+			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
+			inicializarEstimuloPersona();
+			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "objGesEstimuloPersona",
+					"Se ingreso titulo persona: " + objGesEstimuloPersona.getId());
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "objGesEstimuloPersona",
+					e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public List<AcaCurso> getListAcaCursoActivo() {
 		try {
@@ -268,6 +325,16 @@ public class ControladorPersonal {
 	public List<GesDependencia> getListGesDependencia() {
 		try {
 			return managerGestionPersonal.findDependenciasActivo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<GesEstimulo> getListGesEstimulo(){
+		try {
+			return managerGestionPersonal.buscarAllEstimulosActivo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
@@ -460,6 +527,22 @@ public class ControladorPersonal {
 
 	public void setLstGesDependenciaPersona(List<GesDependenciaPersona> lstGesDependenciaPersona) {
 		this.lstGesDependenciaPersona = lstGesDependenciaPersona;
+	}
+
+	public GesEstimuloPersona getObjGesEstimuloPersona() {
+		return objGesEstimuloPersona;
+	}
+
+	public void setObjGesEstimuloPersona(GesEstimuloPersona objGesEstimuloPersona) {
+		this.objGesEstimuloPersona = objGesEstimuloPersona;
+	}
+
+	public List<GesEstimuloPersona> getLstGesEstimuloPersona() {
+		return lstGesEstimuloPersona;
+	}
+
+	public void setLstGesEstimuloPersona(List<GesEstimuloPersona> lstGesEstimuloPersona) {
+		this.lstGesEstimuloPersona = lstGesEstimuloPersona;
 	}
 
 }

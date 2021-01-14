@@ -18,7 +18,7 @@ public class GesGrado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GES_GRADOS_ID_GENERATOR", sequenceName="SEQ_GES_GRADOS")
+	@SequenceGenerator(name="GES_GRADOS_ID_GENERATOR", sequenceName="SEQ_GES_GRADOS", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GES_GRADOS_ID_GENERATOR")
 	private long id;
 

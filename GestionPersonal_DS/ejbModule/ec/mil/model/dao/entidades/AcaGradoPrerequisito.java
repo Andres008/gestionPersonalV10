@@ -15,7 +15,7 @@ public class AcaGradoPrerequisito implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ACA_GRADO_PREREQUISITO_ID_GENERATOR", sequenceName="SEQ_ACA_GRADO_PREREQUISITO")
+	@SequenceGenerator(name="ACA_GRADO_PREREQUISITO_ID_GENERATOR", sequenceName="SEQ_ACA_GRADO_PREREQUISITO", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ACA_GRADO_PREREQUISITO_ID_GENERATOR")
 	private long id;
 

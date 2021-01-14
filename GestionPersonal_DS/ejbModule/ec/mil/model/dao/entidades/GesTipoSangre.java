@@ -17,7 +17,7 @@ public class GesTipoSangre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GES_TIPO_SANGRE_ID_GENERATOR", sequenceName="SEQ_GES_TIPO_SANGRE")
+	@SequenceGenerator(name="GES_TIPO_SANGRE_ID_GENERATOR", sequenceName="SEQ_GES_TIPO_SANGRE", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GES_TIPO_SANGRE_ID_GENERATOR")
 	private long id;
 

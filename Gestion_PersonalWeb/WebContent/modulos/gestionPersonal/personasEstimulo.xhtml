@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>GESTION PERSONAL</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día'
+    };
+</script>
+</h:head>
+<body onload="#{controladorPersonal.inicializarEstimuloPersona()}"
+	style="font-size: 70%">
+	<h:form id="statusBar">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../imagenes/espera.gif" />
+		</p:dialog>
+	</h:form>
+	<div id="div_menu" align="left"
+		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
+		<div id="logo" align="center">
+			<p:graphicImage url="/imagenes/bannerGestionPersonal.png" alt="COAD"
+				style="width:100%"></p:graphicImage>
+		</div>
+
+		<div align="center"
+			style="width: 99.9%; min-height: 99.9%; background-image:">
+			<div id="titulo_header"
+				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
+				<span>Sistema de Gestión de Personal - <h:outputText
+						value="correo" /></span>
+			</div>
+			<h:form style="width:100%;font-size:80%">
+
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<p:menubar style="font-size:12px;">
+					<f:facet name="options">
+						<p:commandButton value="Menu principal" icon="ui-icon-home"
+							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+							value="Salir" icon="ui-icon-extlink" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+			<div id="posicion" align="center">
+				<h:form id="principal">
+					<p:growl id="growl" showDetail="true" sticky="true" />
+					<p:panel header="Ingresar Estímulo Persona" toggleable="true"
+						collapsed="true">
+						<p:panelGrid columns="2" styleClass="ui-noborder">
+							<p:outputLabel value="Ingrese cedula" />
+							<p:panelGrid columns="2">
+								<p:inputMask
+									value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.cedula}" />
+								<p:commandButton icon="ui-icon-search"
+									actionListener="#{controladorPersonal.buscarPersonaEstimulo()}"
+									update="@form" />
+							</p:panelGrid>
+							<p:outputLabel value="Grado"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel
+								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.gesGrado.grado}"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel value="Apellido"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel
+								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.apellido}"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel value="Nombre"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel
+								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.nombre}"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel value="Buscar Dependencia"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:panelGrid styleClass="ui-noborder" columns="2"
+								rendered="#{controladorPersonal.busqueda}">
+								<p:outputLabel
+									value="#{controladorPersonal.objGesEstimuloPersona.gesEstimulo.nombre}" />
+								<p:commandButton icon="ui-icon-search"
+									oncomplete="PF('infCurso').show()" update="@form" />
+							</p:panelGrid>
+						</p:panelGrid>
+						<p:commandButton value="Ingresar"
+							rendered="#{controladorPersonal.busqueda}"
+							actionListener="#{controladorPersonal.ingresarDependenciaPersona()}"
+							update="@form" />
+					</p:panel>
+					<p:panel header="Pases Persona Ingresados">
+						<p:dataTable value="#{controladorPersonal.lstGesEstimuloPersona}"
+							emptyMessage="No existen registros" var="usuario">
+							<p:column headerText="Cédula">
+								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
+							</p:column>
+							<p:column headerText="Apellido">
+								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
+							</p:column>
+							<p:column headerText="Nombre">
+								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
+							</p:column>
+							<p:column headerText="Estimulo">
+								<p:outputLabel value="#{usuario.gesEstimulo.nombre}" />
+							</p:column>
+							<p:column headerText="Tipo Estimulo">
+								<p:outputLabel
+									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
+							</p:column>
+							<p:column headerText="Fecha">
+								<p:outputLabel value="#{usuario.fechaRegistro}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+					<p:dialog header="Títulos" widgetVar="infCurso" id="inf"
+						modal="true" position="top" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:dataTable value="#{controladorPersonal.listGesEstimulo}"
+							var="dependencia">
+							<p:column headerText="Nombre">
+								<p:outputLabel value="#{dependencia.nombre}" />
+							</p:column>
+							<p:column headerText="Descripción">
+								<p:outputLabel value="#{dependencia.descripcion}" />
+							</p:column>
+							<p:column headerText="Tipo Estimulo">
+								<p:outputLabel value="#{dependencia.gesTipoEstimulo.nombre}" />
+							</p:column>
+							<p:column headerText="Seleccionar">
+								<p:commandButton icon="	ui-icon-check"
+									actionListener="#{controladorPersonal.cargarEstimuloSeleccion(dependencia)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:dialog>
+				</h:form>
+
+			</div>
+		</div>
+		<div id="footer" align="center">
+			<div
+				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
+				<span>(c) Centro de Operaciones Aereas y Defensa - COAD.
+					#{beanLogin.anioActual()} - </span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

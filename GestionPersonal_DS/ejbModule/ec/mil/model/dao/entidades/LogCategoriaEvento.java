@@ -16,7 +16,7 @@ public class LogCategoriaEvento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="LOG_CATEGORIA_EVENTOS_ID_GENERATOR", sequenceName="SEQ_LOG_CATEGORIA_EVENTOS")
+	@SequenceGenerator(name="LOG_CATEGORIA_EVENTOS_ID_GENERATOR", sequenceName="SEQ_LOG_CATEGORIA_EVENTOS",allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LOG_CATEGORIA_EVENTOS_ID_GENERATOR")
 	private long id;
 
