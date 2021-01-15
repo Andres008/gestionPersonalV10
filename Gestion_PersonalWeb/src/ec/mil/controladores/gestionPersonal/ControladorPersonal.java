@@ -99,6 +99,7 @@ public class ControladorPersonal {
 		objGesEstimuloPersona = new GesEstimuloPersona();
 		objGesEstimuloPersona.setGesPersona(new GesPersona());
 		objGesEstimuloPersona.setGesEstimulo(new GesEstimulo());
+		busqueda = false;
 		try {
 			lstGesEstimuloPersona= managerGestionPersonal.buscarAllEstimuloPersona();
 		} catch (Exception e) {
