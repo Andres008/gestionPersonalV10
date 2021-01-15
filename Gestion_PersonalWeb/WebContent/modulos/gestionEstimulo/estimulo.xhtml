@@ -77,14 +77,15 @@
 					<p:panel header="Ingreso de Tipo Estimulo" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Tipo Estimulo" />
+							<p:outputLabel value="Tipo" />
+							<p:selectOneMenu
+								value="#{controladorEstimulo.objGesEstimulo.gesTipoEstimulo.id}">
+								<f:selectItem itemLabel="Seleccione Tipo Estimulo" />
+								<f:selectItems value="#{controladorEstimulo.siTipoEstimulos()}" />
+							</p:selectOneMenu>
+							<p:outputLabel value="Nombre" />
 							<p:inputText value="#{controladorEstimulo.objGesEstimulo.nombre}"
 								style="text-transform: uppercase" />
-							<p:outputLabel value="Tipo" />
-							<p:selectOneMenu value="#{controladorEstimulo.objGesEstimulo.gesTipoEstimulo.id}" >
-								<f:selectItem itemLabel="Seleccione Tipo Estimulo" />
-								<f:selectItems value="#{controladorEstimulo.siTipoEstimulos()}"/>
-							</p:selectOneMenu>
 							<p:outputLabel value="Descripción" />
 							<p:inputText
 								value="#{controladorEstimulo.objGesEstimulo.descripcion}"
@@ -124,6 +125,9 @@
 											label="Descripción" />
 									</f:facet>
 								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Tipo">
+								<p:outputLabel value="#{curso.gesTipoEstimulo.nombre}" />
 							</p:column>
 							<p:column headerText="Fecha Inicial">
 								<p:outputLabel value="#{curso.fechaInicial}">
