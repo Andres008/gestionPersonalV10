@@ -102,7 +102,7 @@ public class ManagerGestionPersonal {
 
 	}
 
-	public GesPersona buscarPersonaByCedula(String cedula) throws Exception {
+	public GesPersona buscarPersonaByCedulaActivo(String cedula) throws Exception {
 		try {
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 			GesPersona v_persona = (GesPersona) managerDAOGestionPersonal.findById(GesPersona.class, cedula);
@@ -111,6 +111,50 @@ public class ManagerGestionPersonal {
 			if (v_persona.getFechaBaja() != null)
 				throw new Exception(
 						"Personal en servicio pasivo desde " + formatoFecha.format(v_persona.getFechaBaja()));
+			//dummy Listado Cursos Persona
+			v_persona.getAcaPersonasCursos().forEach(curso->{
+				curso.getAcaCurso().getAcaTipoCurso().getDescripcion();
+			});
+			//dummy Listado Estimulo Persona
+			v_persona.getGesEstimuloPersonas().forEach(estimulo->{
+				
+				estimulo.getGesEstimulo().getDescripcion();
+				
+			});
+			//dummy Listado Pases Persona
+			v_persona.getGesDependenciaPersonas().forEach(estimulo->{
+				
+				estimulo.getGesDependencia().getDescripcion();
+				
+			});
+			return v_persona;
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	public GesPersona buscarPersonaByCedula(String cedula) throws Exception {
+		try {
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+			GesPersona v_persona = (GesPersona) managerDAOGestionPersonal.findById(GesPersona.class, cedula);
+			if (v_persona == null)
+				throw new Exception("Atención, persona no existe.");
+			//dummy Listado Cursos Persona
+			v_persona.getAcaPersonasCursos().forEach(curso->{
+				curso.getAcaCurso().getAcaTipoCurso().getDescripcion();
+			});
+			//dummy Listado Estimulo Persona
+			v_persona.getGesEstimuloPersonas().forEach(estimulo->{
+				
+				estimulo.getGesEstimulo().getDescripcion();
+				
+			});
+			//dummy Listado Pases Persona
+			v_persona.getGesDependenciaPersonas().forEach(estimulo->{
+				
+				estimulo.getGesDependencia().getDescripcion();
+				
+			});
 			return v_persona;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

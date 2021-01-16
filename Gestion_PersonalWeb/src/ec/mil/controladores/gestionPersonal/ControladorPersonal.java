@@ -149,6 +149,16 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
+	
+	public void inicializarAP7()
+	{
+		try {
+			objGesPersona = managerGestionPersonal.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void cargarCursoSeleccion(AcaCurso acaCursoSel) {
 		objAcaPersonasCurso.setAcaCurso(acaCursoSel);
@@ -170,7 +180,24 @@ public class ControladorPersonal {
 		try {
 			String cedula = objAcaPersonasCurso.getGesPersona().getCedula();
 			inicializarAcaPersonasCurso();
-			objAcaPersonasCurso.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			objAcaPersonasCurso.setGesPersona(managerGestionPersonal.buscarPersonaByCedulaActivo(cedula));
+			busqueda = true;
+		} catch (Exception e) {
+			inicializarAcaPersonasCurso();
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			/*
+			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
+			 * "inicializarUsuario", e.getMessage());
+			 */
+			e.printStackTrace();
+		}
+	}
+	
+	public void buscarPersonaAP7() {
+		try {
+			String cedula = objGesPersona.getCedula();
+			inicializarAcaPersonasCurso();
+			objGesPersona= managerGestionPersonal.buscarPersonaByCedula(cedula);
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarAcaPersonasCurso();
@@ -187,7 +214,7 @@ public class ControladorPersonal {
 		try {
 			String cedula = objAcaTituloPersona.getGesPersona().getCedula();
 			inicializarTituloPersona();
-			objAcaTituloPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			objAcaTituloPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedulaActivo(cedula));
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarTituloPersona();
@@ -204,7 +231,7 @@ public class ControladorPersonal {
 		try {
 			String cedula = objGesDependenciaPersona.getGesPersona().getCedula();
 			inicializarTituloPersona();
-			objGesDependenciaPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			objGesDependenciaPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedulaActivo(cedula));
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarTituloPersona();
@@ -221,7 +248,7 @@ public class ControladorPersonal {
 		try {
 			String cedula = objGesEstimuloPersona.getGesPersona().getCedula();
 			inicializarTituloPersona();
-			objGesEstimuloPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedula(cedula));
+			objGesEstimuloPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedulaActivo(cedula));
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarEstimuloPersona();
@@ -233,6 +260,8 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	public void ingresarCursoPersona() {
 		objAcaPersonasCurso.setFechaInicial(new Date());
