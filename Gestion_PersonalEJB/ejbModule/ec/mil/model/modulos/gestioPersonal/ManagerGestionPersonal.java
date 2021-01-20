@@ -19,6 +19,7 @@ import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesEstimulo;
 import ec.mil.model.dao.entidades.GesEstimuloPersona;
 import ec.mil.model.dao.entidades.GesGrado;
+import ec.mil.model.dao.entidades.GesGradosPersona;
 import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.entidades.GesPromocion;
 import ec.mil.model.dao.entidades.GesRegione;
@@ -111,49 +112,53 @@ public class ManagerGestionPersonal {
 			if (v_persona.getFechaBaja() != null)
 				throw new Exception(
 						"Personal en servicio pasivo desde " + formatoFecha.format(v_persona.getFechaBaja()));
-			//dummy Listado Cursos Persona
-			v_persona.getAcaPersonasCursos().forEach(curso->{
+			// dummy Listado Cursos Persona
+			v_persona.getAcaPersonasCursos().forEach(curso -> {
 				curso.getAcaCurso().getAcaTipoCurso().getDescripcion();
 			});
-			//dummy Listado Estimulo Persona
-			v_persona.getGesEstimuloPersonas().forEach(estimulo->{
-				
+			// dummy Listado Estimulo Persona
+			v_persona.getGesEstimuloPersonas().forEach(estimulo -> {
+
 				estimulo.getGesEstimulo().getDescripcion();
-				
+
 			});
-			//dummy Listado Pases Persona
-			v_persona.getGesDependenciaPersonas().forEach(estimulo->{
-				
+			// dummy Listado Pases Persona
+			v_persona.getGesDependenciaPersonas().forEach(estimulo -> {
+
 				estimulo.getGesDependencia().getDescripcion();
-				
+
 			});
 			return v_persona;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
+
 	public GesPersona buscarPersonaByCedula(String cedula) throws Exception {
 		try {
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 			GesPersona v_persona = (GesPersona) managerDAOGestionPersonal.findById(GesPersona.class, cedula);
 			if (v_persona == null)
 				throw new Exception("Atención, persona no existe.");
-			//dummy Listado Cursos Persona
-			v_persona.getAcaPersonasCursos().forEach(curso->{
+			// dummy Listado Cursos Persona
+			v_persona.getAcaPersonasCursos().forEach(curso -> {
 				curso.getAcaCurso().getAcaTipoCurso().getDescripcion();
 			});
-			//dummy Listado Estimulo Persona
-			v_persona.getGesEstimuloPersonas().forEach(estimulo->{
-				
+			// dummy Listado Estimulo Persona
+			v_persona.getGesEstimuloPersonas().forEach(estimulo -> {
+
 				estimulo.getGesEstimulo().getDescripcion();
-				
+
 			});
-			//dummy Listado Pases Persona
-			v_persona.getGesDependenciaPersonas().forEach(estimulo->{
-				
+			// dummy Listado Pases Persona
+			v_persona.getGesDependenciaPersonas().forEach(estimulo -> {
+
 				estimulo.getGesDependencia().getDescripcion();
-				
+
+			});
+			//dummy Litado Grados
+			v_persona.getGesGradosPersonas().forEach(grados->{
+				grados.getGesGrado().getGesTipoGrado().getDescripcion();
 			});
 			return v_persona;
 		} catch (Exception e) {
@@ -387,7 +392,7 @@ public class ManagerGestionPersonal {
 		try {
 			managerDAOGestionPersonal.insertar(objGesTipoEstimulo);
 		} catch (Exception e) {
-			throw new Exception("Error al ingresar Tipo Estimulo. "+e.getMessage());
+			throw new Exception("Error al ingresar Tipo Estimulo. " + e.getMessage());
 		}
 
 	}
@@ -397,7 +402,7 @@ public class ManagerGestionPersonal {
 		try {
 			return managerDAOGestionPersonal.findAll(GesTipoEstimulo.class, "o.nombre ASC");
 		} catch (Exception e) {
-			throw new Exception("Error al buscar GesTipoEstimulo. "+e.getMessage());
+			throw new Exception("Error al buscar GesTipoEstimulo. " + e.getMessage());
 		}
 	}
 
@@ -407,15 +412,15 @@ public class ManagerGestionPersonal {
 		} catch (Exception e) {
 			throw new Exception("Error al actualizar Tipo Estimulo." + e.getMessage());
 		}
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<GesEstimulo> buscarAllEstimulos() throws Exception {
 		try {
-			return managerDAOGestionPersonal.findAll(GesEstimulo.class, "o.nombre") ;
+			return managerDAOGestionPersonal.findAll(GesEstimulo.class, "o.nombre");
 		} catch (Exception e) {
-			throw new Exception("Error al buscar GesEstimulo. "+e.getMessage());
+			throw new Exception("Error al buscar GesEstimulo. " + e.getMessage());
 		}
 	}
 
@@ -423,7 +428,7 @@ public class ManagerGestionPersonal {
 		try {
 			return managerDAOGestionPersonal.findWhere(GesTipoEstimulo.class, "o.estado='A'", "o.nombre ASC");
 		} catch (Exception e) {
-			throw new Exception("Error al buscar Tipo Estimulo Activo. "+e.getMessage());
+			throw new Exception("Error al buscar Tipo Estimulo Activo. " + e.getMessage());
 		}
 	}
 
@@ -431,9 +436,9 @@ public class ManagerGestionPersonal {
 		try {
 			managerDAOGestionPersonal.insertar(objGesEstimulo);
 		} catch (Exception e) {
-			throw new Exception("Error al insertar Estimulo. "+e.getMessage());
+			throw new Exception("Error al insertar Estimulo. " + e.getMessage());
 		}
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -441,7 +446,7 @@ public class ManagerGestionPersonal {
 		try {
 			return managerDAOGestionPersonal.findAll(GesEstimuloPersona.class, "o.id ASC");
 		} catch (Exception e) {
-			throw new Exception("Error al nuscar Estimulo Persona. "+e.getMessage());
+			throw new Exception("Error al nuscar Estimulo Persona. " + e.getMessage());
 		}
 	}
 
@@ -450,7 +455,7 @@ public class ManagerGestionPersonal {
 		try {
 			return managerDAOGestionPersonal.findWhere(GesEstimulo.class, "o.estado='A'", "o.nombre ASC");
 		} catch (Exception e) {
-			throw new Exception("Error al buscar Estimulos. "+e.getMessage());
+			throw new Exception("Error al buscar Estimulos. " + e.getMessage());
 		}
 	}
 
@@ -458,8 +463,49 @@ public class ManagerGestionPersonal {
 		try {
 			managerDAOGestionPersonal.insertar(objGesEstimuloPersona);
 		} catch (Exception e) {
-			throw new Exception("Error al ingresar Estimulo Persona. "+e.getMessage());
+			throw new Exception("Error al ingresar Estimulo Persona. " + e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesGrado> buscarAllGrado() throws Exception {
+		return managerDAOGestionPersonal.findAll(GesGrado.class, "o.gesTipoGrado.id ASC, o.orden DESC");
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesTipoGrado> buscarTipoGradoActivo() throws Exception {
+		return managerDAOGestionPersonal.findWhere(GesTipoGrado.class, "o.estado='A'", "o.id ASC");
+	}
+
+	public void ingresarGrado(GesGrado objGesGrado) throws Exception {
+		managerDAOGestionPersonal.insertar(objGesGrado);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesGradosPersona> buscarAllGradoPersona() throws Exception {
+		return managerDAOGestionPersonal.findAll(GesGradosPersona.class,
+				"o.gesGrado.gesTipoGrado.id ASC, o.gesGrado.orden DESC");
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesGrado> buscarGradoByTipoOrden(GesGrado gesGrado) throws Exception {
+		return  managerDAOGestionPersonal.findWhere(GesGrado.class, "o.gesTipoGrado.id="+gesGrado.getGesTipoGrado().getId()+" and o.orden>"+gesGrado.getOrden(), "o.gesTipoGrado.id ASC, o.orden DESC") ;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesGradosPersona> buscarGradoPersonaActivo(String cedula) throws Exception {
+		return managerDAOGestionPersonal.findWhere(GesGradosPersona.class, "o.gesPersona.cedula='"+cedula+"' and o.estado='A'", null);
+	}
+
+	public void actualizarGradoPersona(GesGradosPersona gesGradosPersona) throws Exception {
+		managerDAOGestionPersonal.actualizar(gesGradosPersona);
+		
+	}
+
+	public void ingresarGradoPersona(GesGradosPersona objGesGradosPersona) throws Exception {
+		managerDAOGestionPersonal.insertar(objGesGradosPersona);
+		
 	}
 
 }

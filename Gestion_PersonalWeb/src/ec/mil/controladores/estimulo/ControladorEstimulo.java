@@ -15,6 +15,7 @@ import org.primefaces.event.RowEditEvent;
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.GesEstimulo;
 import ec.mil.model.dao.entidades.GesTipoEstimulo;
+import ec.mil.model.dao.entidades.GesTipoGrado;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
 import ec.mil.model.modulos.gestioPersonal.ManagerGestionPersonal;
 import ec.mil.model.modulos.log.ManagerLog;
@@ -29,17 +30,17 @@ public class ControladorEstimulo {
 	ManagerLog managerLog;
 	@ManagedProperty(value = "#{beanLogin}")
 	private BeanLogin beanLogin;
-	
+
 	private GesTipoEstimulo objGesTipoEstimulo;
 	private List<GesTipoEstimulo> lstGesTipoEstimulo;
-	
+
 	private GesEstimulo objGesEstimulo;
 	private List<GesEstimulo> lstGesEstimulo;
-	
+
 	public ControladorEstimulo() {
-		
+
 	}
-	
+
 	public void inicializarGesEstimulo() {
 		objGesEstimulo = new GesEstimulo();
 		objGesEstimulo.setGesTipoEstimulo(new GesTipoEstimulo());
@@ -50,8 +51,8 @@ public class ControladorEstimulo {
 			e.printStackTrace();
 		}
 	}
-	
-	public List<SelectItem> siTipoEstimulos(){
+
+	public List<SelectItem> siTipoEstimulos() {
 		try {
 			List<SelectItem> siTipEstimulo = new ArrayList<SelectItem>();
 			for (GesTipoEstimulo tipoEstimulo : managerGesPersonal.buscarTipoEstimuloActivo()) {
@@ -66,7 +67,24 @@ public class ControladorEstimulo {
 			return null;
 		}
 	}
-	
+
+	public List<SelectItem> siTipoGrado() {
+		try {
+			List<SelectItem> siTipoGrado = new ArrayList<SelectItem>();
+			for (GesTipoGrado gesTipoGrado : managerGesPersonal.buscarTipoGradoActivo()) {
+				SelectItem siTGrado = new SelectItem();
+				siTGrado.setLabel(gesTipoGrado.getNombre());
+				siTGrado.setValue(gesTipoGrado.getId());
+				siTipoGrado.add(siTGrado);
+			}
+			return siTipoGrado;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public void inicializarGesTipoEstimulo() {
 		objGesTipoEstimulo = new GesTipoEstimulo();
 		try {
@@ -76,7 +94,7 @@ public class ControladorEstimulo {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ingresarGesTipoEstimulo() {
 		try {
 			objGesTipoEstimulo.setEstado("A");
@@ -93,7 +111,7 @@ public class ControladorEstimulo {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ingresarGesEstimulo() {
 		try {
 			objGesEstimulo.setEstado("A");
@@ -111,6 +129,7 @@ public class ControladorEstimulo {
 		}
 	}
 	
+
 	public void onRowEditGesTipoEstimulo(RowEditEvent<GesTipoEstimulo> event) {
 		try {
 			managerGesPersonal.actualizarTipoEstimulo(event.getObject());
@@ -165,5 +184,5 @@ public class ControladorEstimulo {
 	public void setLstGesEstimulo(List<GesEstimulo> lstGesEstimulo) {
 		this.lstGesEstimulo = lstGesEstimulo;
 	}
-	
+
 }

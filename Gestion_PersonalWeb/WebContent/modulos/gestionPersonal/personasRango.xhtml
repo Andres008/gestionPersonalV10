@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controladorPersonal.inicializarAP7()}"
+<body onload="#{controladorPersonal.inicializarGradoPersona()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -75,46 +75,73 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
-				<h:form>
-					<h1>AP-7-DA</h1>
+				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Datos Personales">
-						<p:panelGrid columns="6" styleClass="ui-noborder">
-							<p:outputLabel value="Cédula" style="font-weight:bold" />
+					<p:panel header="Ingresar Estímulo Persona" toggleable="true"
+						collapsed="true">
+						<p:panelGrid columns="2" styleClass="ui-noborder">
+							<p:outputLabel value="Ingrese cedula" />
+							<p:panelGrid columns="2">
+								<p:inputMask
+									value="#{controladorPersonal.objGesGradosPersona.gesPersona.cedula}" />
+								<p:commandButton icon="ui-icon-search"
+									actionListener="#{controladorPersonal.buscarPersonaGrado()}"
+									update="@form" />
+							</p:panelGrid>
+							<p:outputLabel value="Grado"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.cedula}" />
-							<p:outputLabel value="Grado Actual" style="font-weight:bold" />
+								value="#{controladorPersonal.objGesGradosPersona.gesPersona.gesGrado.grado}"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel value="Apellido"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.gesGrado.grado}" />
-							<p:outputLabel value="Apellidos y Nombres"
-								style="font-weight:bold" />
+								value="#{controladorPersonal.objGesGradosPersona.gesPersona.apellido}"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel value="Nombre"
+								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.apellido} #{controladorPersonal.objGesPersona.nombre}" />
-							<p:outputLabel value="Fecha Nacimiento" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.fechaNacimiento}" />
-							<p:outputLabel value="Fecha Alta" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.fechaAlta}" />
-							<p:outputLabel value="Fecha Baja" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.fechaBaja}" />
-							<p:outputLabel value="Estado Civil" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.gesEstadoCivil.nombre}" />
-							<p:outputLabel value="Dirección" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.direccion}" />
-							<p:outputLabel value="Correo Electrónico"
-								style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.correo}" />
+								value="#{controladorPersonal.objGesGradosPersona.gesPersona.nombre}"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:outputLabel value="Buscar Grado"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:panelGrid styleClass="ui-noborder" columns="2"
+								rendered="#{controladorPersonal.busqueda}">
+								<p:outputLabel
+									value="#{controladorPersonal.objGesGradosPersona.gesGrado.grado}" />
+								<p:commandButton icon="ui-icon-search"
+									oncomplete="PF('infCurso').show()" update="@form" />
+							</p:panelGrid>
+							<p:outputLabel value="Fecha Ascenso"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:calendar rendered="#{controladorPersonal.busqueda}"
+								locale="es" pattern="dd/MM/yyyy"
+								value="#{controladorPersonal.objGesGradosPersona.fechaInicial}"
+								maxdate="toDate" />
+							<p:outputLabel value="Antiguedad"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:spinner
+								value="#{controladorPersonal.objGesGradosPersona.antiguedad}"
+								min="1" rendered="#{controladorPersonal.busqueda}" />
 						</p:panelGrid>
+
+						<p:commandButton value="Ingresar"
+							rendered="#{controladorPersonal.busqueda}"
+							actionListener="#{controladorPersonal.ingresarGradoPersona()}"
+							update="@form" />
 					</p:panel>
-					<p:panel header="Grados">
-						<p:dataTable
-							value="#{controladorPersonal.objGesPersona.gesGradosPersonas}"
-							var="usuario">
+					<p:panel header="Pases Persona Ingresados">
+						<p:dataTable value="#{controladorPersonal.lstGesGradosPersona}"
+							emptyMessage="No existen registros" var="usuario">
+							<p:column headerText="Cédula">
+								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
+							</p:column>
+							<p:column headerText="Apellido">
+								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
+							</p:column>
+							<p:column headerText="Nombre">
+								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
+							</p:column>
 							<p:column headerText="Grado">
 								<p:outputLabel value="#{usuario.gesGrado.grado}" />
 							</p:column>
@@ -129,68 +156,29 @@
 							</p:column>
 						</p:dataTable>
 					</p:panel>
-					<p:panel header="Cursos Realizados">
-						<p:dataTable
-							value="#{controladorPersonal.objGesPersona.acaPersonasCursos}"
-							var="curso">
-							<p:column headerText="Curso">
-								<p:outputLabel value="#{curso.acaCurso.nombre}" />
-							</p:column>
-							<p:column headerText="Descripción">
-								<p:outputLabel value="#{curso.acaCurso.descripcion}" />
-							</p:column>
-							<p:column headerText="Tipo Curso">
-								<p:outputLabel value="#{curso.acaCurso.acaTipoCurso.nombre}" />
-							</p:column>
-							<p:column headerText="Horas">
-								<p:outputLabel value="#{curso.acaCurso.horas}" />
-							</p:column>
-							<p:column headerText="Fecha Inicial">
-								<p:outputLabel value="#{curso.fechaInicial}" />
-							</p:column>
-							<p:column headerText="Fecha Final">
-								<p:outputLabel value="#{curso.fechaFinal}" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-					<p:panel header="Estímulos y Sanciones">
-						<p:dataTable
-							value="#{controladorPersonal.objGesPersona.gesEstimuloPersonas}"
-							emptyMessage="No existen registros" var="usuario">
+					<p:dialog header="Títulos" widgetVar="infCurso" id="inf"
+						modal="true" position="top" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:dataTable value="#{controladorPersonal.listGesGrado}"
+							sortBy="#{grado.gesTipoGrado.id}" var="grado">
+							<p:headerRow>
+								<p:column colspan="2">
+									<p:outputLabel value="#{grado.gesTipoGrado.nombre}" />
+								</p:column>
+							</p:headerRow>
 							<p:column headerText="Nombre">
-								<p:outputLabel value="#{usuario.gesEstimulo.nombre}" />
+								<p:outputLabel value="#{grado.grado}" />
 							</p:column>
-							<p:column headerText="Tipo">
-								<p:outputLabel
-									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
-							</p:column>
-							<p:column headerText="Fecha">
-								<p:outputLabel value="#{usuario.fechaRegistro}" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-					<p:panel header="Pases">
-						<p:dataTable
-							value="#{controladorPersonal.objGesPersona.gesDependenciaPersonas}"
-							emptyMessage="No existen registros" var="usuario">
-							<p:column headerText="Dependencia">
-								<p:outputLabel value="#{usuario.gesDependencia.nombre}" />
-							</p:column>
-							<p:column headerText="Reparto">
-								<p:outputLabel value="#{usuario.gesDependencia.gesReparto.nombre}" />
-							</p:column>
-							<p:column headerText="Región">
-								<p:outputLabel value="#{usuario.gesDependencia.gesRegione.nombre}" />
-							</p:column>
-							<p:column headerText="Fecha Inicial">
-								<p:outputLabel value="#{usuario.fechaInicial}" />
-							</p:column>
-							<p:column headerText="Fecha Final">
-								<p:outputLabel value="#{usuario.fechaFinal}" />
+
+							<p:column headerText="Seleccionar">
+								<p:commandButton icon="	ui-icon-check"
+									actionListener="#{controladorPersonal.cargaGradoSeleccion(grado)}"
+									update="@form" />
 							</p:column>
 						</p:dataTable>
-					</p:panel>
+					</p:dialog>
 				</h:form>
+
 			</div>
 		</div>
 		<div id="footer" align="center">

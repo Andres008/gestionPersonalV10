@@ -25,6 +25,7 @@ import ec.mil.model.dao.entidades.GesEstadoCivil;
 import ec.mil.model.dao.entidades.GesEstimulo;
 import ec.mil.model.dao.entidades.GesEstimuloPersona;
 import ec.mil.model.dao.entidades.GesGrado;
+import ec.mil.model.dao.entidades.GesGradosPersona;
 import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.entidades.GesPromocion;
 import ec.mil.model.dao.entidades.GesTipoGrado;
@@ -58,8 +59,8 @@ public class ControladorPersonal {
 	private List<GesDependenciaPersona> lstGesDependenciaPersona;
 	private GesEstimuloPersona objGesEstimuloPersona;
 	private List<GesEstimuloPersona> lstGesEstimuloPersona;
-	
-	
+	private GesGradosPersona objGesGradosPersona;
+	private List<GesGradosPersona> lstGesGradosPersona;
 
 	/**
 	 * 
@@ -94,19 +95,32 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void inicializarEstimuloPersona() {
 		objGesEstimuloPersona = new GesEstimuloPersona();
 		objGesEstimuloPersona.setGesPersona(new GesPersona());
 		objGesEstimuloPersona.setGesEstimulo(new GesEstimulo());
 		busqueda = false;
 		try {
-			lstGesEstimuloPersona= managerGestionPersonal.buscarAllEstimuloPersona();
+			lstGesEstimuloPersona = managerGestionPersonal.buscarAllEstimuloPersona();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Error",e.getMessage());
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void inicializarGradoPersona() {
+		objGesGradosPersona = new GesGradosPersona();
+		objGesGradosPersona.setGesPersona(new GesPersona());
+		objGesGradosPersona.setGesGrado(new GesGrado());
+		busqueda = false;
+		try {
+			lstGesGradosPersona = managerGestionPersonal.buscarAllGradoPersona();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public void cargarPersona(GesPersona objPersonaAux) {
@@ -149,9 +163,8 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
-	public void inicializarAP7()
-	{
+
+	public void inicializarAP7() {
 		try {
 			objGesPersona = managerGestionPersonal.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario());
 		} catch (Exception e) {
@@ -171,9 +184,13 @@ public class ControladorPersonal {
 	public void cargarDependenciaSeleccion(GesDependencia gesDependenciaSel) {
 		objGesDependenciaPersona.setGesDependencia(gesDependenciaSel);
 	}
-	
+
 	public void cargarEstimuloSeleccion(GesEstimulo gesEstimuloSel) {
 		objGesEstimuloPersona.setGesEstimulo(gesEstimuloSel);
+	}
+
+	public void cargaGradoSeleccion(GesGrado gesGradoSel) {
+		objGesGradosPersona.setGesGrado(gesGradoSel);
 	}
 
 	public void buscarPersona() {
@@ -192,12 +209,12 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void buscarPersonaAP7() {
 		try {
 			String cedula = objGesPersona.getCedula();
 			inicializarAcaPersonasCurso();
-			objGesPersona= managerGestionPersonal.buscarPersonaByCedula(cedula);
+			objGesPersona = managerGestionPersonal.buscarPersonaByCedula(cedula);
 			busqueda = true;
 		} catch (Exception e) {
 			inicializarAcaPersonasCurso();
@@ -243,7 +260,7 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void buscarPersonaEstimulo() {
 		try {
 			String cedula = objGesEstimuloPersona.getGesPersona().getCedula();
@@ -260,8 +277,23 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	public void buscarPersonaGrado() {
+		try {
+			String cedula = objGesGradosPersona.getGesPersona().getCedula();
+			inicializarTituloPersona();
+			objGesGradosPersona.setGesPersona(managerGestionPersonal.buscarPersonaByCedulaActivo(cedula));
+			busqueda = true;
+		} catch (Exception e) {
+			inicializarEstimuloPersona();
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
+			/*
+			 * managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
+			 * "inicializarUsuario", e.getMessage());
+			 */
+			e.printStackTrace();
+		}
+	}
 
 	public void ingresarCursoPersona() {
 		objAcaPersonasCurso.setFechaInicial(new Date());
@@ -314,8 +346,26 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	public void ingresarGradoPersona() {
+		try {
+			for (GesGradosPersona gesGradosPersona : managerGestionPersonal
+					.buscarGradoPersonaActivo(objGesGradosPersona.getGesPersona().getCedula())) {
+				gesGradosPersona.setFechaFinal(ModelUtil.getSumarDias(objGesGradosPersona.getFechaInicial(), -1));
+				gesGradosPersona.setEstado("I");
+				managerGestionPersonal.actualizarGradoPersona(gesGradosPersona);
+			}
+			objGesGradosPersona.setEstado("A");
+			managerGestionPersonal.ingresarGradoPersona(objGesGradosPersona);
+			objGesGradosPersona.getGesPersona().setGesGrado(objGesGradosPersona.getGesGrado());
+			managerGestionPersonal.actualizarPersona(objGesGradosPersona.getGesPersona());
+			inicializarGradoPersona();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", "Error al ingresar Grado Persona. " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	public void ingresarEstimuloPersona() {
 		try {
 			objGesEstimuloPersona.setFechaRegistro(new Date());
@@ -361,8 +411,8 @@ public class ControladorPersonal {
 			return null;
 		}
 	}
-	
-	public List<GesEstimulo> getListGesEstimulo(){
+
+	public List<GesEstimulo> getListGesEstimulo() {
 		try {
 			return managerGestionPersonal.buscarAllEstimulosActivo();
 		} catch (Exception e) {
@@ -370,6 +420,21 @@ public class ControladorPersonal {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public List<GesGrado> getListGesGrado() {
+		if (objGesGradosPersona.getGesPersona().getGesGrado() != null) {
+			try {
+				System.out.println("Grado..........");
+				System.out.println(objGesGradosPersona.getGesPersona().getGesGrado().getGrado());
+				return managerGestionPersonal.buscarGradoByTipoOrden(objGesGradosPersona.getGesPersona().getGesGrado());
+			} catch (Exception e) {
+				JSFUtil.crearMensajeERROR("Error", e.getMessage());
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return null;
 	}
 
 	public List<SelectItem> SIestadoCivil() {
@@ -573,6 +638,22 @@ public class ControladorPersonal {
 
 	public void setLstGesEstimuloPersona(List<GesEstimuloPersona> lstGesEstimuloPersona) {
 		this.lstGesEstimuloPersona = lstGesEstimuloPersona;
+	}
+
+	public GesGradosPersona getObjGesGradosPersona() {
+		return objGesGradosPersona;
+	}
+
+	public void setObjGesGradosPersona(GesGradosPersona objGesGradosPersona) {
+		this.objGesGradosPersona = objGesGradosPersona;
+	}
+
+	public List<GesGradosPersona> getLstGesGradosPersona() {
+		return lstGesGradosPersona;
+	}
+
+	public void setLstGesGradosPersona(List<GesGradosPersona> lstGesGradosPersona) {
+		this.lstGesGradosPersona = lstGesGradosPersona;
 	}
 
 }
