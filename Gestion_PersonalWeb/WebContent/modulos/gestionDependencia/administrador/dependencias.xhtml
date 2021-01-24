@@ -98,13 +98,15 @@
 							<p:commandButton icon="	ui-icon-plusthick"
 								actionListener="#{controladorGestion.inicializarRegion()}"
 								oncomplete="PF('infRegion').show()" update="@form:infRegion" />
-							<p:outputLabel value="Sección"/>
+							<p:outputLabel value="Sección" />
 							<p:inputText
-								value="#{controladorGestion.objGesDependencia.nombre}" style="text-transform: uppercase"/>
+								value="#{controladorGestion.objGesDependencia.nombre}"
+								style="text-transform: uppercase" />
 							<p:outputLabel value="" />
 							<p:outputLabel value="Descripcion" />
 							<p:inputText
-								value="#{controladorGestion.objGesDependencia.descripcion}" style="text-transform: uppercase"/>
+								value="#{controladorGestion.objGesDependencia.descripcion}"
+								style="text-transform: uppercase" />
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
 							action="#{controladorGestion.ingresarDependencia()}"
@@ -114,14 +116,14 @@
 						<p:dataTable value="#{controladorGestion.lstGesDependencia}"
 							emptyMessage="No existe repartos ingresados." var="dependencia"
 							sortBy="#{rol.autMenu.orden}" expandableRowGroups="true">
+							<p:column headerText="Reparto">
+								<p:outputLabel value="#{dependencia.gesReparto.nombre}" />
+							</p:column>
 							<p:column headerText="Nombre">
 								<p:outputLabel value="#{dependencia.nombre}" />
 							</p:column>
 							<p:column headerText="Region">
 								<p:outputLabel value="#{dependencia.gesRegione.nombre}" />
-							</p:column>
-							<p:column headerText="Reparto">
-								<p:outputLabel value="#{dependencia.gesReparto.nombre}" />
 							</p:column>
 							<p:column headerText="Descripción">
 								<p:outputLabel value="#{dependencia.descripcion}" />
@@ -161,7 +163,7 @@
 						id="infReparto" modal="true" position="center" showEffect="fade"
 						hideEffect="fade" resizable="false" width="1100">
 						<p:panelGrid columns="2">
-						<p:outputLabel value="Nombre" />
+							<p:outputLabel value="Nombre" />
 							<p:inputText value="#{controladorGestion.objGesReparto.nombre}"
 								style="text-transform: uppercase" />
 							<p:outputLabel value="Descripción" />

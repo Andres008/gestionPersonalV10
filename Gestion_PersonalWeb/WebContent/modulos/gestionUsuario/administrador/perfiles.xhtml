@@ -82,7 +82,7 @@
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Menu Padre" />
 							<p:panelGrid columns="2" styleClass="ui-noborder">
-								<p:selectOneMenu
+								<p:selectOneMenu required="false" requiredMessage="Seleccione Menú Padre"
 									value="#{controllerUsuarios.objAutPerfile.autMenu.id}">
 									<f:selectItem itemLabel="Seleccione un Menú" />
 									<f:selectItems value="#{controllerUsuarios.SIMenu()}" />
