@@ -121,6 +121,33 @@
 								value="#{controladorPersonal.objGesPersona.correo}" />
 						</p:panelGrid>
 					</p:panel>
+					<p:panel header="Grados">
+						<p:dataTable
+							value="#{controladorPersonal.objGesPersona.gesGradosPersonas}"
+							var="usuario">
+							<p:column headerText="Cédula">
+								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
+							</p:column>
+							<p:column headerText="Apellidos">
+								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
+							</p:column>
+							<p:column headerText="Nombres">
+								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
+							</p:column>
+							<p:column headerText="Grado">
+								<p:outputLabel value="#{usuario.gesGrado.grado}" />
+							</p:column>
+							<p:column headerText="Antiguedad">
+								<p:outputLabel value="#{usuario.antiguedad}" />
+							</p:column>
+							<p:column headerText="Fecha Inicial">
+								<p:outputLabel value="#{usuario.fechaInicial}" />
+							</p:column>
+							<p:column headerText="Fecha Final">
+								<p:outputLabel value="#{usuario.fechaFinal}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
 					<p:panel header="Cursos Realizados">
 						<p:dataTable
 							value="#{controladorPersonal.objGesPersona.acaPersonasCursos}"
