@@ -6,20 +6,19 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the aca_curso database table.
  * 
  */
 @Entity
-@Table(name="aca_curso")
-@NamedQuery(name="AcaCurso.findAll", query="SELECT a FROM AcaCurso a")
+@Table(name = "aca_curso")
+@NamedQuery(name = "AcaCurso.findAll", query = "SELECT a FROM AcaCurso a")
 public class AcaCurso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ACA_CURSO_ID_GENERATOR", sequenceName="SEQ_ACA_CURSO", allocationSize = 1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ACA_CURSO_ID_GENERATOR")
+	@SequenceGenerator(name = "ACA_CURSO_ID_GENERATOR", sequenceName = "SEQ_ACA_CURSO", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACA_CURSO_ID_GENERATOR")
 	private long id;
 
 	private String descripcion;
@@ -27,33 +26,33 @@ public class AcaCurso implements Serializable {
 	private String estado;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_final")
+	@Column(name = "fecha_final")
 	private Date fechaFinal;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_inicial")
+	@Column(name = "fecha_inicial")
 	private Date fechaInicial;
 
 	private BigDecimal horas;
 
 	private String nombre;
 
-	//bi-directional many-to-one association to AcaTipoCurso
+	// bi-directional many-to-one association to AcaTipoCurso
 	@ManyToOne
-	@JoinColumn(name="id_tipo_curso")
+	@JoinColumn(name = "id_tipo_curso")
 	private AcaTipoCurso acaTipoCurso;
 
-	//bi-directional many-to-one association to AcaCursoPrerequisito
-	@OneToMany(mappedBy="acaCurso")
-	private List<AcaCursoPrerequisito> acaCursoPrerequisitos;
-
-	//bi-directional many-to-one association to AcaGradoPrerequisito
-	@OneToMany(mappedBy="acaCurso")
-	private List<AcaGradoPrerequisito> acaGradoPrerequisitos;
-
-	//bi-directional many-to-one association to AcaPersonasCurso
-	@OneToMany(mappedBy="acaCurso")
+	// bi-directional many-to-one association to AcaPersonasCurso
+	@OneToMany(mappedBy = "acaCurso")
 	private List<AcaPersonasCurso> acaPersonasCursos;
+
+	// bi-directional many-to-one association to AcaPlanificacionCurso
+	@OneToMany(mappedBy = "acaCurso")
+	private List<AcaPlanificacionCurso> acaPlanificacionCursos;
+
+	// bi-directional many-to-one association to AcaPrerequisitoCurso
+	@OneToMany(mappedBy = "acaCurso")
+	private List<AcaPrerequisitoCurso> acaPrerequisitoCursos;
 
 	public AcaCurso() {
 	}
@@ -122,50 +121,6 @@ public class AcaCurso implements Serializable {
 		this.acaTipoCurso = acaTipoCurso;
 	}
 
-	public List<AcaCursoPrerequisito> getAcaCursoPrerequisitos() {
-		return this.acaCursoPrerequisitos;
-	}
-
-	public void setAcaCursoPrerequisitos(List<AcaCursoPrerequisito> acaCursoPrerequisitos) {
-		this.acaCursoPrerequisitos = acaCursoPrerequisitos;
-	}
-
-	public AcaCursoPrerequisito addAcaCursoPrerequisito(AcaCursoPrerequisito acaCursoPrerequisito) {
-		getAcaCursoPrerequisitos().add(acaCursoPrerequisito);
-		acaCursoPrerequisito.setAcaCurso(this);
-
-		return acaCursoPrerequisito;
-	}
-
-	public AcaCursoPrerequisito removeAcaCursoPrerequisito(AcaCursoPrerequisito acaCursoPrerequisito) {
-		getAcaCursoPrerequisitos().remove(acaCursoPrerequisito);
-		acaCursoPrerequisito.setAcaCurso(null);
-
-		return acaCursoPrerequisito;
-	}
-
-	public List<AcaGradoPrerequisito> getAcaGradoPrerequisitos() {
-		return this.acaGradoPrerequisitos;
-	}
-
-	public void setAcaGradoPrerequisitos(List<AcaGradoPrerequisito> acaGradoPrerequisitos) {
-		this.acaGradoPrerequisitos = acaGradoPrerequisitos;
-	}
-
-	public AcaGradoPrerequisito addAcaGradoPrerequisito(AcaGradoPrerequisito acaGradoPrerequisito) {
-		getAcaGradoPrerequisitos().add(acaGradoPrerequisito);
-		acaGradoPrerequisito.setAcaCurso(this);
-
-		return acaGradoPrerequisito;
-	}
-
-	public AcaGradoPrerequisito removeAcaGradoPrerequisito(AcaGradoPrerequisito acaGradoPrerequisito) {
-		getAcaGradoPrerequisitos().remove(acaGradoPrerequisito);
-		acaGradoPrerequisito.setAcaCurso(null);
-
-		return acaGradoPrerequisito;
-	}
-
 	public List<AcaPersonasCurso> getAcaPersonasCursos() {
 		return this.acaPersonasCursos;
 	}
@@ -186,6 +141,22 @@ public class AcaCurso implements Serializable {
 		acaPersonasCurso.setAcaCurso(null);
 
 		return acaPersonasCurso;
+	}
+
+	public List<AcaPlanificacionCurso> getAcaPlanificacionCursos() {
+		return this.acaPlanificacionCursos;
+	}
+
+	public void setAcaPlanificacionCursos(List<AcaPlanificacionCurso> acaPlanificacionCursos) {
+		this.acaPlanificacionCursos = acaPlanificacionCursos;
+	}
+
+	public List<AcaPrerequisitoCurso> getAcaPrerequisitoCursos() {
+		return this.acaPrerequisitoCursos;
+	}
+
+	public void setAcaPrerequisitoCursos(List<AcaPrerequisitoCurso> acaPrerequisitoCursos) {
+		this.acaPrerequisitoCursos = acaPrerequisitoCursos;
 	}
 
 }

@@ -39,10 +39,10 @@ public class GesGrado implements Serializable {
 	private BigDecimal tiempo;
 	
 	private BigDecimal orden;
-
-	//bi-directional many-to-one association to AcaGradoPrerequisito
-	@OneToMany(mappedBy="gesGrado")
-	private List<AcaGradoPrerequisito> acaGradoPrerequisitos;
+	
+	//bi-directional many-to-one association to AcaPrerequisitoGrado
+		@OneToMany(mappedBy="gesGrado")
+		private List<AcaPrerequisitoGrado> acaPrerequisitoGrados;
 
 	//bi-directional many-to-one association to GesTipoGrado
 	@ManyToOne
@@ -116,28 +116,6 @@ public class GesGrado implements Serializable {
 		this.tiempo = tiempo;
 	}
 
-	public List<AcaGradoPrerequisito> getAcaGradoPrerequisitos() {
-		return this.acaGradoPrerequisitos;
-	}
-
-	public void setAcaGradoPrerequisitos(List<AcaGradoPrerequisito> acaGradoPrerequisitos) {
-		this.acaGradoPrerequisitos = acaGradoPrerequisitos;
-	}
-
-	public AcaGradoPrerequisito addAcaGradoPrerequisito(AcaGradoPrerequisito acaGradoPrerequisito) {
-		getAcaGradoPrerequisitos().add(acaGradoPrerequisito);
-		acaGradoPrerequisito.setGesGrado(this);
-
-		return acaGradoPrerequisito;
-	}
-
-	public AcaGradoPrerequisito removeAcaGradoPrerequisito(AcaGradoPrerequisito acaGradoPrerequisito) {
-		getAcaGradoPrerequisitos().remove(acaGradoPrerequisito);
-		acaGradoPrerequisito.setGesGrado(null);
-
-		return acaGradoPrerequisito;
-	}
-
 	public GesTipoGrado getGesTipoGrado() {
 		return this.gesTipoGrado;
 	}
@@ -196,6 +174,14 @@ public class GesGrado implements Serializable {
 
 	public void setOrden(BigDecimal orden) {
 		this.orden = orden;
+	}
+	
+	public List<AcaPrerequisitoGrado> getAcaPrerequisitoGrados() {
+		return this.acaPrerequisitoGrados;
+	}
+
+	public void setAcaPrerequisitoGrados(List<AcaPrerequisitoGrado> acaPrerequisitoGrados) {
+		this.acaPrerequisitoGrados = acaPrerequisitoGrados;
 	}
 
 }

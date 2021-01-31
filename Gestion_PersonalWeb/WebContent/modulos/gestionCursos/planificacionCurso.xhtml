@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>GESTION PERSONAL</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día'
+    };
+</script>
+</h:head>
+<body style="font-size: 70%"
+	onload="#{controladorCursos.inicializarAcaPlanificacionCurso()}">
+	<h:form id="statusBar">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../imagenes/login.png" />
+		</p:dialog>
+	</h:form>
+	<div id="div_menu" align="left"
+		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
+		<div id="logo" align="center">
+			<p:graphicImage url="/imagenes/bannerGestionPersonal.png" alt="COAD"
+				style="width:100%"></p:graphicImage>
+		</div>
+
+		<div align="center"
+			style="width: 99.9%; min-height: 99.9%; background-image:">
+			<div id="titulo_header"
+				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
+				<span>Sistema de Gestión de Personal - <h:outputText
+						value="correo" /></span>
+			</div>
+			<h:form style="width:100%;font-size:80%">
+				<p:menubar style="font-size:12px;">
+					<f:facet name="options">
+						<p:commandButton value="Menu principal" icon="ui-icon-home"
+							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+							value="Salir" icon="ui-icon-extlink" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+			<div id="posicion" align="center">
+				<h1>INGRESO DE CURSO A REALIZARCE</h1>
+				<h:form>
+					<p:growl id="msgs" showDetail="true" />
+					<p:panel header="Ingreso de Informacion" toggleable="true"
+						collapsed="true">
+						<p:commandButton value="Ingresar"
+							actionListener="#{controladorCursos.ingresarPlanificarCurso()}"
+							update="@form" />
+						<p:panelGrid columns="2" styleClass="ui-noborder">
+							<p:outputLabel value="Buscar Curso" />
+							<p:panelGrid styleClass="ui-noborder" columns="2">
+								<p:outputLabel
+									value="#{controladorCursos.objAcaPlanificacionCurso.acaCurso.nombre}" />
+								<p:commandButton icon="ui-icon-search"
+									oncomplete="PF('infCurso').show()" update="@form" />
+							</p:panelGrid>
+							<p:outputLabel value="Descripción Curso" />
+							<p:outputLabel
+								value="#{controladorCursos.objAcaPlanificacionCurso.acaCurso.descripcion}" />
+							<p:outputLabel value="Tipo Curso" />
+							<p:outputLabel
+								value="#{controladorCursos.objAcaPlanificacionCurso.acaCurso.acaTipoCurso.nombre}" />
+							<p:outputLabel value="Reparto" />
+							<p:selectOneMenu
+								value="#{controladorCursos.objAcaPlanificacionCurso.gesReparto.id}">
+								<f:selectItem itemLabel="Seleccione Reparto" />
+								<f:selectItems value="#{controladorGestion.siRepartosActivo()}" />
+							</p:selectOneMenu>
+							<p:outputLabel value="Cupo" />
+							<p:inputNumber
+								value="#{controladorCursos.objAcaPlanificacionCurso.cupo}" />
+							<p:outputLabel value="Fecha Inicio Curso" />
+							<p:calendar locale="es" mindate="today" pattern="dd/MM/yyyy"
+								mask="99/99/9999"
+								value="#{controladorCursos.objAcaPlanificacionCurso.fechaInicioCurso}" />
+							<p:outputLabel value="Fecha Final Curso" />
+							<p:calendar locale="es" mindate="today" pattern="dd/MM/yyyy"
+								mask="99/99/9999"
+								value="#{controladorCursos.objAcaPlanificacionCurso.fechaFinal}" />
+							<p:outputLabel value="Fecha Inicio Inscripción" />
+							<p:calendar locale="es" mindate="today" pattern="dd/MM/yyyy"
+								mask="99/99/9999"
+								value="#{controladorCursos.objAcaPlanificacionCurso.fechaInicioInscripcion}" />
+							<p:outputLabel value="Fecha Final Inscripción" />
+							<p:calendar locale="es" mindate="today" pattern="dd/MM/yyyy"
+								mask="99/99/9999"
+								value="#{controladorCursos.objAcaPlanificacionCurso.fechaFinalInscripcion}" />
+						</p:panelGrid>
+						<p:panel header="Curso Prerequisito" toggleable="true"
+							collapsed="true">
+							<p:commandButton icon="ui-icon-search"
+								value="Ingresar Curso Prerequisito"
+								oncomplete="PF('infCursoPre').show()" update="@form" />
+							<p:dataTable
+								value="#{controladorCursos.objAcaPlanificacionCurso.acaPrerequisitoCursos}"
+								var="curso" emptyMessage="No exite cursos ingresados">
+								<p:column headerText="Curso">
+									<p:outputLabel value="#{curso.acaCurso.nombre}" />
+								</p:column>
+								<p:column headerText="Descripción">
+									<p:outputLabel value="#{curso.acaCurso.descripcion}" />
+								</p:column>
+								<p:column headerText="Tipo">
+									<p:outputLabel value="#{curso.acaCurso.acaTipoCurso.nombre}" />
+								</p:column>
+								<p:column headerText="Eliminar">
+									<p:commandButton icon="ui-icon-close"
+										actionListener="#{controladorCursos.eliminarCursoPrerequisito(curso)}"
+										update="@form" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+						<p:panel header="Grados Prerequisito" toggleable="true"
+							collapsed="true">
+							<p:commandButton icon="ui-icon-search"
+								value="Ingresar Curso Prerequisito"
+								oncomplete="PF('infGrado').show()" update="@form" />
+							<p:dataTable
+								value="#{controladorCursos.objAcaPlanificacionCurso.acaPrerequisitoGrados}"
+								var="grado" emptyMessage="No exite grado ingresados">
+								<p:column headerText="Grado">
+									<p:outputLabel value="#{grado.gesGrado.grado}" />
+								</p:column>
+								<p:column headerText="Tipo">
+									<p:outputLabel value="#{grado.gesGrado.gesTipoGrado.nombre}" />
+								</p:column>
+								<p:column headerText="Eliminar">
+									<p:commandButton icon="ui-icon-close"
+										actionListener="#{controladorCursos.eliminarGradoPrerequisito(grado)}"
+										update="@form" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+
+					<p:panel header="Cursos Planificados" toggleable="true"
+						collapsed="true">
+						<p:dataTable value="#{controladorCursos.lstAcaPlanificacionCurso}"
+							rows="5" paginator="8" var="curso">
+							<f:facet name="header">
+							Expanda la fila para detalles de inscritos
+							</f:facet>
+							<p:column headerText="Inscritos" style="width:2rem">
+								<p:rowToggler />
+							</p:column>
+							<p:column headerText="Curso">
+								<p:outputLabel value="#{curso.acaCurso.nombre}" />
+							</p:column>
+							<p:column headerText="Descripcion">
+								<p:outputLabel value="#{curso.acaCurso.descripcion}" />
+							</p:column>
+							<p:column headerText="Dependencia">
+								<p:outputLabel value="#{curso.gesReparto.nombre}" />
+							</p:column>
+							<p:column headerText="Fecha Inicio Curso">
+								<p:outputLabel value="#{curso.fechaInicioCurso}" />
+							</p:column>
+							<p:column headerText="Fecha Fin Curso">
+								<p:outputLabel value="#{curso.fechaFinal}" />
+							</p:column>
+							<p:column headerText="Fecha Inicio Inscripcion">
+								<p:outputLabel value="#{curso.fechaInicioInscripcion}" />
+							</p:column>
+							<p:column headerText="Fecha Fin Inscripcion">
+								<p:outputLabel value="#{curso.fechaFinalInscripcion}" />
+							</p:column>
+							<p:column headerText="Prerequisito Curso">
+								<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
+									value="#{curso.acaPrerequisitoCursos}">
+									<p:column headerText="Curso">
+										<p:outputLabel value="#{cur.acaCurso.nombre}" />
+									</p:column>
+								</p:dataTable>
+							</p:column>
+							<p:column headerText="Prerequisito Grado">
+								<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
+									value="#{curso.acaPrerequisitoGrados}">
+									<p:column headerText="Curso">
+										<p:outputLabel value="#{cur.gesGrado.grado}" />
+									</p:column>
+								</p:dataTable>
+							</p:column>
+							<p:column headerText="Fecha Fin Inscripcion">
+								<p:outputLabel value="#{curso.fechaFinalInscripcion}" />
+							</p:column>
+							<p:column headerText="Editar">
+								<p:commandButton icon="ui-icon-pencil"
+									actionListener="#{controladorCursos.cargarPlanificacionSeleccionada(curso)}"
+									update="@form" />
+							</p:column>
+							<p:rowExpansion>
+								<p:panel header="Inscritos curso #{curso.acaCurso.nombre}">
+									<p:dataTable emptyMessage="No existe personal Inscrito"
+										value="#{curso.acaInscripcionPersonas}" var="persona">
+										<p:column headerText="Grado">
+											<p:outputLabel value="#{persona.gesPersona.gesGrado.grado}" />
+										</p:column>
+										<p:column headerText="Nombre">
+											<p:outputLabel value="#{persona.gesPersona.apellido} #{persona.gesPersona.nombre}" />
+										</p:column>
+										<p:column headerText="Correo Electronico">
+											<p:outputLabel value="#{persona.gesPersona.correo}" />
+										</p:column>
+										<p:column headerText="Telefono">
+											<p:outputLabel value="#{persona.gesPersona.telefono}" />
+										</p:column>
+									</p:dataTable>
+								</p:panel>
+							</p:rowExpansion>
+						</p:dataTable>
+					</p:panel>
+
+					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"
+						modal="true" position="top" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}"
+							var="curso">
+							<p:column headerText="Curso">
+								<p:outputLabel value="#{curso.nombre}" />
+							</p:column>
+							<p:column headerText="Descripción">
+								<p:outputLabel value="#{curso.descripcion}" />
+							</p:column>
+							<p:column headerText="Horas">
+								<p:outputLabel value="#{curso.horas}" />
+							</p:column>
+							<p:column headerText="Seleccionar">
+								<p:commandButton icon="	ui-icon-check"
+									actionListener="#{controladorCursos.cargarCursoSeleccion(curso)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:dialog>
+					<p:dialog header="Cursos" widgetVar="infCursoPre" id="infCurso"
+						modal="true" position="top" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}"
+							var="curso">
+							<p:column headerText="Curso">
+								<p:outputLabel value="#{curso.nombre}" />
+							</p:column>
+							<p:column headerText="Descripción">
+								<p:outputLabel value="#{curso.descripcion}" />
+							</p:column>
+							<p:column headerText="Horas">
+								<p:outputLabel value="#{curso.horas}" />
+							</p:column>
+							<p:column headerText="Seleccionar">
+								<p:commandButton icon="	ui-icon-check"
+									actionListener="#{controladorCursos.cargarCursoPrerequisito(curso)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:dialog>
+					<p:dialog header="Grados" widgetVar="infGrado" id="infGrado"
+						modal="true" position="top" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:dataTable value="#{controladorPersonal.listTodosGesGrado}"
+							sortBy="#{grado.gesTipoGrado.id}" var="grado">
+							<p:headerRow>
+								<p:column colspan="2">
+									<p:outputLabel value="#{grado.gesTipoGrado.nombre}" />
+								</p:column>
+							</p:headerRow>
+							<p:column headerText="Nombre">
+								<p:outputLabel value="#{grado.grado}" />
+							</p:column>
+
+							<p:column headerText="Seleccionar">
+								<p:commandButton icon="	ui-icon-check"
+									actionListener="#{controladorCursos.cargarGradoPrerequisito(grado)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:dialog>
+				</h:form>
+			</div>
+		</div>
+		<div id="footer" align="center">
+			<div
+				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
+				<span>(c) Centro de Operaciones Aereas y Defensa - COAD.
+					#{beanLogin.anioActual()} - </span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

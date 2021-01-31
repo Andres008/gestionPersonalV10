@@ -20,7 +20,7 @@ public class GesPersona implements Serializable {
 
 	@Id
 	private String cedula;
-	
+
 	private BigDecimal antiguedad;
 
 	private String apellido;
@@ -28,6 +28,8 @@ public class GesPersona implements Serializable {
 	private String direccion;
 
 	private String correo;
+	
+	private String telefono;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_alta")
@@ -42,6 +44,10 @@ public class GesPersona implements Serializable {
 	private Date fechaNacimiento;
 
 	private String nombre;
+
+	// bi-directional many-to-one association to AcaInscripcionPersona
+	@OneToMany(mappedBy = "gesPersona")
+	private List<AcaInscripcionPersona> acaInscripcionPersonas;
 
 	// bi-directional many-to-one association to AcaPersonasCurso
 	@OneToMany(mappedBy = "gesPersona")
@@ -296,6 +302,14 @@ public class GesPersona implements Serializable {
 
 	public void setAntiguedad(BigDecimal antiguedad) {
 		this.antiguedad = antiguedad;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 }

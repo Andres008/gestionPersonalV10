@@ -127,6 +127,9 @@
 							<p:outputLabel value="Dirección" />
 							<p:inputText
 								value="#{controladorPersonal.objGesPersona.direccion}" />
+								<p:outputLabel value="Telefono" />
+							<p:inputText
+								value="#{controladorPersonal.objGesPersona.telefono}" />
 							<p:outputLabel value="Correo Electrónico" />
 							<p:inputText requiredMessage="Ingrese correo electronico"
 								value="#{controladorPersonal.objGesPersona.correo}" />
@@ -165,6 +168,9 @@
 								<p:outputLabel value="#{persona.fechaBaja}">
 									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
 								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Telefono">
+								<p:outputLabel value="#{persona.telefono}" />
 							</p:column>
 							<p:column headerText="Correo">
 								<p:outputLabel value="#{persona.correo}" />

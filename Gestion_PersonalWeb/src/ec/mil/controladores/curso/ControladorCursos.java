@@ -3,6 +3,7 @@
  */
 package ec.mil.controladores.curso;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +13,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.event.RowEditEvent;
@@ -19,9 +22,14 @@ import org.primefaces.event.RowEditEvent;
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AcaCurso;
 import ec.mil.model.dao.entidades.AcaInstitucionEducativa;
+import ec.mil.model.dao.entidades.AcaPlanificacionCurso;
+import ec.mil.model.dao.entidades.AcaPrerequisitoCurso;
+import ec.mil.model.dao.entidades.AcaPrerequisitoGrado;
 import ec.mil.model.dao.entidades.AcaTipoCurso;
 import ec.mil.model.dao.entidades.AcaTipoTitulo;
 import ec.mil.model.dao.entidades.AcaTitulo;
+import ec.mil.model.dao.entidades.GesGrado;
+import ec.mil.model.dao.entidades.GesReparto;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
 import ec.mil.model.modulos.cursos.ManagerCurso;
 import ec.mil.model.modulos.log.ManagerLog;
@@ -44,15 +52,17 @@ public class ControladorCursos {
 	private AcaTitulo objAcaTitulo;
 	private List<AcaTitulo> lstAcaTitulo;
 	private List<AcaInstitucionEducativa> lstAcaInstitucionEducativa;
+	private List<AcaPlanificacionCurso> lstAcaPlanificacionCurso;
+	private AcaPlanificacionCurso objAcaPlanificacionCurso;
+
 	@ManagedProperty(value = "#{beanLogin}")
 	private BeanLogin beanLogin;
 
 	public ControladorCursos() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void inicializarTipoTitulo()
-	{
+
+	public void inicializarTipoTitulo() {
 		objAcaTipoTitulo = new AcaTipoTitulo();
 		try {
 			lstAcaTipoTitulo = managerCurso.findAllTipoTitulo();
@@ -60,9 +70,8 @@ public class ControladorCursos {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
 	}
-	
-	public void inicializarTitulo()
-	{
+
+	public void inicializarTitulo() {
 		objAcaTitulo = new AcaTitulo();
 		objAcaTitulo.setAcaTipoTitulo(new AcaTipoTitulo());
 		objAcaTitulo.setAcaInstitucionEducativa(new AcaInstitucionEducativa());
@@ -71,7 +80,7 @@ public class ControladorCursos {
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
-		
+
 	}
 
 	public void inicializarAcaCurso() {
@@ -83,9 +92,33 @@ public class ControladorCursos {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
 	}
-	
-	public void inicializarInstituciones()
-	{
+
+	public void inicializarAcaPlanificacionCurso() {
+		if (beanLogin.getCredencial()== null) {
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+			ExternalContext externalContext = FacesContext.getCurrentInstance()
+				    .getExternalContext();
+			 try {
+				externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
+			} catch (IOException e) {
+				JSFUtil.crearMensajeERROR("Error", e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		objAcaPlanificacionCurso = new AcaPlanificacionCurso();
+		objAcaPlanificacionCurso.setAcaCurso(new AcaCurso());
+		objAcaPlanificacionCurso.setGesReparto(new GesReparto());
+		objAcaPlanificacionCurso.setAcaPrerequisitoCursos(new ArrayList<AcaPrerequisitoCurso>());
+		objAcaPlanificacionCurso.setAcaPrerequisitoGrados(new ArrayList<AcaPrerequisitoGrado>());
+		try {
+			lstAcaPlanificacionCurso = managerCurso.buscarTodasPlanificacion();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void inicializarInstituciones() {
 		try {
 			objAcaInstitucionEducativa = new AcaInstitucionEducativa();
 			lstAcaInstitucionEducativa = managerCurso.findAllInstituciones();
@@ -94,12 +127,11 @@ public class ControladorCursos {
 			e.printStackTrace();
 		}
 	}
-	
-	public List<SelectItem> tipoTituloSI()
-	{
+
+	public List<SelectItem> tipoTituloSI() {
 		List<SelectItem> tipoTituloSI = new ArrayList<SelectItem>();
 		inicializarTipoTitulo();
-		lstAcaTipoTitulo.stream().filter(x -> x.getEstado().equals("A")).forEach(tipoTitulo->{
+		lstAcaTipoTitulo.stream().filter(x -> x.getEstado().equals("A")).forEach(tipoTitulo -> {
 			SelectItem siTipoTitulo = new SelectItem();
 			siTipoTitulo.setValue(tipoTitulo.getId());
 			siTipoTitulo.setLabel(tipoTitulo.getNombre());
@@ -107,12 +139,11 @@ public class ControladorCursos {
 		});
 		return tipoTituloSI;
 	}
-	
-	public List<SelectItem> institucionesEducativasSI()
-	{
+
+	public List<SelectItem> institucionesEducativasSI() {
 		List<SelectItem> institucionSI = new ArrayList<SelectItem>();
 		inicializarInstituciones();
-		lstAcaInstitucionEducativa.stream().filter(x -> x.getEstado().equals("A")).forEach(institucion->{
+		lstAcaInstitucionEducativa.stream().filter(x -> x.getEstado().equals("A")).forEach(institucion -> {
 			SelectItem siTipoTitulo = new SelectItem();
 			siTipoTitulo.setValue(institucion.getId());
 			siTipoTitulo.setLabel(institucion.getNombre());
@@ -136,6 +167,54 @@ public class ControladorCursos {
 			return null;
 		}
 
+	}
+
+	public void cargarCursoSeleccion(AcaCurso acaCursoSel) {
+		objAcaPlanificacionCurso.setAcaCurso(acaCursoSel);
+	}
+
+	public void cargarCursoPrerequisito(AcaCurso acaCursoSel) {
+		AcaPrerequisitoCurso prerequisitoCurso = new AcaPrerequisitoCurso();
+		prerequisitoCurso.setAcaCurso(acaCursoSel);
+		prerequisitoCurso.setAcaPlanificacionCurso(objAcaPlanificacionCurso);
+		objAcaPlanificacionCurso.getAcaPrerequisitoCursos().add(prerequisitoCurso);
+	}
+
+	public void cargarGradoPrerequisito(GesGrado acaGradoSel) {
+		AcaPrerequisitoGrado prerequisitoGrado = new AcaPrerequisitoGrado();
+		prerequisitoGrado.setGesGrado(acaGradoSel);
+		prerequisitoGrado.setAcaPlanificacionCurso(objAcaPlanificacionCurso);
+		objAcaPlanificacionCurso.getAcaPrerequisitoGrados().add(prerequisitoGrado);
+	}
+
+	public void eliminarCursoPrerequisito(AcaPrerequisitoCurso prerequisitoCurso) {
+		try {
+			if (objAcaPlanificacionCurso.getId()>0) {
+				managerCurso.eliminarCursoPrere(prerequisitoCurso);
+				objAcaPlanificacionCurso= managerCurso.buscarPlanificacionById( prerequisitoCurso.getAcaPlanificacionCurso().getId() );
+			}
+			else
+				objAcaPlanificacionCurso.getAcaPrerequisitoCursos().remove(prerequisitoCurso);
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error",e.getMessage());
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void eliminarGradoPrerequisito(AcaPrerequisitoGrado prerequisitoCurso) {
+		try {
+			if (objAcaPlanificacionCurso.getId()>0) {
+				managerCurso.eliminarGradoPrere(prerequisitoCurso);
+				objAcaPlanificacionCurso= managerCurso.buscarPlanificacionById( prerequisitoCurso.getAcaPlanificacionCurso().getId() );
+			}
+			else
+				objAcaPlanificacionCurso.getAcaPrerequisitoGrados().remove(prerequisitoCurso);
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error",e.getMessage());
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void inicializarTipoCurso() {
@@ -165,7 +244,7 @@ public class ControladorCursos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void inactivarTipoTitulo(AcaTipoTitulo objAcatipoTituloAux) {
 		objAcatipoTituloAux.setFechaFinal(new Date());
 		objAcatipoTituloAux.setEstado("I");
@@ -182,7 +261,7 @@ public class ControladorCursos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void inactivarCurso(AcaCurso objAcaCursoAux) {
 		objAcaCursoAux.setFechaFinal(new Date());
 		objAcaCursoAux.setEstado("I");
@@ -214,7 +293,7 @@ public class ControladorCursos {
 		}
 
 	}
-	
+
 	public void onRowEditTipoTitulo(RowEditEvent<AcaTipoTitulo> event) {
 		try {
 			managerCurso.actualizarTipoTitulo(event.getObject());
@@ -229,7 +308,7 @@ public class ControladorCursos {
 		}
 
 	}
-	
+
 	public void onRowEditInstituto(RowEditEvent<AcaInstitucionEducativa> event) {
 		try {
 			managerCurso.actualizarInstituto(event.getObject());
@@ -244,11 +323,10 @@ public class ControladorCursos {
 		}
 
 	}
-	
-	
+
 	public void onRowCancel(RowEditEvent<Object> event) {
-        JSFUtil.crearMensajeINFO("Atención", "Edición cancelada.");
-    }
+		JSFUtil.crearMensajeINFO("Atención", "Edición cancelada.");
+	}
 
 	public void onRowEditCurso(RowEditEvent<AcaCurso> event) {
 		try {
@@ -264,7 +342,7 @@ public class ControladorCursos {
 		}
 
 	}
-	
+
 	public void ingresarTipoTitulo() {
 		try {
 			objAcaTipoTitulo.setFechaInicial(new Date());
@@ -283,8 +361,7 @@ public class ControladorCursos {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public void ingresarTitulo() {
 		try {
 			objAcaTitulo.setFechaInicial(new Date());
@@ -302,7 +379,7 @@ public class ControladorCursos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ingresarInstitucionEducativa() {
 		try {
 			objAcaInstitucionEducativa.setFechaInicial(new Date());
@@ -316,8 +393,8 @@ public class ControladorCursos {
 			inicializarInstituciones();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
-			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarInstitucionEducativa",
-					e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(),
+					"ingresarInstitucionEducativa", e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -341,7 +418,7 @@ public class ControladorCursos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ingresarCurso() {
 		try {
 			objAcaCurso.setFechaInicial(new Date());
@@ -359,6 +436,28 @@ public class ControladorCursos {
 					e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public void ingresarPlanificarCurso() {
+		try {
+			if (objAcaPlanificacionCurso.getId() > 0)
+				managerCurso.actualizarPlanificacionCurso(objAcaPlanificacionCurso);
+			else
+				managerCurso.ingresarPlanificacionCurso(objAcaPlanificacionCurso);
+			JSFUtil.crearMensajeINFO("Atenci�n", "Ingreso correcto.");
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPlanificarCurso",
+					"Ingreso tipo de curso id: " + objAcaPlanificacionCurso.getId());
+			inicializarAcaPlanificacionCurso();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Atenci�n", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarPlanificarCurso",
+					e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void cargarPlanificacionSeleccionada(AcaPlanificacionCurso objAcaPlanificacionCursoSel) {
+		objAcaPlanificacionCurso = objAcaPlanificacionCursoSel;
 	}
 
 	/***
@@ -453,6 +552,21 @@ public class ControladorCursos {
 	public void setLstAcaTitulo(List<AcaTitulo> lstAcaTitulo) {
 		this.lstAcaTitulo = lstAcaTitulo;
 	}
-	
-	
+
+	public List<AcaPlanificacionCurso> getLstAcaPlanificacionCurso() {
+		return lstAcaPlanificacionCurso;
+	}
+
+	public void setLstAcaPlanificacionCurso(List<AcaPlanificacionCurso> lstAcaPlanificacionCurso) {
+		this.lstAcaPlanificacionCurso = lstAcaPlanificacionCurso;
+	}
+
+	public AcaPlanificacionCurso getObjAcaPlanificacionCurso() {
+		return objAcaPlanificacionCurso;
+	}
+
+	public void setObjAcaPlanificacionCurso(AcaPlanificacionCurso objAcaPlanificacionCurso) {
+		this.objAcaPlanificacionCurso = objAcaPlanificacionCurso;
+	}
+
 }

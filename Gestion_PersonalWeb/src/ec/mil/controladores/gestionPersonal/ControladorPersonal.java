@@ -436,6 +436,16 @@ public class ControladorPersonal {
 		}
 		return null;
 	}
+	
+	public List<GesGrado> getListTodosGesGrado() {
+			try {
+				return managerGestionPersonal.buscarGradoActivo();
+			} catch (Exception e) {
+				JSFUtil.crearMensajeERROR("Error", e.getMessage());
+				e.printStackTrace();
+				return null;
+			}
+	}
 
 	public List<SelectItem> SIestadoCivil() {
 		List<SelectItem> lstSiEstadoCilvil = new ArrayList<SelectItem>();
