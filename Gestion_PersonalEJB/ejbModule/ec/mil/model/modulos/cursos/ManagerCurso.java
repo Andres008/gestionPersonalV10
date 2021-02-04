@@ -1,6 +1,8 @@
 package ec.mil.model.modulos.cursos;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,6 +11,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import ec.mil.model.dao.entidades.AcaCurso;
+import ec.mil.model.dao.entidades.AcaInscripcionPersona;
 import ec.mil.model.dao.entidades.AcaInstitucionEducativa;
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaPlanificacionCurso;
@@ -18,6 +21,7 @@ import ec.mil.model.dao.entidades.AcaTipoCurso;
 import ec.mil.model.dao.entidades.AcaTipoTitulo;
 import ec.mil.model.dao.entidades.AcaTitulo;
 import ec.mil.model.dao.entidades.AcaTituloPersona;
+import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
 
 /**
@@ -217,7 +221,7 @@ public class ManagerCurso {
 				planificacion.getAcaPrerequisitoGrados().forEach(grado -> {
 					grado.getGesGrado().getId();
 				});
-				planificacion.getAcaInscripcionPersonas().forEach(inscritos->{
+				planificacion.getAcaInscripcionPersonas().forEach(inscritos -> {
 					inscritos.getGesPersona().getCedula();
 				});
 				;
@@ -268,6 +272,52 @@ public class ManagerCurso {
 		} catch (Exception e) {
 			throw new Exception("Error al eliminar Prerequisito Curso. " + e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AcaPlanificacionCurso> buscarCursoDisponible() throws Exception {
+		try {
+			SimpleDateFormat fd = new SimpleDateFormat("dd-MM-yyyy");
+			List<AcaPlanificacionCurso> lstPlanificacion = managerDAOGestionPersonal.findWhere(
+					AcaPlanificacionCurso.class,
+					"to_date('" + fd.format(new Date())
+							+ "', 'dd-MM-yyyy') between o.fechaInicioInscripcion and o.fechaFinalInscripcion ",
+					"o.fechaInicioCurso DESC");
+			lstPlanificacion.forEach(planificacion -> {
+				planificacion.getAcaPrerequisitoCursos().forEach(curso -> {
+					curso.getAcaCurso().getId();
+				});
+				planificacion.getAcaPrerequisitoGrados().forEach(grado -> {
+					grado.getGesGrado().getId();
+				});
+				planificacion.getAcaInscripcionPersonas().forEach(inscritos -> {
+					inscritos.getGesPersona().getCedula();
+				});
+				;
+			});
+			return lstPlanificacion;
+		} catch (Exception e) {
+			throw new Exception("Error al consultar cursos planificados. " + e.getMessage());
+		}
+	}
+
+	public GesPersona buscarPersonaByCedula(String idUsuario) throws Exception {
+		GesPersona persona = (GesPersona) managerDAOGestionPersonal.findById(GesPersona.class, idUsuario);
+		if (persona == null)
+			throw new Exception("Persona no existe");
+		persona.getAcaPersonasCursos().forEach(cursos -> {
+			cursos.getAcaCurso().getId();
+		});
+		return persona;
+	}
+
+	public void ingresarInscripcion(AcaInscripcionPersona inscripcion) throws Exception {
+		try {
+			managerDAOGestionPersonal.insertar(inscripcion);
+		} catch (Exception e) {
+			throw new Exception("Error al insertar inscripcion. "+e.getMessage());
+		}
+		
 	}
 
 }

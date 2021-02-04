@@ -21,7 +21,9 @@ import org.primefaces.event.RowEditEvent;
 
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AcaCurso;
+import ec.mil.model.dao.entidades.AcaInscripcionPersona;
 import ec.mil.model.dao.entidades.AcaInstitucionEducativa;
+import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaPlanificacionCurso;
 import ec.mil.model.dao.entidades.AcaPrerequisitoCurso;
 import ec.mil.model.dao.entidades.AcaPrerequisitoGrado;
@@ -29,6 +31,7 @@ import ec.mil.model.dao.entidades.AcaTipoCurso;
 import ec.mil.model.dao.entidades.AcaTipoTitulo;
 import ec.mil.model.dao.entidades.AcaTitulo;
 import ec.mil.model.dao.entidades.GesGrado;
+import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.entidades.GesReparto;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
 import ec.mil.model.modulos.cursos.ManagerCurso;
@@ -60,6 +63,77 @@ public class ControladorCursos {
 
 	public ControladorCursos() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public void inicializarCursoDisponible() {
+		try {
+			lstAcaPlanificacionCurso = managerCurso.buscarCursoDisponible();
+			lstAcaPlanificacionCurso = verificarPrerequisitoGrado(lstAcaPlanificacionCurso);
+			lstAcaPlanificacionCurso = verificarPrerequisitoCursos(lstAcaPlanificacionCurso);
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public List<AcaPlanificacionCurso> verificarPrerequisitoGrado(List<AcaPlanificacionCurso> lstPlanifCur)
+			throws Exception {
+		List<AcaPlanificacionCurso> lstAuxPlaniCurso = new ArrayList<AcaPlanificacionCurso>();
+		boolean grado;
+		GesPersona persona = managerCurso.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario());
+		for (AcaPlanificacionCurso acaPlanificacionCurso : lstPlanifCur) {
+			grado = false;
+			for (AcaPrerequisitoGrado prerequisitoGrado : acaPlanificacionCurso.getAcaPrerequisitoGrados()) {
+				if (prerequisitoGrado.getGesGrado().getId() == persona.getGesGrado().getId())
+					grado = true;
+			}
+			if (grado)
+				lstAuxPlaniCurso.add(acaPlanificacionCurso);
+		}
+		return lstAuxPlaniCurso;
+	}
+
+	public void ingresarInscripcionCurso(AcaPlanificacionCurso planificacionCurso) {
+		AcaInscripcionPersona inscripcion = new AcaInscripcionPersona();
+		inscripcion.setAcaPlanificacionCurso(planificacionCurso);
+		try {
+			inscripcion.setGesPersona(managerCurso.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario()));
+			managerCurso.ingresarInscripcion(inscripcion);
+			JSFUtil.crearMensajeINFO("Atención", "Inscripcion Realizada.");
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarInscripcionCurso",
+					"Se inscribio: " + inscripcion.getId());
+			inicializarCursoDisponible();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public List<AcaPlanificacionCurso> verificarPrerequisitoCursos(List<AcaPlanificacionCurso> lstPlanifCur)
+			throws Exception {
+		List<AcaPlanificacionCurso> lstAuxPlaniCurso = new ArrayList<AcaPlanificacionCurso>();
+		boolean curso, cursoPersona;
+		GesPersona persona = managerCurso.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario());
+		/*for de los cursos planificacos*/
+		for (AcaPlanificacionCurso acaPlanificacionCurso : lstPlanifCur) {
+			curso = true;
+			/*for de los prerequisitos cursos para el curso planificado*/
+			for (AcaPrerequisitoCurso prerequisitoCurso : acaPlanificacionCurso.getAcaPrerequisitoCursos()) {
+				cursoPersona = true;
+				/*For para recorrer los cursos ue tiene la persona*/
+				for (AcaPersonasCurso acaPersonaCurso : persona.getAcaPersonasCursos()) {
+					/*Si */
+					if (acaPersonaCurso.getAcaCurso().getId() == prerequisitoCurso.getAcaCurso().getId())
+						cursoPersona = false;
+				}
+				if (cursoPersona)
+					curso = false;
+			}
+			if (curso)
+				lstAuxPlaniCurso.add(acaPlanificacionCurso);
+		}
+		return lstAuxPlaniCurso;
 	}
 
 	public void inicializarTipoTitulo() {
@@ -94,11 +168,10 @@ public class ControladorCursos {
 	}
 
 	public void inicializarAcaPlanificacionCurso() {
-		if (beanLogin.getCredencial()== null) {
+		if (beanLogin.getCredencial() == null) {
 			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-			ExternalContext externalContext = FacesContext.getCurrentInstance()
-				    .getExternalContext();
-			 try {
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			try {
 				externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
 			} catch (IOException e) {
 				JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -189,32 +262,32 @@ public class ControladorCursos {
 
 	public void eliminarCursoPrerequisito(AcaPrerequisitoCurso prerequisitoCurso) {
 		try {
-			if (objAcaPlanificacionCurso.getId()>0) {
+			if (objAcaPlanificacionCurso.getId() > 0) {
 				managerCurso.eliminarCursoPrere(prerequisitoCurso);
-				objAcaPlanificacionCurso= managerCurso.buscarPlanificacionById( prerequisitoCurso.getAcaPlanificacionCurso().getId() );
-			}
-			else
+				objAcaPlanificacionCurso = managerCurso
+						.buscarPlanificacionById(prerequisitoCurso.getAcaPlanificacionCurso().getId());
+			} else
 				objAcaPlanificacionCurso.getAcaPrerequisitoCursos().remove(prerequisitoCurso);
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Error",e.getMessage());
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void eliminarGradoPrerequisito(AcaPrerequisitoGrado prerequisitoCurso) {
 		try {
-			if (objAcaPlanificacionCurso.getId()>0) {
+			if (objAcaPlanificacionCurso.getId() > 0) {
 				managerCurso.eliminarGradoPrere(prerequisitoCurso);
-				objAcaPlanificacionCurso= managerCurso.buscarPlanificacionById( prerequisitoCurso.getAcaPlanificacionCurso().getId() );
-			}
-			else
+				objAcaPlanificacionCurso = managerCurso
+						.buscarPlanificacionById(prerequisitoCurso.getAcaPlanificacionCurso().getId());
+			} else
 				objAcaPlanificacionCurso.getAcaPrerequisitoGrados().remove(prerequisitoCurso);
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Error",e.getMessage());
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void inicializarTipoCurso() {
