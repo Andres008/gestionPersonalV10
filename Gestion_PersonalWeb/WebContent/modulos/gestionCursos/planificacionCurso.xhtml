@@ -72,7 +72,7 @@
 			</h:form>
 			<div id="posicion" align="center">
 				<h1>INGRESO DE CURSO A REALIZARCE</h1>
-				<h:form>
+				<h:form id="principal">
 					<p:growl id="msgs" showDetail="true" />
 					<p:panel header="Ingreso de Informacion" toggleable="true"
 						collapsed="true">
@@ -223,13 +223,15 @@
 							</p:column>
 							<p:rowExpansion>
 								<p:panel header="Inscritos curso #{curso.acaCurso.nombre}">
-									<p:dataTable emptyMessage="No existe personal Inscrito"
+									<p:dataTable id="inscriPer"
+										emptyMessage="No existe personal Inscrito"
 										value="#{curso.acaInscripcionPersonas}" var="persona">
 										<p:column headerText="Grado">
 											<p:outputLabel value="#{persona.gesPersona.gesGrado.grado}" />
 										</p:column>
 										<p:column headerText="Nombre">
-											<p:outputLabel value="#{persona.gesPersona.apellido} #{persona.gesPersona.nombre}" />
+											<p:outputLabel
+												value="#{persona.gesPersona.apellido} #{persona.gesPersona.nombre}" />
 										</p:column>
 										<p:column headerText="Correo Electronico">
 											<p:outputLabel value="#{persona.gesPersona.correo}" />
@@ -237,11 +239,74 @@
 										<p:column headerText="Telefono">
 											<p:outputLabel value="#{persona.gesPersona.telefono}" />
 										</p:column>
+										<p:column headerText="Estado Inscripción">
+											<p:outputLabel
+												value="#{persona.acaEstadoInscripcion.descripcion}" />
+										</p:column>
+										<p:column headerText="Aceptar o Negar">
+											<p:panelGrid columns="2" styleClass="ui-noborder"
+												rendered="#{persona.acaEstadoInscripcion.id==1}">
+												<p:commandButton icon="ui-icon-check"
+													actionListener="#{controladorCursos.ingresarAceptacionInscripcion(persona)}"
+													update="principal:j_idt66:3:inscriPer">
+													<p:confirm header="Confirmación"
+														message="Desea registrar la aceptación de la inscripción?"
+														icon="pi pi-exclamation-triangle" />
+												</p:commandButton>
+												<p:commandButton icon="ui-icon-closethick"
+													update="@form:infInscr" oncomplete="PF('infNegar').show()"
+													actionListener="#{controladorCursos.cargarInscripcion(persona)}">
+													<p:confirm header="Confirmación"
+														message="Desea negar la inscripción?"
+														icon="pi pi-exclamation-triangle" />
+												</p:commandButton>
+											</p:panelGrid>
+											<p:commandButton value="Regresar"
+												actionListener="#{controladorCursos.regresarAceptacionInscripcion(persona)}"
+												update="principal:j_idt66:3:inscriPer"
+												rendered="#{persona.acaEstadoInscripcion.id==2 || persona.acaEstadoInscripcion.id==3}">
+												<p:confirm header="Confirmación"
+													message="Desea cancelar la acción de la inscripción?"
+													icon="pi pi-exclamation-triangle" />
+											</p:commandButton>
+										</p:column>
 									</p:dataTable>
 								</p:panel>
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="fade" responsive="true" width="350">
+									<p:commandButton value="No" type="button"
+										styleClass="ui-confirmdialog-no ui-button-flat" />
+									<p:commandButton value="Yes" type="button"
+										styleClass="ui-confirmdialog-yes" />
+								</p:confirmDialog>
 							</p:rowExpansion>
 						</p:dataTable>
 					</p:panel>
+
+					<p:dialog header="Negación de Inscripción" widgetVar="infNegar"
+						id="infInscr" modal="true" position="top" showEffect="fade"
+						hideEffect="fade" resizable="false" width="50%">
+						<div align="center">
+							<p:panelGrid columns="2" styleClass="ui-noborder">
+								<p:outputLabel value="Curso" />
+								<p:outputLabel
+									value="#{controladorCursos.objAcaInscripcionPersona.acaPlanificacionCurso.acaCurso.descripcion}" />
+								<p:outputLabel value="Solicita Inscripción:" />
+								<p:outputLabel
+									value="#{controladorCursos.objAcaInscripcionPersona.gesPersona.gesGrado.grado} #{controladorCursos.objAcaInscripcionPersona.gesPersona.apellido} #{controladorCursos.objAcaInscripcionPersona.gesPersona.nombre}" />
+								<p:outputLabel value="Observacion Negación" />
+								<p:inputTextarea cols="20"
+									value="#{controladorCursos.objAcaInscripcionPersona.observacion}" />
+							</p:panelGrid>
+							<p:commandButton value="Ingresar"
+								actionListener="#{controladorCursos.ingresarNegacionInscripcion()}"
+								update="@form:infInscr principal:j_idt66:3:inscriPer @form:msgs">
+								<p:confirm header="Confirmación"
+									message="Desea negar la inscripción?"
+									icon="pi pi-exclamation-triangle" />
+							</p:commandButton>
+						</div>
+					</p:dialog>
 
 					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"
 						modal="true" position="top" showEffect="fade" hideEffect="fade"

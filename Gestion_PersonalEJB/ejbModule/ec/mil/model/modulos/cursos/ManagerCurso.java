@@ -320,4 +320,12 @@ public class ManagerCurso {
 		
 	}
 
+	public void actualizarInscripcion(AcaInscripcionPersona inscripcion) throws Exception {
+		try {
+			managerDAOGestionPersonal.actualizar(inscripcion);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar inscripción. "+e.getMessage());
+		}
+	}
+
 }
