@@ -4,6 +4,7 @@
 package ec.mil.controladores.autenticacion;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class ControllerUsuarios {
 		inicializarMenu();
 		try {
 			lstAutPerfile = managerGestionPersonal.findAllPerfil();
+			
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();

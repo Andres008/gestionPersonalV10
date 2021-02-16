@@ -214,7 +214,7 @@ public class ManagerGestionPersonal {
 	public List<AutPerfile> findAllPerfil() throws Exception {
 		try {
 			List<AutPerfile> lstAutPerfile = managerDAOGestionPersonal.findAll(AutPerfile.class,
-					" o.autMenu.nombre ASC,o.estado ASC, o.nombre ASC");
+					" o.autMenu.nombre ASC,o.estado ASC, o.orden ASC");
 			lstAutPerfile.forEach(perfil -> {
 				perfil.getAutRolPerfils().forEach(rol -> {
 					rol.getAutRole().getId();

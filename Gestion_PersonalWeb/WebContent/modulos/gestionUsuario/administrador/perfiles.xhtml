@@ -96,6 +96,8 @@
 								style="text-transform: uppercase" />
 							<p:outputLabel value="Url"  />
 							<p:inputText size="150" value="#{controllerUsuarios.objAutPerfile.url}" />
+							<p:outputLabel value="Orden" />
+							<p:spinner value="#{controladorUsuarios.objAutPerfile.orden}" min="1"  />
 							<p:outputLabel value="Icono" />
 							<p:inputText value="#{controllerUsuarios.objAutPerfile.icon}" />
 						</p:panelGrid>
@@ -128,6 +130,9 @@
 								<p:outputLabel value="#{rol.fechaFinal}">
 									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
 								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Orden" >
+								<p:outputLabel value="#{rol.orden}" />
 							</p:column>
 							<p:column headerText="Estado">
 								<p:outputLabel value="#{rol.estado}" />

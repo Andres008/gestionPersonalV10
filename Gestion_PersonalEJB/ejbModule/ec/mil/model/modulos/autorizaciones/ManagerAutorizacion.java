@@ -98,7 +98,7 @@ public class ManagerAutorizacion {
 	@SuppressWarnings("unchecked")
 	public List<AutRolPerfil> findRolPerfilbyRol(AutRole objAutRol, VAutMenuRol vAutMenuRol) throws Exception {
 		try {
-			return managerDAOGestionPersonal.findWhere(AutRolPerfil.class, "o.autRole.id="+objAutRol.getId()+" and o.estado='A' and o.autPerfile.autMenu.id="+vAutMenuRol.getId(), "o.autPerfile.nombre ASC");
+			return managerDAOGestionPersonal.findWhere(AutRolPerfil.class, "o.autRole.id="+objAutRol.getId()+" and o.estado='A' and o.autPerfile.autMenu.id="+vAutMenuRol.getId(), "o.autPerfile.orden ASC");
 		} catch (Exception e) {
 		throw new Exception("Error al buscar Rol Perfil");
 		}

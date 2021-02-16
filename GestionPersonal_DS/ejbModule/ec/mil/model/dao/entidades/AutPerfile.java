@@ -1,6 +1,8 @@
 package ec.mil.model.dao.entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +43,8 @@ public class AutPerfile implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_menu")
 	private AutMenu autMenu;
+	
+	private BigDecimal orden;
 
 	//bi-directional many-to-one association to AutRolPerfil
 	@OneToMany(mappedBy="autPerfile")
@@ -133,6 +137,14 @@ public class AutPerfile implements Serializable {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public BigDecimal getOrden() {
+		return orden;
+	}
+
+	public void setOrden(BigDecimal orden) {
+		this.orden = orden;
 	}
 
 }
