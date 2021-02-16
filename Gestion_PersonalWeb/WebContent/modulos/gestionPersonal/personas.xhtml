@@ -85,10 +85,14 @@
 								mask="9999999999" />
 							<p:outputLabel value="Apellidos" />
 							<p:inputText style="text-transform: uppercase"
-								value="#{controladorPersonal.objGesPersona.apellido}" />
+								value="#{controladorPersonal.objGesPersona.apellido}">
+								<p:keyFilter regEx="/[QWERTYUIOPÑLKJHGFDSAZXCVBNMÁÉÍÓÚ ]/i" />
+							</p:inputText>
 							<p:outputLabel value="Nombres" />
 							<p:inputText style="text-transform: uppercase"
-								value="#{controladorPersonal.objGesPersona.nombre}" />
+								value="#{controladorPersonal.objGesPersona.nombre}">
+								<p:keyFilter regEx="/[QWERTYUIOPÑLKJHGFDSAZXCVBNMÁÉÍÓÚ ]/i" />
+							</p:inputText>
 							<p:outputLabel value="Fecha Nacimiento" />
 							<p:calendar pattern="dd/MM/yyyy"
 								value="#{controladorPersonal.objGesPersona.fechaNacimiento}"
@@ -106,13 +110,17 @@
 								<f:selectItems value="#{controladorPersonal.SIgrados()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Promoción" />
-							<p:selectOneMenu
-								value="#{controladorPersonal.objGesPersona.gesPromocion.id}">
-								<f:selectItem itemLabel="Promoción" noSelectionOption="true" />
-								<f:selectItems value="#{controladorPersonal.SIPromocion()}" />
-							</p:selectOneMenu>
+							<p:panelGrid columns="2" styleClass="ui-noborder">
+								<p:selectOneMenu
+									value="#{controladorPersonal.objGesPersona.gesPromocion.id}">
+									<f:selectItem itemLabel="Promoción" noSelectionOption="true" />
+									<f:selectItems value="#{controladorPersonal.SIPromocion()}" />
+								</p:selectOneMenu>
+								<p:commandButton icon="ui-icon-plus" />
+							</p:panelGrid>
 							<p:outputLabel value="Antiguedad" />
-							<p:spinner min="1" value="#{controladorPersonal.objGesPersona.antiguedad}" />
+							<p:spinner min="1"
+								value="#{controladorPersonal.objGesPersona.antiguedad}" />
 							<p:outputLabel value="Fecha Alta" />
 							<p:calendar
 								value="#{controladorPersonal.objGesPersona.fechaAlta}"
@@ -127,7 +135,7 @@
 							<p:outputLabel value="Dirección" />
 							<p:inputText
 								value="#{controladorPersonal.objGesPersona.direccion}" />
-								<p:outputLabel value="Telefono" />
+							<p:outputLabel value="Telefono" />
 							<p:inputText
 								value="#{controladorPersonal.objGesPersona.telefono}" />
 							<p:outputLabel value="Correo Electrónico" />
@@ -138,20 +146,55 @@
 							action="#{controladorPersonal.ingresarPersona()}" />
 					</p:panel>
 					<p:panel header="Personas Ingresadas">
-						<p:dataTable value="#{controladorPersonal.lstGesPersona}"
+						<div align="center">
+							<div>
+								<h2>Exportar</h2>
+								<h:commandLink>
+									<p:graphicImage name="/images/excel.png" width="24" />
+									<p:dataExporter type="xls" target="tblPersonas"
+										fileName="personas" />
+								</h:commandLink>
+							</div>
+						</div>
+						<p:dataTable id="tblPersonas" value="#{controladorPersonal.lstGesPersona}"
+							widgetVar="personasTable" emptyMessage="No existen registros"
 							paginator="true" rows="20" var="persona">
 							<p:column headerText="Cédula" filterBy="#{persona.cedula}"
-								filterMatchMode="contains">
+								filterMatchMode="exact">
 								<p:outputLabel value="#{persona.cedula}" />
 							</p:column>
+							<p:column headerText="En Servicio"
+								filterBy="#{controladorPersonal.validarTipoServicio(persona.fechaBaja)}">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('personasTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="Activo" itemValue="Activo" />
+										<f:selectItem itemLabel="Pasivo" itemValue="Pasivo" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel
+									value="#{controladorPersonal.validarTipoServicio(persona.fechaBaja)}" />
+							</p:column>
 							<p:column headerText="Grado Actual"
-								filterBy="#{persona.gesGrado.grado}" filterMatchMode="exact">
+								filterBy="#{persona.gesGrado.id}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('personasTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SIgrados()}" />
+									</p:selectOneMenu>
+								</f:facet>
 								<p:outputLabel value="#{persona.gesGrado.grado}" />
 							</p:column>
-							<p:column headerText="Apellidos" filterBy="#{persona.apellido}" filterMatchMode="contains">
+							<p:column headerText="Apellidos" filterBy="#{persona.apellido}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{persona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombres">
+							<p:column headerText="Nombres" filterBy="#{persona.nombre}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{persona.nombre}" />
 							</p:column>
 							<p:column headerText="Fecha Nacimiento">
@@ -175,18 +218,27 @@
 							<p:column headerText="Correo">
 								<p:outputLabel value="#{persona.correo}" />
 							</p:column>
-							<p:column headerText="Tipo Sangre">
+							<p:column headerText="Tipo Sangre"
+								filterBy="#{persona.gesTipoSangre.id}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('personasTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SITipoSangre()}" />
+									</p:selectOneMenu>
+								</f:facet>
 								<p:outputLabel value="#{persona.gesTipoSangre.nombre}" />
 							</p:column>
 							<p:column headerText="Dirección">
 								<p:outputLabel value="#{persona.direccion}" />
 							</p:column>
-							<p:column headerText="Editar">
+							<p:column headerText="Editar" exportable="false">
 								<p:commandButton icon="ui-icon-pencil"
 									actionListener="#{controladorPersonal.cargarPersona(persona)}"
 									update="@form" />
 							</p:column>
-							<p:column headerText="Registrar Baja">
+							<p:column headerText="Registrar Baja" exportable="false">
 								<p:commandButton icon="ui-icon-closethick"
 									oncomplete="PF('infBaja').show()"
 									actionListener="#{controladorPersonal.cargarPersona(persona)}"

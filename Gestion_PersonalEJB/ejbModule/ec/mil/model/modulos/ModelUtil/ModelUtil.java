@@ -311,5 +311,32 @@ public class ModelUtil {
 				throw new Exception("Error al codificar Clave.");
 			}
 	}
+	
+	public static void esSoloLetras(String cadena) throws Exception
+
+	{
+
+		//Recorremos cada caracter de la cadena y comprobamos si son letras.
+
+		//Para comprobarlo, lo pasamos a mayuscula y consultamos su numero ASCII.
+
+		//Si está fuera del rango 65 - 90, es que NO son letras.
+
+		//Para ser más exactos al tratarse del idioma español, tambien comprobamos
+
+		//el valor 165 equivalente a la Ñ
+
+		for (int i = 0; i < cadena.length(); i++)
+
+		{
+			char caracter = cadena.toUpperCase().charAt(i);
+
+			int valorASCII = (int)caracter;
+
+			if (valorASCII != 165 && (valorASCII < 65 || valorASCII > 90))
+
+				throw new Exception("Error Cadena contiene numeros.");
+		}
+	}
 
 }

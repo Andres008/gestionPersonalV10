@@ -232,6 +232,31 @@ public class ManagerCurso {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<AcaPlanificacionCurso> buscarPlanificacionFinalizados() throws Exception {
+		SimpleDateFormat fd = new SimpleDateFormat("dd-MM-yyyy");
+		try {
+			List<AcaPlanificacionCurso> lstPlanificacion = managerDAOGestionPersonal.findWhere(
+					AcaPlanificacionCurso.class, "to_date('" + fd.format(new Date())
+					+ "', 'dd-MM-yyyy') > o.fechaFinal",
+					"o.fechaInicioCurso DESC");
+			lstPlanificacion.forEach(planificacion -> {
+				planificacion.getAcaPrerequisitoCursos().forEach(curso -> {
+					curso.getAcaCurso().getId();
+				});
+				planificacion.getAcaPrerequisitoGrados().forEach(grado -> {
+					grado.getGesGrado().getId();
+				});
+				planificacion.getAcaInscripcionPersonas().forEach(inscritos -> {
+					inscritos.getGesPersona().getCedula();
+				});
+			});
+			return lstPlanificacion;
+		} catch (Exception e) {
+			throw new Exception("Error al consultar cursos planificados. " + e.getMessage());
+		}
+	}
+
 	public void actualizarPlanificacionCurso(AcaPlanificacionCurso objAcaPlanificacionCurso) throws Exception {
 		try {
 			managerDAOGestionPersonal.actualizar(objAcaPlanificacionCurso);
@@ -315,16 +340,16 @@ public class ManagerCurso {
 		try {
 			managerDAOGestionPersonal.insertar(inscripcion);
 		} catch (Exception e) {
-			throw new Exception("Error al insertar inscripcion. "+e.getMessage());
+			throw new Exception("Error al insertar inscripcion. " + e.getMessage());
 		}
-		
+
 	}
 
 	public void actualizarInscripcion(AcaInscripcionPersona inscripcion) throws Exception {
 		try {
 			managerDAOGestionPersonal.actualizar(inscripcion);
 		} catch (Exception e) {
-			throw new Exception("Error al actualizar inscripción. "+e.getMessage());
+			throw new Exception("Error al actualizar inscripción. " + e.getMessage());
 		}
 	}
 

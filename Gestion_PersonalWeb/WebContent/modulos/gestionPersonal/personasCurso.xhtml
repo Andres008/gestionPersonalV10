@@ -75,9 +75,10 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
+				<h1>REGISTRO DE CURSOS</h1>
 				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Ingresar Usuarios" toggleable="true"
+					<p:panel header="Ingresar Cursos Realizados" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Ingrese cedula" />
@@ -105,28 +106,71 @@
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:outputLabel value="Buscar Curso"
 								rendered="#{controladorPersonal.busqueda}" />
-							<p:panelGrid styleClass="ui-noborder" columns="2" rendered="#{controladorPersonal.busqueda}">
-								<p:outputLabel value="#{controladorPersonal.objAcaPersonasCurso.acaCurso.nombre}" />
+							<p:panelGrid styleClass="ui-noborder" columns="2"
+								rendered="#{controladorPersonal.busqueda}">
+								<p:outputLabel
+									value="#{controladorPersonal.objAcaPersonasCurso.acaCurso.nombre}" />
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
-							rendered="#{controladorPersonal.busqueda}" actionListener="#{controladorPersonal.ingresarCursoPersona()}" update="@form" />
+							rendered="#{controladorPersonal.busqueda}"
+							actionListener="#{controladorPersonal.ingresarCursoPersona()}"
+							update="@form" />
 					</p:panel>
-					<p:panel header="Usuarios Ingresados">
-						<p:dataTable value="#{controladorPersonal.lstAcaPersonasCurso}"
-							var="usuario">
-							<p:column headerText="Id Usuario">
+					<p:panel header="Cursos Registrados">
+						<div align="center">
+							<div>
+								<h2>Exportar</h2>
+								<h:commandLink >
+								<p:graphicImage name="/images/excel.png" width="24" />
+									<p:dataExporter type="xls" target="tblCursosRealizados"
+										fileName="cursosRealizados" />
+								</h:commandLink>
+							</div>
+						</div>
+						<p:dataTable id="tblCursosRealizados"
+							value="#{controladorPersonal.lstAcaPersonasCurso}"
+							widgetVar="usuariosTable" var="usuario"
+							emptyMessage="No existen registros">
+							<p:column headerText="Cédula"
+								filterBy="#{usuario.gesPersona.cedula}">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Apellido">
+							<p:column headerText="Grado"
+								filterBy="#{usuario.gesPersona.gesGrado.id}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('usuariosTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SIgrados()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{usuario.gesPersona.gesGrado.grado}" />
+							</p:column>
+							<p:column headerText="Apellido"
+								filterBy="#{usuario.gesPersona.apellido}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre"
+								filterBy="#{usuario.gesPersona.nombre}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
-							<p:column headerText="Curso">
+							<p:column headerText="Curso" filterBy="#{usuario.acaCurso.id}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('usuariosTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorCursos.SICursos()}" />
+									</p:selectOneMenu>
+								</f:facet>
 								<p:outputLabel value="#{usuario.acaCurso.nombre}" />
 							</p:column>
 							<p:column headerText="Fecha Registro">
@@ -135,28 +179,28 @@
 						</p:dataTable>
 					</p:panel>
 					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"
-							modal="true" position="top" showEffect="fade" hideEffect="fade"
-							resizable="false" width="1100">
-								<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}"
-									var="curso">
-									<p:column headerText="Curso">
-										<p:outputLabel value="#{curso.nombre}" />
-									</p:column>
-									<p:column headerText="Descripción">
-										<p:outputLabel value="#{curso.descripcion}" />
-									</p:column>
-									<p:column headerText="Horas">
-										<p:outputLabel value="#{curso.horas}" />
-									</p:column>
-									<p:column headerText="Seleccionar">
-										<p:commandButton icon="	ui-icon-check"
-											actionListener="#{controladorPersonal.cargarCursoSeleccion(curso)}"
-											update="@form" />
-									</p:column>
-								</p:dataTable>
-						</p:dialog>
+						modal="true" position="top" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}"
+							var="curso">
+							<p:column headerText="Curso">
+								<p:outputLabel value="#{curso.nombre}" />
+							</p:column>
+							<p:column headerText="Descripción">
+								<p:outputLabel value="#{curso.descripcion}" />
+							</p:column>
+							<p:column headerText="Horas">
+								<p:outputLabel value="#{curso.horas}" />
+							</p:column>
+							<p:column headerText="Seleccionar">
+								<p:commandButton icon="	ui-icon-check"
+									actionListener="#{controladorPersonal.cargarCursoSeleccion(curso)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:dialog>
 				</h:form>
-				
+
 			</div>
 		</div>
 		<div id="footer" align="center">

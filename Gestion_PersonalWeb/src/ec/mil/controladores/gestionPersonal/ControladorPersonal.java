@@ -527,9 +527,17 @@ public class ControladorPersonal {
 		}
 		return lstSiTipoSangre;
 	}
+	
+	public String validarTipoServicio(Date fechaBaja) {
+		if ( fechaBaja ==null )
+			return "Activo";
+		return "Pasivo";
+	}
 
 	public void ingresarPersona() {
 		try {
+			ModelUtil.esSoloLetras(objGesPersona.getApellido());
+			ModelUtil.esSoloLetras(objGesPersona.getNombre());
 			objGesPersona.setApellido(ModelUtil.cambiarMayusculas(objGesPersona.getApellido()));
 			objGesPersona.setNombre(ModelUtil.cambiarMayusculas(objGesPersona.getNombre()));
 			objGesPersona.setCorreo(ModelUtil.cambiarMinusculas(objGesPersona.getCorreo()));
