@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controllerUsuarios.inicializarUsuario()}"
+<body onload="#{controladorUsuarios.inicializarUsuario()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -82,35 +82,35 @@
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Ingrese cedula" />
 							<p:panelGrid columns="2">
-								<p:inputMask value="#{controllerUsuarios.objAutUsuario.cedula}" />
+								<p:inputMask value="#{controladorUsuarios.objAutUsuario.cedula}" />
 								<p:commandButton icon="ui-icon-search"
-									actionListener="#{controllerUsuarios.buscarPersona()}"
+									actionListener="#{controladorUsuarios.buscarPersona()}"
 									update="@form" />
 							</p:panelGrid>
 							<p:outputLabel value="Apellido"
-								rendered="#{controllerUsuarios.busqueda}" />
+								rendered="#{controladorUsuarios.busqueda}" />
 							<p:outputLabel
-								value="#{controllerUsuarios.objAutUsuario.gesPersona.apellido}"
-								rendered="#{controllerUsuarios.busqueda}" />
+								value="#{controladorUsuarios.objAutUsuario.gesPersona.apellido}"
+								rendered="#{controladorUsuarios.busqueda}" />
 							<p:outputLabel value="Nombre"
-								rendered="#{controllerUsuarios.busqueda}" />
+								rendered="#{controladorUsuarios.busqueda}" />
 							<p:outputLabel
-								value="#{controllerUsuarios.objAutUsuario.gesPersona.nombre}"
-								rendered="#{controllerUsuarios.busqueda}" />
+								value="#{controladorUsuarios.objAutUsuario.gesPersona.nombre}"
+								rendered="#{controladorUsuarios.busqueda}" />
 							<p:outputLabel value="Rol"
-								rendered="#{controllerUsuarios.busqueda}" />
+								rendered="#{controladorUsuarios.busqueda}" />
 							<p:selectOneMenu
-								value="#{controllerUsuarios.objAutUsuario.autRole.id}"
-								rendered="#{controllerUsuarios.busqueda}">
+								value="#{controladorUsuarios.objAutUsuario.autRole.id}"
+								rendered="#{controladorUsuarios.busqueda}">
 								<f:selectItem itemLabel="Rol" noSelectionOption="true" />
-								<f:selectItems value="#{controllerUsuarios.SIroles()}" />
+								<f:selectItems value="#{controladorUsuarios.SIroles()}" />
 							</p:selectOneMenu>
 						</p:panelGrid>
-						<p:commandButton value="Ingresar" rendered="#{controllerUsuarios.busqueda}"
-							action="#{controllerUsuarios.ingresarUsuario()}" update="@form" />
+						<p:commandButton value="Ingresar" rendered="#{controladorUsuarios.busqueda}"
+							action="#{controladorUsuarios.ingresarUsuario()}" update="@form" />
 					</p:panel>
 					<p:panel header="Usuarios Ingresados">
-						<p:dataTable value="#{controllerUsuarios.lstAutUsuario}"
+						<p:dataTable value="#{controladorUsuarios.lstAutUsuario}"
 							var="usuario">
 							<p:column headerText="Id Usuario">
 								<p:outputLabel value="#{usuario.cedula}" />

@@ -84,6 +84,17 @@ public class ControladorEstimulo {
 			return null;
 		}
 	}
+	
+	public void inactivarEstimulo(GesEstimulo objEstimulo) {
+		objEstimulo.setEstado("I");
+		objEstimulo.setFechaFinal(new Date());
+		try {
+			managerGesPersonal.actualizarTipoEstimulo(objEstimulo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void inicializarGesTipoEstimulo() {
 		objGesTipoEstimulo = new GesTipoEstimulo();
@@ -130,9 +141,11 @@ public class ControladorEstimulo {
 	}
 	
 
-	public void onRowEditGesTipoEstimulo(RowEditEvent<GesTipoEstimulo> event) {
+	public void onRowEditGesTipoEstimulo(RowEditEvent<GesEstimulo> event) {
 		try {
-			managerGesPersonal.actualizarTipoEstimulo(event.getObject());
+			GesEstimulo objGesEsti=event.getObject();
+			objGesEsti.setEstado("A");
+			managerGesPersonal.actualizarTipoEstimulo(objGesEsti);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditGesTipoEstimulo",
 					"Se actualizó tipo estimulo id: " + event.getObject().getId());
 			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");

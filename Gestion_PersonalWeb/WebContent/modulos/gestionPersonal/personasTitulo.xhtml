@@ -112,13 +112,16 @@
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
-							<p:outputLabel value="Fecha Registro" 
+							<p:outputLabel value="Fecha Registro"
 								rendered="#{controladorPersonal.busqueda}" />
-							<p:calendar rendered="#{controladorPersonal.busqueda}" locale="es" pattern="dd/MM/yyyy"
+							<p:calendar rendered="#{controladorPersonal.busqueda}"
+								locale="es" pattern="dd/MM/yyyy"
 								value="#{controladorPersonal.objAcaTituloPersona.fechaRefrendacion}" />
 							<p:outputLabel value="Registro"
 								rendered="#{controladorPersonal.busqueda}" />
-								<p:inputText value="#{controladorPersonal.objAcaTituloPersona.codigoRegistro}" rendered="#{controladorPersonal.busqueda}"/>
+							<p:inputText
+								value="#{controladorPersonal.objAcaTituloPersona.codigoRegistro}"
+								rendered="#{controladorPersonal.busqueda}" />
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
 							rendered="#{controladorPersonal.busqueda}"
@@ -126,18 +129,72 @@
 							update="@form" />
 					</p:panel>
 					<p:panel header="Título Persona Ingresados">
-						<p:dataTable value="#{controladorPersonal.lstAcaTituloPersona}" emptyMessage="No existen registros"
-							var="usuario">
-							<p:column headerText="Cédula">
+						<p:dataTable value="#{controladorPersonal.lstAcaTituloPersona}"
+							emptyMessage="No existen registros" var="usuario"
+							widgetVar="consolidadoTbl">
+							<p:column headerText="Cédula"
+								filterBy="#{usuario.gesPersona.cedula}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Apellido">
+							<p:column headerText="Grado"
+								filterBy="#{usuario.gesPersona.gesGrado.grado}"
+								filterMatchMode="exact">
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SIgradosNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+
+								<p:outputLabel value="#{usuario.gesPersona.gesGrado.grado}" />
+							</p:column>
+							<p:column headerText="Apellido"
+								filterBy="#{usuario.gesPersona.apellido}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre"
+								filterBy="#{usuario.gesPersona.nombre}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
-							<p:column headerText="Titulo">
+							<p:column headerText="Tipo Titulo" filterBy="#{usuario.acaTitulo.acaTipoTitulo.nombre}" filterMatchMode="exact">
+
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="TERCER NIVEL"
+											itemValue="TERCER NIVEL" />
+											<f:selectItem itemLabel="CUARTO NIVEL"
+											itemValue="CUARTO NIVEL" />
+											<f:selectItem itemLabel="N/A"
+											itemValue="N/A" />
+									</p:selectOneMenu>
+								</f:facet>
+
+								<p:outputLabel value="#{usuario.acaTitulo.acaTipoTitulo.nombre}" />
+							</p:column>
+							<p:column headerText="Titulo"
+								filterBy="#{usuario.acaTitulo.titulo}" filterMatchMode="exact">
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SITituloNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+
 								<p:outputLabel value="#{usuario.acaTitulo.titulo}" />
 							</p:column>
 							<p:column headerText="Institución">

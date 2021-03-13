@@ -118,7 +118,10 @@
 							<p:calendar locale="es" mindate="today" pattern="dd/MM/yyyy"
 								mask="99/99/9999"
 								value="#{controladorCursos.objAcaPlanificacionCurso.fechaFinalInscripcion}" />
+								<p:outputLabel value="Observación" />
+						<p:inputTextarea value="#{controladorCursos.objAcaPlanificacionCurso.observacion}" />
 						</p:panelGrid>
+						
 						<p:panel header="Curso Prerequisito" toggleable="true"
 							collapsed="true">
 							<p:commandButton icon="ui-icon-search"
@@ -248,7 +251,7 @@
 												rendered="#{persona.acaEstadoInscripcion.id==1}">
 												<p:commandButton icon="ui-icon-check"
 													actionListener="#{controladorCursos.ingresarAceptacionInscripcion(persona)}"
-													update="principal:j_idt66:3:inscriPer">
+													update="principal:j_idt126">
 													<p:confirm header="Confirmación"
 														message="Desea registrar la aceptación de la inscripción?"
 														icon="pi pi-exclamation-triangle" />
@@ -263,7 +266,7 @@
 											</p:panelGrid>
 											<p:commandButton value="Regresar"
 												actionListener="#{controladorCursos.regresarAceptacionInscripcion(persona)}"
-												update="principal:j_idt66:3:inscriPer"
+												update="principal:j_idt126"
 												rendered="#{persona.acaEstadoInscripcion.id==2 || persona.acaEstadoInscripcion.id==3}">
 												<p:confirm header="Confirmación"
 													message="Desea cancelar la acción de la inscripción?"
@@ -300,7 +303,7 @@
 							</p:panelGrid>
 							<p:commandButton value="Ingresar"
 								actionListener="#{controladorCursos.ingresarNegacionInscripcion()}"
-								update="@form:infInscr principal:j_idt66:3:inscriPer @form:msgs">
+								update="@form:infInscr principal:j_idt126 @form:msgs">
 								<p:confirm header="Confirmación"
 									message="Desea negar la inscripción?"
 									icon="pi pi-exclamation-triangle" />

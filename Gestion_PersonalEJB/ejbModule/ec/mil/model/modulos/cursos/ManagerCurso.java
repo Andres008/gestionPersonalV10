@@ -2,6 +2,7 @@ package ec.mil.model.modulos.cursos;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,11 +22,13 @@ import ec.mil.model.dao.entidades.AcaTipoCurso;
 import ec.mil.model.dao.entidades.AcaTipoTitulo;
 import ec.mil.model.dao.entidades.AcaTitulo;
 import ec.mil.model.dao.entidades.AcaTituloPersona;
+import ec.mil.model.dao.entidades.GesEstimulo;
+import ec.mil.model.dao.entidades.GesEstimuloPersona;
 import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.manager.ManagerDAOGestionPersonal;
 
 /**
- * Session Bean implementation class ManagerCurso
+ * Session Bean implementation class ManagerReportes
  */
 @Stateless(mappedName = "managerCurso")
 @LocalBean
@@ -237,9 +240,8 @@ public class ManagerCurso {
 		SimpleDateFormat fd = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			List<AcaPlanificacionCurso> lstPlanificacion = managerDAOGestionPersonal.findWhere(
-					AcaPlanificacionCurso.class, "to_date('" + fd.format(new Date())
-					+ "', 'dd-MM-yyyy') > o.fechaFinal",
-					"o.fechaInicioCurso DESC");
+					AcaPlanificacionCurso.class,
+					"to_date('" + fd.format(new Date()) + "', 'dd-MM-yyyy') > o.fechaFinal", "o.fechaInicioCurso DESC");
 			lstPlanificacion.forEach(planificacion -> {
 				planificacion.getAcaPrerequisitoCursos().forEach(curso -> {
 					curso.getAcaCurso().getId();
@@ -320,6 +322,7 @@ public class ManagerCurso {
 				});
 				;
 			});
+			System.out.println("Tamanio lista: "+lstPlanificacion.size());
 			return lstPlanificacion;
 		} catch (Exception e) {
 			throw new Exception("Error al consultar cursos planificados. " + e.getMessage());
@@ -351,6 +354,54 @@ public class ManagerCurso {
 		} catch (Exception e) {
 			throw new Exception("Error al actualizar inscripción. " + e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public AcaCurso buscarCursoNA() throws Exception {
+		List<AcaCurso> lstCurso = new ArrayList<AcaCurso>();
+		lstCurso = managerDAOGestionPersonal.findWhere(AcaCurso.class, "o.nombre='N/A'", null);
+		if (lstCurso.size() == 1)
+			return lstCurso.get(0);
+		throw new Exception("Parametro de curso N/A no encontrado.");
+	}
+
+	public AcaTitulo buscarTituloNA() throws Exception {
+		@SuppressWarnings("unchecked")
+		List<AcaTitulo> lstAcaTitulo = managerDAOGestionPersonal.findWhere(AcaTitulo.class, "o.titulo = 'N/A'", null);
+		if (lstAcaTitulo.size() == 1)
+			return lstAcaTitulo.get(0);
+		throw new Exception("Parametro de título N/A no encontrado.");
+	}
+
+	public GesEstimulo buscarDisciplinaNA() throws Exception {
+		@SuppressWarnings("unchecked")
+		List<GesEstimulo> lstAcaTitulo = managerDAOGestionPersonal.findWhere(GesEstimulo.class, "o.nombre = 'N/A'",
+				null);
+		if (lstAcaTitulo.size() == 1)
+			return lstAcaTitulo.get(0);
+		throw new Exception("Parametro de disciplina N/A no encontrado.");
+	}
+
+	public AcaPersonasCurso buscarCursoPersonaNAByPersona(GesPersona gesPersona) throws Exception {
+		@SuppressWarnings("unchecked")
+		List<AcaPersonasCurso> lstAcaPersonaCur = managerDAOGestionPersonal.findWhere(AcaPersonasCurso.class,
+				"o.gesPersona.cedula='" + gesPersona.getCedula() + "' and o.acaCurso.nombre='N/A'", null);
+		if (lstAcaPersonaCur.size()==1)
+			return lstAcaPersonaCur.get(0);
+		return null;
+	}
+
+	public void eliminarCursoPersona(AcaPersonasCurso objAcaPersonasCu) throws Exception {
+		managerDAOGestionPersonal.eliminar(AcaPersonasCurso.class, objAcaPersonasCu.getIdPersonasCursos());
+	}
+
+	public GesEstimuloPersona buscarEstimuloPersonaNA(GesPersona objGesEstimuloPersona2) throws Exception {
+		@SuppressWarnings("unchecked")
+		List<GesEstimuloPersona> lstGesEstimuloPersona = managerDAOGestionPersonal.findWhere(GesEstimuloPersona.class, 
+				"o.gesPersona.cedula='"+objGesEstimuloPersona2.getCedula()+"' and o.gesEstimulo.nombre='N/A'",null);
+		if(lstGesEstimuloPersona.size()==1)
+			return lstGesEstimuloPersona.get(0);
+		return null;
 	}
 
 }

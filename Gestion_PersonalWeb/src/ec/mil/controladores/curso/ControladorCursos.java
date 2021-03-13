@@ -119,6 +119,7 @@ public class ControladorCursos {
 			objCursoPersona.setAcaCurso(inscripcion.getAcaPlanificacionCurso().getAcaCurso());
 			objCursoPersona.setFechaInicial(inscripcion.getAcaPlanificacionCurso().getFechaInicioCurso());
 			objCursoPersona.setFechaFinal(inscripcion.getAcaPlanificacionCurso().getFechaFinal());
+			objCursoPersona.setFechaFinal(new Date());
 			managerCurso.ingresarCursoPersona(objCursoPersona);
 			inicializarAcaPlanificacionFinalizados();
 		} catch (Exception e) {
@@ -439,7 +440,7 @@ public class ControladorCursos {
 			managerCurso.actualizarTipoCurso(objAcatipoCursoAux);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "inactivarCurso",
 					"Se inactivo curso id: " + objAcatipoCursoAux.getId());
-			JSFUtil.crearMensajeINFO("Atenci�n", "Se inactivo Correctamente.");
+			JSFUtil.crearMensajeINFO("Atención", "Se inactivo Correctamente.");
 			inicializarTipoCurso();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -473,7 +474,7 @@ public class ControladorCursos {
 			managerCurso.actualizarCurso(objAcaCursoAux);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "inactivarCurso",
 					"Se inactivo curso id: " + objAcaCursoAux.getId());
-			JSFUtil.crearMensajeINFO("Atenci�n", "Se inactivo Correctamente.");
+			JSFUtil.crearMensajeINFO("Atención", "Se inactivo Correctamente.");
 			inicializarAcaCurso();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -487,8 +488,8 @@ public class ControladorCursos {
 		try {
 			managerCurso.actualizarTipoCurso(event.getObject());
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoCurso",
-					"Se actualiz� tipo curso id: " + event.getObject().getId());
-			JSFUtil.crearMensajeINFO("Atenci�n", "Actualizaci�n Correcta.");
+					"Se actualizó tipo curso id: " + event.getObject().getId());
+			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoCurso",
@@ -534,10 +535,12 @@ public class ControladorCursos {
 
 	public void onRowEditCurso(RowEditEvent<AcaCurso> event) {
 		try {
-			managerCurso.actualizarCurso(event.getObject());
+			AcaCurso objCurso = event.getObject();
+			objCurso.setEstado("A");
+			managerCurso.actualizarCurso(objCurso);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditCurso",
-					"Se actualiz� curso id: " + event.getObject().getId());
-			JSFUtil.crearMensajeINFO("Atenci�n", "Actualizaci�n Correcta.");
+					"Se actualizó curso id: " + event.getObject().getId());
+			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "onRowEditCurso",
@@ -610,13 +613,13 @@ public class ControladorCursos {
 			objAcaTipoCurso.setNombre(objAcaTipoCurso.getNombre().toUpperCase());
 			objAcaTipoCurso.setDescripcion(objAcaTipoCurso.getDescripcion().toUpperCase());
 			managerCurso.ingresarTipoCurso(objAcaTipoCurso);
-			JSFUtil.crearMensajeINFO("Atenci�n", "Ingreso correcto.");
+			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarTipoCurso",
 					"Ingreso tipo de curso id: " + objAcaTipoCurso.getNombre());
 
 			inicializarTipoCurso();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Atenci�n", e.getMessage());
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTipoCurso",
 					e.getMessage());
 			e.printStackTrace();
@@ -630,12 +633,12 @@ public class ControladorCursos {
 			objAcaCurso.setNombre(objAcaCurso.getNombre().toUpperCase());
 			objAcaCurso.setDescripcion(objAcaCurso.getDescripcion().toUpperCase());
 			managerCurso.ingresarCurso(objAcaCurso);
-			JSFUtil.crearMensajeINFO("Atenci�n", "Ingreso correcto.");
+			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarCurso",
 					"Ingreso tipo de curso id: " + objAcaCurso.getNombre());
 			inicializarAcaCurso();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Atenci�n", e.getMessage());
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarCurso",
 					e.getMessage());
 			e.printStackTrace();
@@ -648,12 +651,12 @@ public class ControladorCursos {
 				managerCurso.actualizarPlanificacionCurso(objAcaPlanificacionCurso);
 			else
 				managerCurso.ingresarPlanificacionCurso(objAcaPlanificacionCurso);
-			JSFUtil.crearMensajeINFO("Atenci�n", "Ingreso correcto.");
+			JSFUtil.crearMensajeINFO("Atención", "Ingreso correcto.");
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPlanificarCurso",
 					"Ingreso tipo de curso id: " + objAcaPlanificacionCurso.getId());
 			inicializarAcaPlanificacionCurso();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR("Atenci�n", e.getMessage());
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarPlanificarCurso",
 					e.getMessage());
 			e.printStackTrace();

@@ -50,7 +50,7 @@ public class GesPersona implements Serializable {
 	private List<AcaInscripcionPersona> acaInscripcionPersonas;
 
 	// bi-directional many-to-one association to AcaPersonasCurso
-	@OneToMany(mappedBy = "gesPersona")
+	@OneToMany(mappedBy = "gesPersona", cascade = CascadeType.ALL)
 	private List<AcaPersonasCurso> acaPersonasCursos;
 
 	// bi-directional one-to-one association to AutUsuario
@@ -62,7 +62,7 @@ public class GesPersona implements Serializable {
 	private List<GesDependenciaPersona> gesDependenciaPersonas;
 
 	// bi-directional many-to-one association to GesEstimuloPersona
-	@OneToMany(mappedBy = "gesPersona")
+	@OneToMany(mappedBy = "gesPersona", cascade = CascadeType.ALL)
 	private List<GesEstimuloPersona> gesEstimuloPersonas;
 
 	// bi-directional many-to-one association to GesGradosPersona
@@ -85,7 +85,7 @@ public class GesPersona implements Serializable {
 	private GesTipoSangre gesTipoSangre;
 
 	// bi-directional many-to-one association to AcaTituloPersona
-	@OneToMany(mappedBy = "gesPersona")
+	@OneToMany(mappedBy = "gesPersona", cascade = CascadeType.ALL)
 	private List<AcaTituloPersona> acaTituloPersonas;
 
 	// bi-directional many-to-one association to GesPromocion

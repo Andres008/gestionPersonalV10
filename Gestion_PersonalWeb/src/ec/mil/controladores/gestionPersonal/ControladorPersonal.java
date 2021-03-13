@@ -28,6 +28,8 @@ import ec.mil.model.dao.entidades.GesGrado;
 import ec.mil.model.dao.entidades.GesGradosPersona;
 import ec.mil.model.dao.entidades.GesPersona;
 import ec.mil.model.dao.entidades.GesPromocion;
+import ec.mil.model.dao.entidades.GesReparto;
+import ec.mil.model.dao.entidades.GesTipoEstimulo;
 import ec.mil.model.dao.entidades.GesTipoGrado;
 import ec.mil.model.dao.entidades.GesTipoSangre;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
@@ -121,6 +123,12 @@ public class ControladorPersonal {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public String fechaNula(Date fecha) {
+		if (fecha == null)
+			return "a";
+		return "";
 	}
 
 	public void cargarPersona(GesPersona objPersonaAux) {
@@ -296,9 +304,12 @@ public class ControladorPersonal {
 	}
 
 	public void ingresarCursoPersona() {
-		objAcaPersonasCurso.setFechaInicial(new Date());
+		objAcaPersonasCurso.setFechaRegistro(new Date());
 		try {
 			managerGestionCurso.ingresarCursoPersona(objAcaPersonasCurso);
+			AcaPersonasCurso objAcaPersonasCu = eliminarCursoNA(objAcaPersonasCurso.getGesPersona());
+			if (objAcaPersonasCu != null)
+				managerGestionCurso.eliminarCursoPersona(objAcaPersonasCu);
 			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
 			inicializarAcaPersonasCurso();
 			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarCursoPersona",
@@ -311,9 +322,17 @@ public class ControladorPersonal {
 		}
 	}
 
+	private AcaPersonasCurso eliminarCursoNA(GesPersona gesPersona) throws Exception {
+		return managerGestionCurso.buscarCursoPersonaNAByPersona(gesPersona);
+
+	}
+
 	public void ingresarTituloPersona() {
 		try {
 			managerGestionCurso.ingresarTituloPersona(objAcaTituloPersona);
+			AcaTituloPersona objAcaTituloPers =eliminarTituloNA(objAcaTituloPersona);
+			if (objAcaTituloPers != null)
+				managerGestionPersonal.eliminarTituloNA(objAcaTituloPers);
 			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
 			inicializarTituloPersona();
 			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTituloPersona",
@@ -324,6 +343,11 @@ public class ControladorPersonal {
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarTituloPersona",
 					e.getMessage());
 		}
+	}
+
+	private AcaTituloPersona eliminarTituloNA(AcaTituloPersona objAcaTituloPersona2) throws Exception {
+		return managerGestionPersonal.buscarTituloNA(objAcaTituloPersona2.getGesPersona());
+		
 	}
 
 	public void ingresarDependenciaPersona() {
@@ -370,6 +394,10 @@ public class ControladorPersonal {
 		try {
 			objGesEstimuloPersona.setFechaRegistro(new Date());
 			managerGestionPersonal.ingresarEstimuloPersona(objGesEstimuloPersona);
+			GesEstimuloPersona objGesEstimuloPers = eliminarEstimuloNA(objGesEstimuloPersona);
+			if (objGesEstimuloPers!=null) {
+				managerGestionPersonal.eliminarEstimuloNA(objGesEstimuloPers);
+			}
 			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
 			inicializarEstimuloPersona();
 			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "objGesEstimuloPersona",
@@ -380,6 +408,10 @@ public class ControladorPersonal {
 					e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	private GesEstimuloPersona eliminarEstimuloNA(GesEstimuloPersona objGesEstimuloPersona2) throws Exception {
+		return managerGestionCurso.buscarEstimuloPersonaNA(objGesEstimuloPersona2.getGesPersona());
 	}
 
 	public List<AcaCurso> getListAcaCursoActivo() {
@@ -436,15 +468,15 @@ public class ControladorPersonal {
 		}
 		return null;
 	}
-	
+
 	public List<GesGrado> getListTodosGesGrado() {
-			try {
-				return managerGestionPersonal.buscarGradoActivo();
-			} catch (Exception e) {
-				JSFUtil.crearMensajeERROR("Error", e.getMessage());
-				e.printStackTrace();
-				return null;
-			}
+		try {
+			return managerGestionPersonal.buscarGradoActivo();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public List<SelectItem> SIestadoCivil() {
@@ -482,6 +514,96 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 		return lstSiGrados;
+	}
+
+	public List<SelectItem> SIgradosNombre() {
+		List<SelectItem> lstSiGrados = new ArrayList<SelectItem>();
+		try {
+			List<GesGrado> lstGrados = managerGestionPersonal.buscarGradoActivo();
+			for (GesGrado gesEstadoCivil : lstGrados) {
+				SelectItem siEstCivil = new SelectItem();
+				siEstCivil.setLabel(gesEstadoCivil.getGrado());
+				siEstCivil.setValue(gesEstadoCivil.getGrado());
+				lstSiGrados.add(siEstCivil);
+			}
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "SIgrados", e.getMessage());
+			e.printStackTrace();
+		}
+		return lstSiGrados;
+	}
+
+	public List<SelectItem> SITipoDisNombre() {
+		List<SelectItem> lstSiTipoDisciplina = new ArrayList<SelectItem>();
+		try {
+			List<GesTipoEstimulo> lstGrados = managerGestionPersonal.buscarAllTipoDisciplina();
+			for (GesTipoEstimulo gesTipoEsti : lstGrados) {
+				SelectItem siEstCivil = new SelectItem();
+				siEstCivil.setLabel(gesTipoEsti.getNombre());
+				siEstCivil.setValue(gesTipoEsti.getNombre());
+				lstSiTipoDisciplina.add(siEstCivil);
+			}
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "SIgrados", e.getMessage());
+			e.printStackTrace();
+		}
+		return lstSiTipoDisciplina;
+	}
+
+	public List<SelectItem> SICursosNombre() {
+		List<SelectItem> lstSiCurso = new ArrayList<SelectItem>();
+		try {
+			List<AcaCurso> lstGrados = managerGestionCurso.findAllCurso();
+			for (AcaCurso gesTipoEsti : lstGrados) {
+				SelectItem siCursoLst = new SelectItem();
+				siCursoLst.setLabel(gesTipoEsti.getNombre());
+				siCursoLst.setValue(gesTipoEsti.getNombre());
+				lstSiCurso.add(siCursoLst);
+			}
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "SIgrados", e.getMessage());
+			e.printStackTrace();
+		}
+		return lstSiCurso;
+	}
+
+	public List<SelectItem> SITituloNombre() {
+		List<SelectItem> lstSiCurso = new ArrayList<SelectItem>();
+		try {
+			List<AcaTitulo> lstCurso = managerGestionCurso.findAllTitulo();
+			for (AcaTitulo acaCurso : lstCurso) {
+				SelectItem siCursoLst = new SelectItem();
+				siCursoLst.setLabel(acaCurso.getTitulo());
+				siCursoLst.setValue(acaCurso.getTitulo());
+				lstSiCurso.add(siCursoLst);
+			}
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "SIgrados", e.getMessage());
+			e.printStackTrace();
+		}
+		return lstSiCurso;
+	}
+
+	public List<SelectItem> SIRepartoNombre() {
+		List<SelectItem> lstSiCurso = new ArrayList<SelectItem>();
+		try {
+			List<GesReparto> lstCurso = managerGestionPersonal.buscarRepartoActivo();
+			for (GesReparto acaCurso : lstCurso) {
+				SelectItem siCursoLst = new SelectItem();
+				siCursoLst.setLabel(acaCurso.getNombre());
+				siCursoLst.setValue(acaCurso.getNombre());
+				lstSiCurso.add(siCursoLst);
+			}
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "SIgrados", e.getMessage());
+			e.printStackTrace();
+		}
+		return lstSiCurso;
 	}
 
 	public List<SelectItem> SIPromocion() {
@@ -527,9 +649,9 @@ public class ControladorPersonal {
 		}
 		return lstSiTipoSangre;
 	}
-	
+
 	public String validarTipoServicio(Date fechaBaja) {
-		if ( fechaBaja ==null )
+		if (fechaBaja == null)
 			return "Activo";
 		return "Pasivo";
 	}
@@ -543,8 +665,12 @@ public class ControladorPersonal {
 			objGesPersona.setCorreo(ModelUtil.cambiarMinusculas(objGesPersona.getCorreo()));
 			if (editar)
 				managerGestionPersonal.actualizarPersona(objGesPersona);
-			else
+			else {
+
+				valoresInicialesPersona(objGesPersona);
+
 				managerGestionPersonal.ingresarPersona(objGesPersona);
+			}
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPersona",
 					"Se ingreso persona id " + objGesPersona.getCedula());
 			JSFUtil.crearMensajeINFO("Mensaje", "Ingreso Correcto.");
@@ -555,6 +681,35 @@ public class ControladorPersonal {
 					e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	private void valoresInicialesPersona(GesPersona objGesPersona2) throws Exception {
+		/**
+		 * Agregamos Curso
+		 */
+		objGesPersona2.setAcaPersonasCursos(new ArrayList<AcaPersonasCurso>());
+		AcaPersonasCurso objAcaPersonasCurso = new AcaPersonasCurso();
+		objAcaPersonasCurso.setGesPersona(objGesPersona2);
+		objAcaPersonasCurso.setAcaCurso(managerGestionCurso.buscarCursoNA());
+		objGesPersona2.addAcaPersonasCurso(objAcaPersonasCurso);
+		/**
+		 * Agregamos Titulo N/A
+		 * 
+		 */
+		objGesPersona2.setAcaTituloPersonas(new ArrayList<AcaTituloPersona>());
+		AcaTituloPersona objTituPersona = new AcaTituloPersona();
+		objTituPersona.setGesPersona(objGesPersona2);
+		objTituPersona.setAcaTitulo(managerGestionCurso.buscarTituloNA());
+		objGesPersona2.getAcaTituloPersonas().add(objTituPersona);
+		/**
+		 * Agregamos Disciplina N/A
+		 * 
+		 */
+		objGesPersona2.setGesEstimuloPersonas(new ArrayList<GesEstimuloPersona>());
+		GesEstimuloPersona objEstimulo = new GesEstimuloPersona();
+		objEstimulo.setGesPersona(objGesPersona2);
+		objEstimulo.setGesEstimulo(managerGestionCurso.buscarDisciplinaNA());
+		objGesPersona2.getGesEstimuloPersonas().add(objEstimulo);
 	}
 
 	/*

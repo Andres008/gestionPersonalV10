@@ -36,14 +36,14 @@
     };
 </script>
 </h:head>
-<body style="font-size: 70%"
-	onload="#{controladorEstimulo.inicializarGesEstimulo()}">
+<body onload="#{controladorPersonal.inicializarAcaPersonasCurso()}"
+	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
 			onsuccess="PF('statusDialog').hide()" />
 		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
 			closable="false" resizable="false" showHeader="false">
-			<img src="../../imagenes/login.png" />
+			<img src="../../imagenes/espera.gif" />
 		</p:dialog>
 	</h:form>
 	<div id="div_menu" align="left"
@@ -61,6 +61,10 @@
 						value="correo" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
+
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
 						<p:commandButton value="Menu principal" icon="ui-icon-home"
@@ -71,88 +75,91 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
-				<h1>ESTIMULOS O SANCIONES</h1>
-				<h:form>
-					<p:growl id="msgs" showDetail="true" />
-					<p:panel header="Ingreso de Tipo Estimulo" toggleable="true"
-						collapsed="true">
-						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Tipo" />
-							<p:selectOneMenu
-								value="#{controladorEstimulo.objGesEstimulo.gesTipoEstimulo.id}">
-								<f:selectItem itemLabel="Seleccione Tipo Estimulo" />
-								<f:selectItems value="#{controladorEstimulo.siTipoEstimulos()}" />
-							</p:selectOneMenu>
-							<p:outputLabel value="Nombre" />
-							<p:inputText value="#{controladorEstimulo.objGesEstimulo.nombre}"
-								style="text-transform: uppercase" />
-							<p:outputLabel value="Descripción" />
-							<p:inputText
-								value="#{controladorEstimulo.objGesEstimulo.descripcion}"
-								style="text-transform: uppercase" />
-						</p:panelGrid>
-						<p:commandButton value="Ingresar"
-							actionListener="#{controladorEstimulo.ingresarGesEstimulo()}"
-							update="@form" />
-					</p:panel>
-					<p:panel header="Tipo Estímulo Ingresados">
-						<p:dataTable value="#{controladorEstimulo.lstGesEstimulo}"
-							emptyMessage="No existe estimulo ingresados" editable="true"
-							var="curso">
-							<p:ajax event="rowEdit"
-								listener="#{controladorEstimulo.onRowEditGesTipoEstimulo}"
-								update="@form:msgs" />
-							<p:ajax event="rowEditCancel"
-								 update="@form:msgs" />
-							<p:column headerText="Nombre">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:outputLabel value="#{curso.nombre}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{curso.nombre}" style="width:100%"
-											label="Nombre" />
-									</f:facet>
-								</p:cellEditor>
+				<h1>CURSOS PERSONAS</h1>
+				<h:form id="principal">
+					<p:growl id="growl" showDetail="true" sticky="true" />
+					<p:panel header="Cursos Registrados">
+						<div align="center">
+							<div>
+								<h2>Exportar</h2>
+								<h:commandLink>
+									<p:graphicImage name="/images/excel.png" width="24" />
+									<p:dataExporter type="xls" target="tblCursosRealizados"
+										fileName="cursosRealizados" />
+								</h:commandLink>
+							</div>
+						</div>
+						<p:dataTable id="tblCursosRealizados"
+							value="#{controladorPersonal.lstAcaPersonasCurso}"
+							widgetVar="usuariosTable" var="usuario"
+							emptyMessage="No existen registros">
+							<p:column headerText="Cédula"
+								filterBy="#{usuario.gesPersona.cedula}">
+								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Descripción">
-								<p:cellEditor>
-									<f:facet name="output">
-										<p:outputLabel value="#{curso.descripcion}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{curso.descripcion}" style="width:100%"
-											label="Descripción" />
-									</f:facet>
-								</p:cellEditor>
+							<p:column headerText="Grado"
+								filterBy="#{usuario.gesPersona.gesGrado.id}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('usuariosTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SIgrados()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{usuario.gesPersona.gesGrado.grado}" />
 							</p:column>
-							<p:column headerText="Tipo">
-								<p:outputLabel value="#{curso.gesTipoEstimulo.nombre}" />
+							<p:column headerText="Apellido"
+								filterBy="#{usuario.gesPersona.apellido}"
+								filterMatchMode="contains">
+								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Fecha Inicial">
-								<p:outputLabel value="#{curso.fechaInicial}">
-									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
-								</p:outputLabel>
+							<p:column headerText="Nombre"
+								filterBy="#{usuario.gesPersona.nombre}"
+								filterMatchMode="contains">
+								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha Final">
-								<p:outputLabel value="#{curso.fechaFinal}">
-									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
-								</p:outputLabel>
+							<p:column headerText="Curso" filterBy="#{usuario.acaCurso.id}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('usuariosTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorCursos.SICursos()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{usuario.acaCurso.nombre}" />
 							</p:column>
-							<p:column headerText="Estado">
-								<p:outputLabel value="#{curso.estado}" />
-							</p:column>
-							<p:column style="width:35px">
-								<p:rowEditor />
-							</p:column>
-							<p:column headerText="Inactivar">
-								<p:commandButton icon="ui-icon-close"
-									action="#{controladorEstimulo.inactivarEstimulo(curso)}"
-									update="@form" />
+							<p:column headerText="Fecha Registro">
+								<p:outputLabel value="#{usuario.fechaInicial}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
+					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"
+						modal="true" position="top" showEffect="fade" hideEffect="fade"
+						resizable="false" width="1100">
+						<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}"
+							var="curso">
+							<p:column headerText="Curso">
+								<p:outputLabel value="#{curso.nombre}" />
+							</p:column>
+							<p:column headerText="Descripción">
+								<p:outputLabel value="#{curso.descripcion}" />
+							</p:column>
+							<p:column headerText="Horas">
+								<p:outputLabel value="#{curso.horas}" />
+							</p:column>
+							<p:column headerText="Seleccionar">
+								<p:commandButton icon="	ui-icon-check"
+									actionListener="#{controladorPersonal.cargarCursoSeleccion(curso)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</p:dialog>
 				</h:form>
+
 			</div>
 		</div>
 		<div id="footer" align="center">

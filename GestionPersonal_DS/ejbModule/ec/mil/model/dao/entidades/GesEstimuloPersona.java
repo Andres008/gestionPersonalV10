@@ -23,6 +23,10 @@ public class GesEstimuloPersona implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_registro")
 	private Date fechaRegistro;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_evento")
+	private Date fechaEvento;
 
 	//bi-directional many-to-one association to GesEstimulo
 	@ManyToOne
@@ -67,6 +71,14 @@ public class GesEstimuloPersona implements Serializable {
 
 	public void setGesPersona(GesPersona gesPersona) {
 		this.gesPersona = gesPersona;
+	}
+
+	public Date getFechaEvento() {
+		return fechaEvento;
+	}
+
+	public void setFechaEvento(Date fechaEvento) {
+		this.fechaEvento = fechaEvento;
 	}
 
 }

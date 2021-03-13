@@ -112,27 +112,53 @@
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
-							<p:outputLabel value="Fecha Inicio Pase" 
+							<p:outputLabel value="Fecha Inicio Pase"
 								rendered="#{controladorPersonal.busqueda}" />
-							<p:calendar rendered="#{controladorPersonal.busqueda}" locale="es" pattern="dd/MM/yyyy"
+							<p:calendar rendered="#{controladorPersonal.busqueda}"
+								locale="es" pattern="dd/MM/yyyy"
 								value="#{controladorPersonal.objGesDependenciaPersona.fechaInicial}" />
-							</p:panelGrid>
+						</p:panelGrid>
 						<p:commandButton value="Ingresar"
 							rendered="#{controladorPersonal.busqueda}"
 							actionListener="#{controladorPersonal.ingresarDependenciaPersona()}"
 							update="@form" />
 					</p:panel>
 					<p:panel header="Pases Persona Ingresados">
-						<p:dataTable value="#{controladorPersonal.lstGesDependenciaPersona}" emptyMessage="No existen registros"
-							var="usuario">
-							<p:column headerText="Cédula">
+						<p:dataTable
+							value="#{controladorPersonal.lstGesDependenciaPersona}"
+							emptyMessage="No existen registros" var="usuario"
+							widgetVar="consolidadoTbl">
+							<p:column headerText="Cédula"
+								filterBy="#{usuario.gesPersona.cedula}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Apellido">
+							<p:column headerText="Apellido"
+								filterBy="#{usuario.gesPersona.apellido}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre"
+								filterBy="#{usuario.gesPersona.nombre}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
+							</p:column>
+							<p:column headerText="Reparto"
+								filterBy="#{usuario.gesDependencia.gesReparto.nombre}"
+								filterMatchMode="contains">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{controladorPersonal.SIRepartoNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+
+								<p:outputLabel
+									value="#{usuario.gesDependencia.gesReparto.nombre}" />
 							</p:column>
 							<p:column headerText="Dependencia">
 								<p:outputLabel value="#{usuario.gesDependencia.nombre}" />
@@ -140,7 +166,20 @@
 							<p:column headerText="Fecha Inicial">
 								<p:outputLabel value="#{usuario.fechaInicial}" />
 							</p:column>
-							<p:column headerText="Fecha Final">
+							<p:column headerText="Fecha Final" filterBy="#{controladorPersonal.fechaNula(usuario.fechaFinal)}"
+								filterMatchMode="exact">
+								
+								<f:facet name="filter" >
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="Actual" itemValue="a" />
+									</p:selectOneMenu>
+								</f:facet>
+								
+								
 								<p:outputLabel value="#{usuario.fechaFinal}" />
 							</p:column>
 						</p:dataTable>

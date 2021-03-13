@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controladorPersonal.inicializarEstimuloPersona()}"
+<body onload="#{controladorPersonal.inicializarRepartoPersona()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -77,81 +77,82 @@
 			<div id="posicion" align="center">
 				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Registrar Estímulo o Sanción Persona" toggleable="true"
-						collapsed="true">
-						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Ingrese cedula" />
-							<p:panelGrid columns="2">
-								<p:inputMask
-									value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.cedula}" />
-								<p:commandButton icon="ui-icon-search"
-									actionListener="#{controladorPersonal.buscarPersonaEstimulo()}"
-									update="@form" />
+					<p:panel header="Pases Persona Ingresados">
+						<div class="p-d-flex p-jc-between">
+							<p:panelGrid columns="2" styleClass="ui-noborder">
+								<h4>Exportar Excel</h4>
+								<h:commandLink>
+									<p:graphicImage name="/images/excel.png" width="24" />
+									<p:dataExporter type="xls" target="@form:tblPases"
+										fileName="pases" />
+								</h:commandLink>
 							</p:panelGrid>
-							<p:outputLabel value="Grado"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.gesGrado.grado}"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel value="Apellido"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.apellido}"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel value="Nombre"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.nombre}"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel value="Buscar Estimulo o Sanción"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:panelGrid styleClass="ui-noborder" columns="2"
-								rendered="#{controladorPersonal.busqueda}">
-								<p:outputLabel
-									value="#{controladorPersonal.objGesEstimuloPersona.gesEstimulo.nombre}" />
-								<p:commandButton icon="ui-icon-search"
-									oncomplete="PF('infCurso').show()" update="@form" />
-							</p:panelGrid>
-							<p:outputLabel value="Fecha Acción"
-								rendered="#{controladorPersonal.busqueda}" />
-								<p:calendar value="#{controladorPersonal.objGesEstimuloPersona.fechaEvento}" />
-						</p:panelGrid>
-						<p:commandButton value="Ingresar"
-							rendered="#{controladorPersonal.busqueda}"
-							actionListener="#{controladorPersonal.ingresarEstimuloPersona()}"
-							update="@form" />
-					</p:panel>
-					<p:panel header="Estimulos o Sanciones">
-						<p:dataTable value="#{controladorPersonal.lstGesEstimuloPersona}"
-							emptyMessage="No existen registros" var="usuario">
-							<p:column headerText="Cédula">
+						</div>
+						<p:dataTable id="tblPases"
+							value="#{controladorPersonal.lstGesDependenciaPersona}"
+							emptyMessage="No existen registros" var="usuario"
+							widgetVar="consolidadoTbl">
+							<p:column headerText="Cédula"
+								filterBy="#{usuario.gesPersona.cedula}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Grado ACtual">
-								<p:outputLabel value="#{usuario.gesPersona.gesGrado.grado}" />
-							</p:column>
-							<p:column headerText="Apellido">
+							<p:column headerText="Apellido"
+								filterBy="#{usuario.gesPersona.apellido}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre"
+								filterBy="#{usuario.gesPersona.nombre}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
-							<p:column headerText="Estimulo">
-								<p:outputLabel value="#{usuario.gesEstimulo.nombre}" />
-							</p:column>
-							<p:column headerText="Tipo Estimulo">
+							<p:column headerText="Reparto"
+								filterBy="#{usuario.gesDependencia.gesReparto.nombre}"
+								filterMatchMode="contains">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{controladorPersonal.SIRepartoNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+
 								<p:outputLabel
-									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
+									value="#{usuario.gesDependencia.gesReparto.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha">
-								<p:outputLabel value="#{usuario.fechaRegistro}" />
+							<p:column headerText="Dependencia">
+								<p:outputLabel value="#{usuario.gesDependencia.nombre}" />
+							</p:column>
+							<p:column headerText="Fecha Inicial">
+								<p:outputLabel value="#{usuario.fechaInicial}" />
+							</p:column>
+							<p:column headerText="Fecha Final"
+								filterBy="#{controladorPersonal.fechaNula(usuario.fechaFinal)}"
+								filterMatchMode="exact">
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="Actual" itemValue="a" />
+									</p:selectOneMenu>
+								</f:facet>
+
+
+								<p:outputLabel value="#{usuario.fechaFinal}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
 					<p:dialog header="Títulos" widgetVar="infCurso" id="inf"
 						modal="true" position="top" showEffect="fade" hideEffect="fade"
 						resizable="false" width="1100">
-						<p:dataTable value="#{controladorPersonal.listGesEstimulo}"
+						<p:dataTable value="#{controladorPersonal.listGesDependencia}"
 							var="dependencia">
 							<p:column headerText="Nombre">
 								<p:outputLabel value="#{dependencia.nombre}" />
@@ -159,12 +160,15 @@
 							<p:column headerText="Descripción">
 								<p:outputLabel value="#{dependencia.descripcion}" />
 							</p:column>
-							<p:column headerText="Tipo Estimulo">
-								<p:outputLabel value="#{dependencia.gesTipoEstimulo.nombre}" />
+							<p:column headerText="Reparto">
+								<p:outputLabel value="#{dependencia.gesReparto.nombre}" />
+							</p:column>
+							<p:column headerText="Región">
+								<p:outputLabel value="#{dependencia.gesRegione.nombre}" />
 							</p:column>
 							<p:column headerText="Seleccionar">
 								<p:commandButton icon="	ui-icon-check"
-									actionListener="#{controladorPersonal.cargarEstimuloSeleccion(dependencia)}"
+									actionListener="#{controladorPersonal.cargarDependenciaSeleccion(dependencia)}"
 									update="@form" />
 							</p:column>
 						</p:dataTable>

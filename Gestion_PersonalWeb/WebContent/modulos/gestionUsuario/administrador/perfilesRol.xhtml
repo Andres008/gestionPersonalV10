@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controllerUsuarios.inicializarPerfilRol()}"
+<body onload="#{controladorUsuarios.inicializarPerfilRol()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -78,11 +78,11 @@
 				<h:form>
 					<p:growl id="growl" showDetail="true" sticky="true" />
 					<p:panel header="Perfiles Rol">
-						<p:dataTable value="#{controllerUsuarios.lstAutPerfile}"
+						<p:dataTable value="#{controladorUsuarios.lstAutPerfile}"
 							var="perfil" sortBy="#{perfil.autMenu.orden}"
 							expandableRowGroups="true">
 							<p:headerRow>
-								<p:column colspan="5">
+								<p:column colspan="4">
 									<p:outputLabel value="#{perfil.autMenu.nombre}" />
 								</p:column>
 							</p:headerRow>
@@ -95,23 +95,18 @@
 							<p:column headerText="Estado">
 								<p:outputLabel value="#{perfil.estado}" />
 							</p:column>
-							<p:column headerText="Inactivar" width="70">
-								<p:commandButton icon=" ui-icon-close"
-									actionListener="#{controllerUsuarios.desactivarPerfil(perfil)}"
-									update="@form" />
-							</p:column>
 							<p:column headerText="Roles">
 								<p:commandButton update="@form:inf" icon="ui-icon-plusthick"
 									oncomplete="PF('infPDF').show()"
-									actionListener="#{controllerUsuarios.cargarPerfil(perfil)}" />
+									actionListener="#{controladorUsuarios.cargarPerfil(perfil)}" />
 								<p:dataTable emptyMessage="No existe rol asignado"
-									value="#{controllerUsuarios.filtrarRolPerfilActios(perfil.autRolPerfils)}"
+									value="#{controladorUsuarios.filtrarRolPerfilActios(perfil.autRolPerfils)}"
 									var="rol">
 									<p:column headerText="Rol">
 										<p:outputLabel value="#{rol.autRole.nombre}" />
 									</p:column>
 									<p:column headerText="Eliminar" >
-										<p:commandButton icon="ui-icon-close" update="@form" actionListener="#{controllerUsuarios.desactivarRolPerfil(rol)}" />
+										<p:commandButton icon="ui-icon-close" update="@form" actionListener="#{controladorUsuarios.desactivarRolPerfil(rol)}" />
 									</p:column>
 								</p:dataTable>
 							</p:column>
@@ -119,17 +114,17 @@
 					</p:panel>
 
 					<p:dialog
-						header="Agregar rol al perfil #{controllerUsuarios.objAutPerfile.nombre}"
+						header="Agregar rol al perfil #{controladorUsuarios.objAutPerfile.nombre}"
 						widgetVar="infPDF" id="inf" modal="true" position="center"
 						showEffect="fade" hideEffect="fade" resizable="false" width="50%">
 						<p:panelGrid columns="1">
-							<p:selectOneMenu value="#{controllerUsuarios.objAutRole.id}"
+							<p:selectOneMenu value="#{controladorUsuarios.objAutRole.id}"
 								filter="true" filterMatchMode="contains">
 								<f:selectItem itemLabel="Seleccione Rol" />
-								<f:selectItems value="#{controllerUsuarios.SIroles()}" />
+								<f:selectItems value="#{controladorUsuarios.SIroles()}" />
 							</p:selectOneMenu>
 							<p:commandButton update="@form" value="Ingresar"
-								actionListener="#{controllerUsuarios.ingresarRolPeril()}" />
+								actionListener="#{controladorUsuarios.ingresarRolPeril()}" />
 						</p:panelGrid>
 					</p:dialog>
 

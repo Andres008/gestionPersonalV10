@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controllerUsuarios.inicializarPerfil()}"
+<body onload="#{controladorUsuarios.inicializarPerfil()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -83,32 +83,32 @@
 							<p:outputLabel value="Menu Padre" />
 							<p:panelGrid columns="2" styleClass="ui-noborder">
 								<p:selectOneMenu required="false" requiredMessage="Seleccione Menú Padre"
-									value="#{controllerUsuarios.objAutPerfile.autMenu.id}">
+									value="#{controladorUsuarios.objAutPerfile.autMenu.id}">
 									<f:selectItem itemLabel="Seleccione un Menú" />
-									<f:selectItems value="#{controllerUsuarios.SIMenu()}" />
+									<f:selectItems value="#{controladorUsuarios.SIMenu()}" />
 								</p:selectOneMenu>
 								<p:commandButton value="Nuevo"
-									actionListener="#{controllerUsuarios.inicializarMenu()}"
+									actionListener="#{controladorUsuarios.inicializarMenu()}"
 									oncomplete="PF('infPDF').show()" update="@form:menu" />
 							</p:panelGrid>
 							<p:outputLabel value="Nombre" />
-							<p:inputText value="#{controllerUsuarios.objAutPerfile.nombre}"
+							<p:inputText value="#{controladorUsuarios.objAutPerfile.nombre}"
 								style="text-transform: uppercase" />
 							<p:outputLabel value="Url"  />
-							<p:inputText size="150" value="#{controllerUsuarios.objAutPerfile.url}" />
+							<p:inputText size="150" value="#{controladorUsuarios.objAutPerfile.url}" />
 							<p:outputLabel value="Orden" />
 							<p:spinner value="#{controladorUsuarios.objAutPerfile.orden}" min="1"  />
 							<p:outputLabel value="Icono" />
-							<p:inputText value="#{controllerUsuarios.objAutPerfile.icon}" />
+							<p:inputText value="#{controladorUsuarios.objAutPerfile.icon}" />
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
-							action="#{controllerUsuarios.ingresarPerfil()}" update="@form" />
+							action="#{controladorUsuarios.ingresarPerfil()}" update="@form" />
 					</p:panel>
 					<p:panel header="Perfiles Ingresados">
-						<p:dataTable value="#{controllerUsuarios.lstAutPerfile}" var="rol"
+						<p:dataTable value="#{controladorUsuarios.lstAutPerfile}" var="rol"
 							sortBy="#{rol.autMenu.orden}" expandableRowGroups="true">
 							<p:headerRow>
-								<p:column colspan="8">
+								<p:column colspan="9">
 									<p:outputLabel value="#{rol.autMenu.nombre}" />
 								</p:column>
 							</p:headerRow>
@@ -139,12 +139,12 @@
 							</p:column>
 							<p:column headerText="Inactivar" width="70">
 								<p:commandButton icon=" ui-icon-close"
-									actionListener="#{controllerUsuarios.desactivarPerfil(rol)}"
+									actionListener="#{controladorUsuarios.desactivarPerfil(rol)}"
 									update="@form" />
 							</p:column>
 							<p:column headerText="Actualizar" width="70">
 								<p:commandButton icon="ui-icon-pencil"
-									actionListener="#{controllerUsuarios.cargarPerfil(rol)}"
+									actionListener="#{controladorUsuarios.cargarPerfil(rol)}"
 									update="@form" />
 							</p:column>
 							
@@ -155,14 +155,14 @@
 						resizable="false" width="1100">
 						<p:panelGrid id="menu" columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Nombre" />
-							<p:inputText value="#{controllerUsuarios.objAutMenu.nombre}" style="text-transform: uppercase"/>
+							<p:inputText value="#{controladorUsuarios.objAutMenu.nombre}" style="text-transform: uppercase"/>
 							<p:outputLabel value="Observación" />
-							<p:inputText value="#{controllerUsuarios.objAutMenu.observacion}" style="text-transform: uppercase"/>
+							<p:inputText value="#{controladorUsuarios.objAutMenu.observacion}" style="text-transform: uppercase"/>
 							<p:outputLabel value="Orden" />
-							<p:spinner value="#{controllerUsuarios.objAutMenu.orden}" min="1" />
+							<p:spinner value="#{controladorUsuarios.objAutMenu.orden}" min="1" />
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
-							actionListener="#{controllerUsuarios.ingresarMenu()}"
+							actionListener="#{controladorUsuarios.ingresarMenu()}"
 							update="@form" />
 					</p:dialog>
 				</h:form>

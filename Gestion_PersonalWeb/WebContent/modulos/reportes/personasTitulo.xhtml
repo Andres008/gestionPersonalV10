@@ -36,7 +36,7 @@
     };
 </script>
 </h:head>
-<body onload="#{controladorPersonal.inicializarEstimuloPersona()}"
+<body onload="#{controladorPersonal.inicializarTituloPersona()}"
 	style="font-size: 70%">
 	<h:form id="statusBar">
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -75,96 +75,120 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
+				<h1>Titulos Personal</h1>
 				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Registrar Estímulo o Sanción Persona" toggleable="true"
-						collapsed="true">
-						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Ingrese cedula" />
-							<p:panelGrid columns="2">
-								<p:inputMask
-									value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.cedula}" />
-								<p:commandButton icon="ui-icon-search"
-									actionListener="#{controladorPersonal.buscarPersonaEstimulo()}"
-									update="@form" />
+
+					<p:panel header="Título Persona Ingresados">
+						<div class="p-d-flex p-jc-between">
+							<p:panelGrid columns="2" styleClass="ui-noborder">
+								<h4>Exportar Excel</h4>
+								<h:commandLink>
+									<p:graphicImage name="/images/excel.png" width="24" />
+									<p:dataExporter type="xls" target="@form:titulosPersonas"
+										fileName="cars" />
+								</h:commandLink>
 							</p:panelGrid>
-							<p:outputLabel value="Grado"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.gesGrado.grado}"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel value="Apellido"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.apellido}"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel value="Nombre"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.nombre}"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:outputLabel value="Buscar Estimulo o Sanción"
-								rendered="#{controladorPersonal.busqueda}" />
-							<p:panelGrid styleClass="ui-noborder" columns="2"
-								rendered="#{controladorPersonal.busqueda}">
-								<p:outputLabel
-									value="#{controladorPersonal.objGesEstimuloPersona.gesEstimulo.nombre}" />
-								<p:commandButton icon="ui-icon-search"
-									oncomplete="PF('infCurso').show()" update="@form" />
-							</p:panelGrid>
-							<p:outputLabel value="Fecha Acción"
-								rendered="#{controladorPersonal.busqueda}" />
-								<p:calendar value="#{controladorPersonal.objGesEstimuloPersona.fechaEvento}" />
-						</p:panelGrid>
-						<p:commandButton value="Ingresar"
-							rendered="#{controladorPersonal.busqueda}"
-							actionListener="#{controladorPersonal.ingresarEstimuloPersona()}"
-							update="@form" />
-					</p:panel>
-					<p:panel header="Estimulos o Sanciones">
-						<p:dataTable value="#{controladorPersonal.lstGesEstimuloPersona}"
-							emptyMessage="No existen registros" var="usuario">
-							<p:column headerText="Cédula">
+						</div>
+						<p:dataTable id="titulosPersonas"
+							value="#{controladorPersonal.lstAcaTituloPersona}"
+							emptyMessage="No existen registros" var="usuario"
+							widgetVar="consolidadoTbl">
+							<p:column headerText="Cédula"
+								filterBy="#{usuario.gesPersona.cedula}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Grado ACtual">
+							<p:column headerText="Grado"
+								filterBy="#{usuario.gesPersona.gesGrado.grado}"
+								filterMatchMode="exact">
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SIgradosNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+
 								<p:outputLabel value="#{usuario.gesPersona.gesGrado.grado}" />
 							</p:column>
-							<p:column headerText="Apellido">
+							<p:column headerText="Apellido"
+								filterBy="#{usuario.gesPersona.apellido}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre"
+								filterBy="#{usuario.gesPersona.nombre}"
+								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
-							<p:column headerText="Estimulo">
-								<p:outputLabel value="#{usuario.gesEstimulo.nombre}" />
+							<p:column headerText="Tipo Titulo"
+								filterBy="#{usuario.acaTitulo.acaTipoTitulo.nombre}"
+								filterMatchMode="exact">
+
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="TERCER NIVEL"
+											itemValue="TERCER NIVEL" />
+										<f:selectItem itemLabel="CUARTO NIVEL"
+											itemValue="CUARTO NIVEL" />
+										<f:selectItem itemLabel="N/A" itemValue="N/A" />
+									</p:selectOneMenu>
+								</f:facet>
+
+								<p:outputLabel value="#{usuario.acaTitulo.acaTipoTitulo.nombre}" />
 							</p:column>
-							<p:column headerText="Tipo Estimulo">
+							<p:column headerText="Titulo"
+								filterBy="#{usuario.acaTitulo.titulo}" filterMatchMode="exact">
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SITituloNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+
+								<p:outputLabel value="#{usuario.acaTitulo.titulo}" />
+							</p:column>
+							<p:column headerText="Institución">
 								<p:outputLabel
-									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
+									value="#{usuario.acaTitulo.acaInstitucionEducativa.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha">
-								<p:outputLabel value="#{usuario.fechaRegistro}" />
+							<p:column headerText="Registro">
+								<p:outputLabel value="#{usuario.codigoRegistro}" />
+							</p:column>
+							<p:column headerText="Fecha Registro">
+								<p:outputLabel value="#{usuario.fechaRefrendacion}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
 					<p:dialog header="Títulos" widgetVar="infCurso" id="inf"
 						modal="true" position="top" showEffect="fade" hideEffect="fade"
 						resizable="false" width="1100">
-						<p:dataTable value="#{controladorPersonal.listGesEstimulo}"
-							var="dependencia">
-							<p:column headerText="Nombre">
-								<p:outputLabel value="#{dependencia.nombre}" />
+						<p:dataTable value="#{controladorPersonal.listAcaTituloActivo}"
+							var="curso">
+							<p:column headerText="Título">
+								<p:outputLabel value="#{curso.titulo}" />
 							</p:column>
-							<p:column headerText="Descripción">
-								<p:outputLabel value="#{dependencia.descripcion}" />
+							<p:column headerText="Tipo Título">
+								<p:outputLabel value="#{curso.acaTipoTitulo.nombre}" />
 							</p:column>
-							<p:column headerText="Tipo Estimulo">
-								<p:outputLabel value="#{dependencia.gesTipoEstimulo.nombre}" />
+							<p:column headerText="Institución">
+								<p:outputLabel value="#{curso.acaInstitucionEducativa.nombre}" />
 							</p:column>
 							<p:column headerText="Seleccionar">
 								<p:commandButton icon="	ui-icon-check"
-									actionListener="#{controladorPersonal.cargarEstimuloSeleccion(dependencia)}"
+									actionListener="#{controladorPersonal.cargarTituloSeleccion(curso)}"
 									update="@form" />
 							</p:column>
 						</p:dataTable>

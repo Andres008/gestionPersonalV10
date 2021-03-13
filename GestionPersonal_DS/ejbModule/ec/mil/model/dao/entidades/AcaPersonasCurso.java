@@ -26,6 +26,10 @@ public class AcaPersonasCurso implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_final")
 	private Date fechaFinal;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_registro")
+	private Date fechaRegistro;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_inicial")
@@ -90,6 +94,14 @@ public class AcaPersonasCurso implements Serializable {
 
 	public void setGesPersona(GesPersona gesPersona) {
 		this.gesPersona = gesPersona;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
 }

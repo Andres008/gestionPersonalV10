@@ -23,6 +23,8 @@ public class AcaPlanificacionCurso implements Serializable {
 	private long id;
 
 	private BigDecimal cupo;
+	
+	private String observacion;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_final")
@@ -193,6 +195,14 @@ public class AcaPlanificacionCurso implements Serializable {
 		acaPrerequisitoGrado.setAcaPlanificacionCurso(null);
 
 		return acaPrerequisitoGrado;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 }

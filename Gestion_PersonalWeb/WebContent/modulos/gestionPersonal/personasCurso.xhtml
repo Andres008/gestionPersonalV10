@@ -113,7 +113,20 @@
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
+							<p:outputLabel value="Fecha Inicio"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:calendar
+								value="#{controladorPersonal.objAcaPersonasCurso.fechaInicial}"
+								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
+								maxdate="today" />
+							<p:outputLabel value="Fecha Final"
+								rendered="#{controladorPersonal.busqueda}" />
+							<p:calendar
+								value="#{controladorPersonal.objAcaPersonasCurso.fechaFinal}"
+								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
+								maxdate="today" />
 						</p:panelGrid>
+
 						<p:commandButton value="Ingresar"
 							rendered="#{controladorPersonal.busqueda}"
 							actionListener="#{controladorPersonal.ingresarCursoPersona()}"
@@ -123,8 +136,8 @@
 						<div align="center">
 							<div>
 								<h2>Exportar</h2>
-								<h:commandLink >
-								<p:graphicImage name="/images/excel.png" width="24" />
+								<h:commandLink>
+									<p:graphicImage name="/images/excel.png" width="24" />
 									<p:dataExporter type="xls" target="tblCursosRealizados"
 										fileName="cursosRealizados" />
 								</h:commandLink>

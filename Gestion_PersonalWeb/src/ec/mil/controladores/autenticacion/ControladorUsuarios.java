@@ -3,6 +3,7 @@
  */
 package ec.mil.controladores.autenticacion;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,8 +61,22 @@ public class ControladorUsuarios {
 		objAutPerfile = new AutPerfile();
 		objAutPerfile.setAutMenu(new AutMenu());
 		inicializarMenu();
+		objAutPerfile.setOrden(new BigDecimal(1));
 		try {
 			lstAutPerfile = managerGestionPersonal.findAllPerfil();
+			
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	public void inicializarPerfilRol() {
+		objAutRole= new AutRole();
+		objAutPerfile = new AutPerfile();
+		objAutPerfile.setAutMenu(new AutMenu());
+		inicializarMenu();
+		try {
+			lstAutPerfile = managerGestionPersonal.findAllPerfilActivos();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
@@ -98,7 +113,7 @@ public class ControladorUsuarios {
 			JSFUtil.crearMensajeINFO("Ateción", "Se ingreso correctamente la información.");
 			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarRolPeril",
 					"Ingreso coreccto Rol Menu. " + objRolPerfil.getId());
-			inicializarPerfil();
+			inicializarPerfilRol();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Atención", "Error al ingresar Rol Perfil. " + e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarRolPeril",
@@ -168,6 +183,7 @@ public class ControladorUsuarios {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public void inicializarUsuario() {
 		try {
@@ -286,8 +302,12 @@ public class ControladorUsuarios {
 		objAutPerfile.setNombre(ModelUtil.cambiarMayusculas(objAutPerfile.getNombre()));
 		objAutPerfile.setFechaInicial(new Date());
 		objAutPerfile.setEstado("A");
+		System.out.println(objAutPerfile.getOrden());
 		try {
-			managerGestionPersonal.ingresarPerfil(objAutPerfile);
+			if ( objAutPerfile.getId()>0 )
+				managerGestionPersonal.actualizarAutPerfil(objAutPerfile);
+			else
+				managerGestionPersonal.ingresarPerfil(objAutPerfile);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPerfil",
 					"Se ingresó el rol " + objAutPerfile.getId() + " " + objAutPerfile.getNombre());
 			inicializarPerfil();

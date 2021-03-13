@@ -156,8 +156,8 @@ public class ManagerGestionPersonal {
 				estimulo.getGesDependencia().getDescripcion();
 
 			});
-			//dummy Litado Grados
-			v_persona.getGesGradosPersonas().forEach(grados->{
+			// dummy Litado Grados
+			v_persona.getGesGradosPersonas().forEach(grados -> {
 				grados.getGesGrado().getGesTipoGrado().getDescripcion();
 			});
 			return v_persona;
@@ -490,22 +490,52 @@ public class ManagerGestionPersonal {
 
 	@SuppressWarnings("unchecked")
 	public List<GesGrado> buscarGradoByTipoOrden(GesGrado gesGrado) throws Exception {
-		return  managerDAOGestionPersonal.findWhere(GesGrado.class, "o.gesTipoGrado.id="+gesGrado.getGesTipoGrado().getId()+" and o.orden>"+gesGrado.getOrden(), "o.gesTipoGrado.id ASC, o.orden DESC") ;
+		return managerDAOGestionPersonal.findWhere(GesGrado.class,
+				"o.gesTipoGrado.id=" + gesGrado.getGesTipoGrado().getId() + " and o.orden>" + gesGrado.getOrden(),
+				"o.gesTipoGrado.id ASC, o.orden DESC");
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<GesGradosPersona> buscarGradoPersonaActivo(String cedula) throws Exception {
-		return managerDAOGestionPersonal.findWhere(GesGradosPersona.class, "o.gesPersona.cedula='"+cedula+"' and o.estado='A'", null);
+		return managerDAOGestionPersonal.findWhere(GesGradosPersona.class,
+				"o.gesPersona.cedula='" + cedula + "' and o.estado='A'", null);
 	}
 
 	public void actualizarGradoPersona(GesGradosPersona gesGradosPersona) throws Exception {
 		managerDAOGestionPersonal.actualizar(gesGradosPersona);
-		
+
 	}
 
 	public void ingresarGradoPersona(GesGradosPersona objGesGradosPersona) throws Exception {
 		managerDAOGestionPersonal.insertar(objGesGradosPersona);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<GesTipoEstimulo> buscarAllTipoDisciplina() throws Exception {
+		return managerDAOGestionPersonal.findAll(GesTipoEstimulo.class, "o.descripcion");
+	}
+
+	public void eliminarEstimuloNA(GesEstimuloPersona objGesEstimuloPers) throws Exception {
+		managerDAOGestionPersonal.eliminar(GesEstimuloPersona.class, objGesEstimuloPers.getId());
+	}
+
+	public AcaTituloPersona buscarTituloNA(GesPersona gesPersona) throws Exception {
+		@SuppressWarnings("unchecked")
+		List<AcaTituloPersona> lstAcaTituloPersona = managerDAOGestionPersonal.findWhere(AcaTituloPersona.class,
+				"o.gesPersona.cedula='"+gesPersona.getCedula()+"' and o.acaTitulo.titulo='N/A'", null);
+		if ( lstAcaTituloPersona.size()==1)
+			return lstAcaTituloPersona.get(0);
+		return null;
+	}
+
+	public void eliminarTituloNA(AcaTituloPersona objAcaTituloPers) throws Exception {
+		managerDAOGestionPersonal.eliminar(AcaTituloPersona.class, objAcaTituloPers.getId());
 		
+	}
+
+	public void actualizarTipoEstimulo(GesEstimulo objEstimulo) throws Exception {
+		managerDAOGestionPersonal.actualizar(objEstimulo);
 	}
 
 }

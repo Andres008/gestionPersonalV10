@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>GESTION PERSONAL</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día'
+    };
+</script>
+</h:head>
+<body style="font-size: 70%"
+	onload="#{controladorReportes.inicializarReporteConsolidado()}">
+	<h:form id="statusBar">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../imagenes/login.png" />
+		</p:dialog>
+	</h:form>
+	<div id="div_menu" align="left"
+		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
+		<div id="logo" align="center">
+			<p:graphicImage url="/imagenes/bannerGestionPersonal.png" alt="COAD"
+				style="width:100%"></p:graphicImage>
+		</div>
+
+		<div align="center"
+			style="width: 99.9%; min-height: 99.9%; background-image:">
+			<div id="titulo_header"
+				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
+				<span>Sistema de Gestión de Personal - <h:outputText
+						value="correo" /></span>
+			</div>
+			<h:form style="width:100%;font-size:80%">
+				<p:menubar style="font-size:12px;">
+					<f:facet name="options">
+						<p:commandButton value="Menu principal" icon="ui-icon-home"
+							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+							value="Salir" icon="ui-icon-extlink" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+			<div id="posicion" align="center">
+				<h1>REPORTE CONSOLIDADO</h1>
+				<h:form>
+					<p:growl id="msgs" showDetail="true" />
+					<p:panel header="Información Consolidada">
+						<div class="p-d-flex p-jc-between">
+							<p:panelGrid columns="2" styleClass="ui-noborder">
+								<h4>Exportar Excel</h4>
+								<h:commandLink>
+									<p:graphicImage name="/images/excel.png" width="24" />
+									<p:dataExporter type="xls" target="@form:consolidado"
+										fileName="cars" />
+								</h:commandLink>
+							</p:panelGrid>
+						</div>
+						<p:dataTable id="consolidado" widgetVar="consolidadoTbl"
+							value="#{controladorReportes.lstConsolidado}" var="reporte"
+							paginator="true" rows="10">
+							<p:column headerText="Cedula" filterBy="#{reporte.cedula}"
+								filterMatchMode="contains">
+								<p:outputLabel value="#{reporte.cedula}" />
+							</p:column>
+							<p:column headerText="Grado" width="200"
+								filterBy="#{reporte.grado}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SIgradosNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{reporte.grado}" />
+							</p:column>
+							<p:column headerText="Nombres">
+								<p:outputLabel value="#{reporte.nombres}" />
+							</p:column>
+							<p:column headerText="Tipo Disciplina"
+								filterBy="#{reporte.tipoDisciplina}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{controladorPersonal.SITipoDisNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{reporte.tipoDisciplina}" />
+							</p:column>
+							<p:column headerText="Disciplina">
+								<p:outputLabel value="#{reporte.disciplina}" />
+							</p:column>
+							<p:column headerText="Curso Realizados"
+								filterBy="#{reporte.nombreCurso}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SICursosNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{reporte.nombreCurso}" />
+							</p:column>
+							<p:column headerText="Titulo" filterBy="#{reporte.titulo}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SITituloNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{reporte.titulo}" />
+							</p:column>
+							<p:column headerText="Tipo Titulo">
+								<p:outputLabel value="#{reporte.tipoTitulo}" />
+							</p:column>
+							<p:column headerText="Reparto" filterBy="#{reporte.reparto}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{controladorPersonal.SIRepartoNombre()}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel value="#{reporte.reparto}" />
+							</p:column>
+							<p:column headerText="Dependencia">
+								<p:outputLabel value="#{reporte.dependencia}" />
+							</p:column>
+							<p:column headerText="Fecha Inicial">
+								<p:outputLabel value="#{reporte.fechaInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Fecha Final"
+								filterBy="#{controladorPersonal.fechaNula(reporte.fechaFinal)}"
+								filterMatchMode="exact">
+
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="Actual" itemValue="a" />
+									</p:selectOneMenu>
+								</f:facet>
+
+								<p:outputLabel value="#{reporte.fechaFinal}">
+								</p:outputLabel>
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</h:form>
+			</div>
+		</div>
+		<div id="footer" align="center">
+			<div
+				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
+				<span>(c) Centro de Operaciones Aereas y Defensa - COAD.
+					#{beanLogin.anioActual()} - </span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
