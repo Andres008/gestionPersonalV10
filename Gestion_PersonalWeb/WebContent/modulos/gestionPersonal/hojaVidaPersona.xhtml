@@ -81,8 +81,9 @@
 					<p:panelGrid columns="2" styleClass="ui-noborder">
 						<p:outputLabel value="Ingrese cedula" />
 						<p:panelGrid columns="2">
-							<p:inputMask
-								value="#{controladorPersonal.objGesPersona.cedula}" />
+							<p:inputText value="#{controladorPersonal.objGesPersona.cedula}">
+								<p:keyFilter regEx="/[0123456789]/" />
+							</p:inputText>
 							<p:commandButton icon="ui-icon-search"
 								actionListener="#{controladorPersonal.buscarPersonaAP7()}"
 								update="@form" />
@@ -172,6 +173,27 @@
 							</p:column>
 						</p:dataTable>
 					</p:panel>
+					<p:panel header="Titulos Obtenidos">
+						<p:dataTable
+							value="#{controladorPersonal.objGesPersona.acaTituloPersonas}"
+							var="curso">
+							<p:column headerText="Titulo">
+								<p:outputLabel value="#{curso.acaTitulo.titulo}" />
+							</p:column>
+							<p:column headerText="Institución">
+								<p:outputLabel value="#{curso.acaTitulo.acaInstitucionEducativa.nombre}" />
+							</p:column>
+							<p:column headerText="Tipo Titulo">
+								<p:outputLabel value="#{curso.acaTitulo.acaTipoTitulo.nombre}" />
+							</p:column>
+							<p:column headerText="Registro">
+								<p:outputLabel value="#{curso.codigoRegistro}" />
+							</p:column>
+							<p:column headerText="Fecha Registor">
+								<p:outputLabel value="#{curso.fechaRefrendacion}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
 					<p:panel header="Estímulos y Sanciones">
 						<p:dataTable
 							value="#{controladorPersonal.objGesPersona.gesEstimuloPersonas}"
@@ -184,7 +206,7 @@
 									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
 							</p:column>
 							<p:column headerText="Fecha">
-								<p:outputLabel value="#{usuario.fechaRegistro}" />
+								<p:outputLabel value="#{usuario.fechaEvento}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>

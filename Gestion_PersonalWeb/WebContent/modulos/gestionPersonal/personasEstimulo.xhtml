@@ -77,13 +77,15 @@
 			<div id="posicion" align="center">
 				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Registrar Estímulo o Sanción Persona" toggleable="true"
-						collapsed="true">
+					<p:panel header="Registrar Estímulo o Sanción Persona"
+						toggleable="true" collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Ingrese cedula" />
 							<p:panelGrid columns="2">
-								<p:inputMask
-									value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.cedula}" />
+								<p:inputText
+									value="#{controladorPersonal.objGesEstimuloPersona.gesPersona.cedula}">
+									<p:keyFilter regEx="/[0123456789]/" />
+								</p:inputText>
 								<p:commandButton icon="ui-icon-search"
 									actionListener="#{controladorPersonal.buscarPersonaEstimulo()}"
 									update="@form" />
@@ -114,7 +116,10 @@
 							</p:panelGrid>
 							<p:outputLabel value="Fecha Acción"
 								rendered="#{controladorPersonal.busqueda}" />
-								<p:calendar value="#{controladorPersonal.objGesEstimuloPersona.fechaEvento}" locale="es" maxdate="today" rendered="#{controladorPersonal.busqueda}"/>
+							<p:calendar
+								value="#{controladorPersonal.objGesEstimuloPersona.fechaEvento}" mask="99/99/9999"
+								locale="es" maxdate="today"
+								rendered="#{controladorPersonal.busqueda}" />
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
 							rendered="#{controladorPersonal.busqueda}"
@@ -122,18 +127,28 @@
 							update="@form" />
 					</p:panel>
 					<p:panel header="Estimulos o Sanciones">
-						<p:dataTable value="#{controladorPersonal.lstGesEstimuloPersona}"
+						<p:dataTable value="#{controladorPersonal.lstGesEstimuloPersona}" widgetVar="usuariosTable"
 							emptyMessage="No existen registros" var="usuario">
-							<p:column headerText="Cédula">
+							<p:column headerText="Cédula" filterBy="#{usuario.gesPersona.cedula}" filterMatchMode="exact">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Grado ACtual">
+							<p:column headerText="Grado"
+								filterBy="#{usuario.gesPersona.gesGrado.id}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('usuariosTable').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorPersonal.SIgrados()}" />
+									</p:selectOneMenu>
+								</f:facet>
 								<p:outputLabel value="#{usuario.gesPersona.gesGrado.grado}" />
 							</p:column>
-							<p:column headerText="Apellido">
+							<p:column headerText="Apellido" filterBy="#{usuario.gesPersona.apellido}" filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre" filterBy="#{usuario.gesPersona.nombre}" filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
 							<p:column headerText="Estimulo">

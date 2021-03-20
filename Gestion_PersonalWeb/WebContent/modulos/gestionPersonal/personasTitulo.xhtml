@@ -82,8 +82,10 @@
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Ingrese cedula" />
 							<p:panelGrid columns="2">
-								<p:inputMask
-									value="#{controladorPersonal.objAcaTituloPersona.gesPersona.cedula}" />
+								<p:inputText
+									value="#{controladorPersonal.objAcaTituloPersona.gesPersona.cedula}">
+									<p:keyFilter regEx="/[0123456789]/" />
+								</p:inputText>
 								<p:commandButton icon="ui-icon-search"
 									actionListener="#{controladorPersonal.buscarPersonaTitulo()}"
 									update="@form" />
@@ -114,7 +116,7 @@
 							</p:panelGrid>
 							<p:outputLabel value="Fecha Registro"
 								rendered="#{controladorPersonal.busqueda}" />
-							<p:calendar rendered="#{controladorPersonal.busqueda}"
+							<p:calendar rendered="#{controladorPersonal.busqueda}" mask="99/99/9999" 
 								locale="es" pattern="dd/MM/yyyy"
 								value="#{controladorPersonal.objAcaTituloPersona.fechaRefrendacion}" />
 							<p:outputLabel value="Registro"
@@ -162,7 +164,9 @@
 								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
-							<p:column headerText="Tipo Titulo" filterBy="#{usuario.acaTitulo.acaTipoTitulo.nombre}" filterMatchMode="exact">
+							<p:column headerText="Tipo Titulo"
+								filterBy="#{usuario.acaTitulo.acaTipoTitulo.nombre}"
+								filterMatchMode="exact">
 
 
 								<f:facet name="filter">
@@ -173,10 +177,9 @@
 											noSelectionOption="true" />
 										<f:selectItem itemLabel="TERCER NIVEL"
 											itemValue="TERCER NIVEL" />
-											<f:selectItem itemLabel="CUARTO NIVEL"
+										<f:selectItem itemLabel="CUARTO NIVEL"
 											itemValue="CUARTO NIVEL" />
-											<f:selectItem itemLabel="N/A"
-											itemValue="N/A" />
+										<f:selectItem itemLabel="N/A" itemValue="N/A" />
 									</p:selectOneMenu>
 								</f:facet>
 

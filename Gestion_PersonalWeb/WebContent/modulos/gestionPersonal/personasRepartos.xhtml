@@ -82,8 +82,10 @@
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Ingrese cedula" />
 							<p:panelGrid columns="2">
-								<p:inputMask
-									value="#{controladorPersonal.objGesDependenciaPersona.gesPersona.cedula}" />
+								<p:inputText
+									value="#{controladorPersonal.objGesDependenciaPersona.gesPersona.cedula}"> 
+									<p:keyFilter regEx="/[0123456789]/" />
+									</p:inputText>
 								<p:commandButton icon="ui-icon-search"
 									actionListener="#{controladorPersonal.buscarPersonaDependencia()}"
 									update="@form" />
@@ -114,7 +116,7 @@
 							</p:panelGrid>
 							<p:outputLabel value="Fecha Inicio Pase"
 								rendered="#{controladorPersonal.busqueda}" />
-							<p:calendar rendered="#{controladorPersonal.busqueda}"
+							<p:calendar rendered="#{controladorPersonal.busqueda}" mask="99/99/9999"
 								locale="es" pattern="dd/MM/yyyy"
 								value="#{controladorPersonal.objGesDependenciaPersona.fechaInicial}" />
 						</p:panelGrid>
@@ -128,14 +130,14 @@
 							value="#{controladorPersonal.lstGesDependenciaPersona}"
 							emptyMessage="No existen registros" var="usuario"
 							widgetVar="consolidadoTbl">
-							<p:column headerText="Cédula"
+							<p:column headerText="Cédula" 
 								filterBy="#{usuario.gesPersona.cedula}"
 								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
 							<p:column headerText="Apellido"
 								filterBy="#{usuario.gesPersona.apellido}"
-								filterMatchMode="contains">
+								filterMatchMode="contains" >
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
 							<p:column headerText="Nombre"

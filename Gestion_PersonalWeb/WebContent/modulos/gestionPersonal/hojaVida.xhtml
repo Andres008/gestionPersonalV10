@@ -112,7 +112,7 @@
 						</p:panelGrid>
 					</p:panel>
 					<p:panel header="Grados">
-						<p:dataTable
+						<p:dataTable emptyMessage="Grados no registrados"
 							value="#{controladorPersonal.objGesPersona.gesGradosPersonas}"
 							var="usuario">
 							<p:column headerText="Grado">
@@ -153,6 +153,28 @@
 							</p:column>
 						</p:dataTable>
 					</p:panel>
+					<p:panel header="Titulos Obtenidos">
+						<p:dataTable
+							value="#{controladorPersonal.objGesPersona.acaTituloPersonas}"
+							var="curso">
+							<p:column headerText="Titulo">
+								<p:outputLabel value="#{curso.acaTitulo.titulo}" />
+							</p:column>
+							<p:column headerText="Institución">
+								<p:outputLabel
+									value="#{curso.acaTitulo.acaInstitucionEducativa.nombre}" />
+							</p:column>
+							<p:column headerText="Tipo Titulo">
+								<p:outputLabel value="#{curso.acaTitulo.acaTipoTitulo.nombre}" />
+							</p:column>
+							<p:column headerText="Registro">
+								<p:outputLabel value="#{curso.codigoRegistro}" />
+							</p:column>
+							<p:column headerText="Fecha Registor">
+								<p:outputLabel value="#{curso.fechaRefrendacion}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
 					<p:panel header="Estímulos y Sanciones">
 						<p:dataTable
 							value="#{controladorPersonal.objGesPersona.gesEstimuloPersonas}"
@@ -165,7 +187,7 @@
 									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
 							</p:column>
 							<p:column headerText="Fecha">
-								<p:outputLabel value="#{usuario.fechaRegistro}" />
+								<p:outputLabel value="#{usuario.fechaEvento}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
@@ -177,10 +199,12 @@
 								<p:outputLabel value="#{usuario.gesDependencia.nombre}" />
 							</p:column>
 							<p:column headerText="Reparto">
-								<p:outputLabel value="#{usuario.gesDependencia.gesReparto.nombre}" />
+								<p:outputLabel
+									value="#{usuario.gesDependencia.gesReparto.nombre}" />
 							</p:column>
 							<p:column headerText="Región">
-								<p:outputLabel value="#{usuario.gesDependencia.gesRegione.nombre}" />
+								<p:outputLabel
+									value="#{usuario.gesDependencia.gesRegione.nombre}" />
 							</p:column>
 							<p:column headerText="Fecha Inicial">
 								<p:outputLabel value="#{usuario.fechaInicial}" />

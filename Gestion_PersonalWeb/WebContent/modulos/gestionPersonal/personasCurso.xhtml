@@ -83,8 +83,10 @@
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Ingrese cedula" />
 							<p:panelGrid columns="2">
-								<p:inputMask
-									value="#{controladorPersonal.objAcaPersonasCurso.gesPersona.cedula}" />
+								<p:inputText
+									value="#{controladorPersonal.objAcaPersonasCurso.gesPersona.cedula}">
+									<p:keyFilter regEx="/[0123456789]/" />
+								</p:inputText>
 								<p:commandButton icon="ui-icon-search"
 									actionListener="#{controladorPersonal.buscarPersona()}"
 									update="@form" />
@@ -117,14 +119,14 @@
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:calendar
 								value="#{controladorPersonal.objAcaPersonasCurso.fechaInicial}"
-								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es" rendered="#{controladorPersonal.busqueda}"
-								maxdate="today" />
+								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
+								rendered="#{controladorPersonal.busqueda}" maxdate="today" />
 							<p:outputLabel value="Fecha Final"
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:calendar
-								value="#{controladorPersonal.objAcaPersonasCurso.fechaFinal}" rendered="#{controladorPersonal.busqueda}"
-								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
-								maxdate="today" />
+								value="#{controladorPersonal.objAcaPersonasCurso.fechaFinal}"
+								rendered="#{controladorPersonal.busqueda}" pattern="dd/MM/yyyy"
+								mask="99/99/9999" locale="es" maxdate="today" />
 						</p:panelGrid>
 
 						<p:commandButton value="Ingresar"

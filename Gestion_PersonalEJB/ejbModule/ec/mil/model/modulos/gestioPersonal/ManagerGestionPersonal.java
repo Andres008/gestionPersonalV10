@@ -161,6 +161,10 @@ public class ManagerGestionPersonal {
 			v_persona.getGesGradosPersonas().forEach(grados -> {
 				grados.getGesGrado().getGesTipoGrado().getDescripcion();
 			});
+			v_persona.getAcaTituloPersonas().forEach(titulo->{
+				titulo.getAcaTitulo().getAcaTipoTitulo().getNombre();
+			});
+			
 			return v_persona;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

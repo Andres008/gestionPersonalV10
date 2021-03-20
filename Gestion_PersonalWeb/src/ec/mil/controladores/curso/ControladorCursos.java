@@ -62,7 +62,7 @@ public class ControladorCursos {
 	private List<AcaPlanificacionCurso> lstAcaPlanificacionCurso;
 	private AcaPlanificacionCurso objAcaPlanificacionCurso;
 	private AcaInscripcionPersona objAcaInscripcionPersona;
-
+	
 	@ManagedProperty(value = "#{beanLogin}")
 	private BeanLogin beanLogin;
 
@@ -109,7 +109,7 @@ public class ControladorCursos {
 		}
 
 	}
-	
+
 	public void ingresarAprobacionCurso(AcaInscripcionPersona inscripcion) {
 		inscripcion.getAcaEstadoInscripcion().setId(4);
 		try {
@@ -128,7 +128,7 @@ public class ControladorCursos {
 		}
 
 	}
-	
+
 	public void ingresarReprobacionCurso(AcaInscripcionPersona inscripcion) {
 		inscripcion.getAcaEstadoInscripcion().setId(5);
 		try {
@@ -250,13 +250,14 @@ public class ControladorCursos {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
 	}
-	
-	public List<SelectItem> SICursos(){
-		List<SelectItem> siLstCursos= new ArrayList<SelectItem>();;
+
+	public List<SelectItem> SICursos() {
+		List<SelectItem> siLstCursos = new ArrayList<SelectItem>();
+		;
 		try {
 			for (AcaCurso acaCurso : managerCurso.findAllCurso()) {
-				SelectItem siCurso=new SelectItem();
-				siCurso.setLabel(acaCurso.getDescripcion());
+				SelectItem siCurso = new SelectItem();
+				siCurso.setLabel(acaCurso.getNombre());
 				siCurso.setValue(acaCurso.getId());
 				siLstCursos.add(siCurso);
 			}
@@ -290,6 +291,28 @@ public class ControladorCursos {
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
+		}
+	}
+
+	public void inicializarAcaPlanificacionCursoAceptados() {
+		try {
+			verificarCredencial();
+			lstAcaPlanificacionCurso = managerCurso.buscarTodasPlanificacion();
+			lstAcaPlanificacionCurso.forEach(planificados -> {
+				planificados.setAcaInscripcionPersonas(planificados.getAcaInscripcionPersonas().stream()
+						.filter(estado -> estado.getAcaEstadoInscripcion().getId() == 3).collect(Collectors.toList()));
+			});
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void verificarCredencial() throws IOException {
+		if (beanLogin.getCredencial() == null) {
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
 		}
 	}
 
