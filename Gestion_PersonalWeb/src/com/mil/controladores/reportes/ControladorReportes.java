@@ -48,6 +48,8 @@ public class ControladorReportes {
 	private List<VReporteConsolidado> lstConsolidado, lstConsolidadoResult;
 
 	private List<String> lstGradosSeleccionados, lstCursosSeleccionados, lstTipoTituloSeleccionados;
+	
+	private boolean busquedaAvanzadaR;
 
 	/**
 	 * 
@@ -60,6 +62,7 @@ public class ControladorReportes {
 	}
 
 	public void inicializarReporteConsolidado() {
+		busquedaAvanzadaR=true;
 		try {
 			lstConsolidado = managerReportes.buscarReporteConsolidado();
 			
@@ -91,6 +94,7 @@ public class ControladorReportes {
 			inicializarReporteConsolidado();
 		else {
 			inicializarReporteConsolidado();
+			busquedaAvanzadaR=false;
 			lstConsolidadoResult = new ArrayList<VReporteConsolidado>();
 
 			/*
@@ -147,8 +151,25 @@ public class ControladorReportes {
 				});
 				lstConsolidado = lstConsolidadoResult;
 			}
+			lstConsolidado = lstConsolidado.stream().filter(conso-> conso.getFechaFinal()==null).collect(Collectors.toList());
+			eliminarDatosRepetidos(lstConsolidado);
 		}
 
+	}
+
+	private void eliminarDatosRepetidos(List<VReporteConsolidado> lstConsolidado2) {
+		List<VReporteConsolidado> resultadoSinRepe= new ArrayList<VReporteConsolidado>();
+		for (VReporteConsolidado vReporteConsolidado : lstConsolidado2) {
+			int cont=0;
+			for (VReporteConsolidado vReporteConsolidado2 : resultadoSinRepe) 
+			{
+				if ( vReporteConsolidado.getCedula().equals(vReporteConsolidado2.getCedula()))
+					cont=1;
+			}
+			if(cont==0)
+				resultadoSinRepe.add(vReporteConsolidado);
+		}
+		lstConsolidado=resultadoSinRepe;
 	}
 
 	public void setBeanLogin(BeanLogin beanLogin) {
@@ -185,6 +206,14 @@ public class ControladorReportes {
 
 	public void setLstTipoTituloSeleccionados(List<String> lstTipoTituloSeleccionados) {
 		this.lstTipoTituloSeleccionados = lstTipoTituloSeleccionados;
+	}
+
+	public boolean isBusquedaAvanzadaR() {
+		return busquedaAvanzadaR;
+	}
+
+	public void setBusquedaAvanzadaR(boolean busquedaAvanzada) {
+		this.busquedaAvanzadaR = busquedaAvanzada;
 	}
 
 }

@@ -148,7 +148,7 @@
 							<p:column headerText="Nombres">
 								<p:outputLabel value="#{reporte.nombres}" />
 							</p:column>
-							<p:column headerText="Tipo Disciplina"
+							<p:column headerText="Tipo Disciplina" rendered="#{controladorReportes.busquedaAvanzadaR}"
 								filterBy="#{reporte.tipoDisciplina}" filterMatchMode="exact">
 								<f:facet name="filter">
 									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
@@ -161,10 +161,10 @@
 								</f:facet>
 								<p:outputLabel value="#{reporte.tipoDisciplina}" />
 							</p:column>
-							<p:column headerText="Disciplina">
+							<p:column headerText="Disciplina" rendered="#{controladorReportes.busquedaAvanzadaR}">
 								<p:outputLabel value="#{reporte.disciplina}" />
 							</p:column>
-							<p:column headerText="Curso Realizados"
+							<p:column headerText="Curso Realizados" rendered="#{controladorReportes.busquedaAvanzadaR}"
 								filterBy="#{reporte.nombreCurso}" filterMatchMode="exact">
 								<f:facet name="filter">
 									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
@@ -177,7 +177,7 @@
 								</f:facet>
 								<p:outputLabel value="#{reporte.nombreCurso}" />
 							</p:column>
-							<p:column headerText="Titulo" filterBy="#{reporte.titulo}"
+							<p:column headerText="Titulo" filterBy="#{reporte.titulo}" rendered="#{controladorReportes.busquedaAvanzadaR}"
 								filterMatchMode="exact">
 								<f:facet name="filter">
 									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
@@ -190,7 +190,7 @@
 								</f:facet>
 								<p:outputLabel value="#{reporte.titulo}" />
 							</p:column>
-							<p:column headerText="Tipo Titulo" filterBy="#{reporte.tipoTitulo}"
+							<p:column headerText="Tipo Titulo" filterBy="#{reporte.tipoTitulo}" rendered="#{controladorReportes.busquedaAvanzadaR}"
 								filterMatchMode="exact">
 								<f:facet name="filter">
 									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
@@ -204,7 +204,7 @@
 								</f:facet>
 								<p:outputLabel value="#{reporte.tipoTitulo}" />
 							</p:column>
-							<p:column headerText="Reparto" filterBy="#{reporte.reparto}"
+							<p:column headerText="Reparto" filterBy="#{reporte.reparto}" rendered="#{controladorReportes.busquedaAvanzadaR}"
 								filterMatchMode="exact">
 								<f:facet name="filter">
 									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
@@ -218,15 +218,15 @@
 								</f:facet>
 								<p:outputLabel value="#{reporte.reparto}" />
 							</p:column>
-							<p:column headerText="Dependencia">
+							<p:column headerText="Dependencia" >
 								<p:outputLabel value="#{reporte.dependencia}" />
 							</p:column>
-							<p:column headerText="Fecha Inicial">
+							<p:column headerText="Fecha Inicial" rendered="#{controladorReportes.busquedaAvanzadaR}">
 								<p:outputLabel value="#{reporte.fechaInicial}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</p:outputLabel>
 							</p:column>
-							<p:column headerText="Fecha Final"
+							<p:column headerText="Fecha Final" rendered="#{controladorReportes.busquedaAvanzadaR}"
 								filterBy="#{controladorPersonal.fechaNula(reporte.fechaFinal)}"
 								filterMatchMode="exact">
 
