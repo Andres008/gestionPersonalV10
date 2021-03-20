@@ -74,6 +74,46 @@
 				<h1>REPORTE CONSOLIDADO</h1>
 				<h:form>
 					<p:growl id="msgs" showDetail="true" />
+					<p:panel header="Busqueda Avanzada" toggleable="true"
+						collapsed="true">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Grados" />
+							<p:selectCheckboxMenu id="multiple"
+								value="#{controladorReportes.lstGradosSeleccionados}"
+								label="Grados" style="min-width: 15rem" multiple="true"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width: 30rem" scrollHeight="250">
+								<p:ajax event="itemUnselect"
+									listener="#{controladorReportes.onItemUnselectGrado}" />
+								<f:selectItems value="#{controladorPersonal.SIgradosNombre()}" />
+							</p:selectCheckboxMenu>
+							<p:outputLabel value="Cursos" />
+							<p:selectCheckboxMenu id="multipleCurso"
+								value="#{controladorReportes.lstCursosSeleccionados}"
+								label="Cursos" style="min-width: 15rem" multiple="true"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width: 30rem" scrollHeight="250">
+								<p:ajax event="itemUnselect"
+									listener="#{controladorReportes.onItemUnselectCurso}" />
+								<f:selectItems value="#{controladorPersonal.SICursosNombre()}" />
+							</p:selectCheckboxMenu>
+							<p:outputLabel value="Tipo Titulo" />
+							<p:selectCheckboxMenu id="multipleTipoTitulo"
+								value="#{controladorReportes.lstTipoTituloSeleccionados}"
+								label="Tipo Titulo" style="min-width: 15rem" multiple="true"
+								filter="true" filterMatchMode="startsWith"
+								panelStyle="width: 30rem" scrollHeight="250">
+								<p:ajax event="itemUnselect"
+									listener="#{controladorReportes.onItemUnselectTipoTitulo}" />
+								<f:selectItems value="#{controladorPersonal.SITipoTitulo()}" />
+							</p:selectCheckboxMenu>
+							<p:commandButton value="Buscar"
+								actionListener="#{controladorReportes.busquedaAvanzada()}"
+								update="@form" />
+						</p:panelGrid>
+					</p:panel>
+
+
 					<p:panel header="Información Consolidada">
 						<div class="p-d-flex p-jc-between">
 							<p:panelGrid columns="2" styleClass="ui-noborder">
@@ -86,6 +126,7 @@
 							</p:panelGrid>
 						</div>
 						<p:dataTable id="consolidado" widgetVar="consolidadoTbl"
+							emptyMessage="No existe resultado a la busqueda"
 							value="#{controladorReportes.lstConsolidado}" var="reporte"
 							paginator="true" rows="10">
 							<p:column headerText="Cedula" filterBy="#{reporte.cedula}"
@@ -149,7 +190,18 @@
 								</f:facet>
 								<p:outputLabel value="#{reporte.titulo}" />
 							</p:column>
-							<p:column headerText="Tipo Titulo">
+							<p:column headerText="Tipo Titulo" filterBy="#{reporte.tipoTitulo}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('consolidadoTbl').filter()"
+										filter="true" filterMatchMode="contains"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{controladorPersonal.SITipoTitulo()}" />
+									</p:selectOneMenu>
+								</f:facet>
 								<p:outputLabel value="#{reporte.tipoTitulo}" />
 							</p:column>
 							<p:column headerText="Reparto" filterBy="#{reporte.reparto}"

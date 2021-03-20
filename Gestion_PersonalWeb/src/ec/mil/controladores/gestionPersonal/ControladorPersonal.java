@@ -17,6 +17,7 @@ import javax.faces.model.SelectItemGroup;
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AcaCurso;
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
+import ec.mil.model.dao.entidades.AcaTipoTitulo;
 import ec.mil.model.dao.entidades.AcaTitulo;
 import ec.mil.model.dao.entidades.AcaTituloPersona;
 import ec.mil.model.dao.entidades.AutRole;
@@ -631,6 +632,24 @@ public class ControladorPersonal {
 		try {
 			List<GesReparto> lstCurso = managerGestionPersonal.buscarRepartoActivo();
 			for (GesReparto acaCurso : lstCurso) {
+				SelectItem siCursoLst = new SelectItem();
+				siCursoLst.setLabel(acaCurso.getNombre());
+				siCursoLst.setValue(acaCurso.getNombre());
+				lstSiCurso.add(siCursoLst);
+			}
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "SIgrados", e.getMessage());
+			e.printStackTrace();
+		}
+		return lstSiCurso;
+	}
+	
+	public List<SelectItem> SITipoTitulo() {
+		List<SelectItem> lstSiCurso = new ArrayList<SelectItem>();
+		try {
+			List<AcaTipoTitulo> lstCurso = managerGestionCurso.findAllTipoTitulo() ;
+			for (AcaTipoTitulo acaCurso : lstCurso) {
 				SelectItem siCursoLst = new SelectItem();
 				siCursoLst.setLabel(acaCurso.getNombre());
 				siCursoLst.setValue(acaCurso.getNombre());
