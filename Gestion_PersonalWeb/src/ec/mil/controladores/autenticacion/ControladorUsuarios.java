@@ -14,7 +14,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
+import org.primefaces.event.RowEditEvent;
+
 import ec.mil.controladores.session.BeanLogin;
+import ec.mil.model.dao.entidades.AcaTipoTitulo;
 import ec.mil.model.dao.entidades.AutMenu;
 import ec.mil.model.dao.entidades.AutPerfile;
 import ec.mil.model.dao.entidades.AutRolPerfil;
@@ -85,6 +88,24 @@ public class ControladorUsuarios {
 
 	public void inicializarMenu() {
 		objAutMenu = new AutMenu();
+	}
+	
+	public void onRowEditTipoTitulo(RowEditEvent<AutUsuario> event) {
+		try {
+			AutUsuario usuario = event.getObject();
+			usuario.setEstado("A");
+			managerGestionPersonal.actualizarUsuario(usuario);
+			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoTitulo",
+					"Se actualizó tipo usuario id: " + event.getObject().getCedula());
+			JSFUtil.crearMensajeINFO("Atención", "Actualización Correcta.");
+			inicializarUsuario();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "onRowEditTipoTitulo",
+					e.getMessage());
+			e.printStackTrace();
+		}
+
 	}
 
 	public void inicializarRol() {

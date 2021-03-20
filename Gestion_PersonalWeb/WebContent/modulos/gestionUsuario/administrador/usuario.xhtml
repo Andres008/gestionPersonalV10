@@ -106,12 +106,15 @@
 								<f:selectItems value="#{controladorUsuarios.SIroles()}" />
 							</p:selectOneMenu>
 						</p:panelGrid>
-						<p:commandButton value="Ingresar" rendered="#{controladorUsuarios.busqueda}"
+						<p:commandButton value="Ingresar"
+							rendered="#{controladorUsuarios.busqueda}"
 							action="#{controladorUsuarios.ingresarUsuario()}" update="@form" />
 					</p:panel>
 					<p:panel header="Usuarios Ingresados">
-						<p:dataTable value="#{controladorUsuarios.lstAutUsuario}"
-							var="usuario">
+						<p:dataTable value="#{controladorUsuarios.lstAutUsuario}" id="tblUsuario"
+							editable="true" var="usuario">
+							<p:ajax event="rowEdit" listener="#{controladorUsuarios.onRowEditTipoTitulo}"
+								update="@form:growl @form:tblUsuario" />
 							<p:column headerText="Id Usuario">
 								<p:outputLabel value="#{usuario.cedula}" />
 							</p:column>
@@ -122,13 +125,27 @@
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
 							<p:column headerText="Rol">
-								<p:outputLabel value="#{usuario.autRole.nombre}" />
+
+								<p:cellEditor>
+									<f:facet name="output">
+										<p:outputLabel value="#{usuario.autRole.nombre}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu value="#{usuario.autRole.id}">
+											<f:selectItem itemLabel="Rol" noSelectionOption="true" />
+											<f:selectItems value="#{controladorUsuarios.SIroles()}" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
 							</p:column>
 							<p:column headerText="Fecha Creación Usuario">
 								<p:outputLabel value="#{usuario.fechaCreacion}" />
 							</p:column>
 							<p:column headerText="Estado">
 								<p:outputLabel value="#{usuario.estado}" />
+							</p:column>
+							<p:column style="width:35px" headerText="Edit">
+								<p:rowEditor />
 							</p:column>
 						</p:dataTable>
 					</p:panel>

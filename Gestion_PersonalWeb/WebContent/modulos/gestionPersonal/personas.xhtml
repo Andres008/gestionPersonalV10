@@ -116,7 +116,10 @@
 									<f:selectItem itemLabel="Promoción" noSelectionOption="true" />
 									<f:selectItems value="#{controladorPersonal.SIPromocion()}" />
 								</p:selectOneMenu>
-								<p:commandButton icon="ui-icon-plus" />
+								<p:commandButton
+									actionListener="#{controladorPersonal.inicializarPromocion()}"
+									update="@form:infPromo" icon="ui-icon-plus"
+									oncomplete="PF('infPromo').show()" />
 							</p:panelGrid>
 							<p:outputLabel value="Antiguedad" />
 							<p:spinner min="1"
@@ -141,6 +144,11 @@
 							<p:outputLabel value="Correo Electrónico" />
 							<p:inputText requiredMessage="Ingrese correo electronico"
 								value="#{controladorPersonal.objGesPersona.correo}" />
+							<p:outputLabel value="Rol" />
+							<p:selectOneMenu
+								value="#{controladorPersonal.objAutUsuario.autRole.id}">
+								<f:selectItems value="#{controladorUsuarios.SIroles()}" />
+							</p:selectOneMenu>
 						</p:panelGrid>
 						<p:commandButton value="Guardar" update="@form"
 							action="#{controladorPersonal.ingresarPersona()}" />
@@ -156,7 +164,8 @@
 								</h:commandLink>
 							</div>
 						</div>
-						<p:dataTable id="tblPersonas" value="#{controladorPersonal.lstGesPersona}"
+						<p:dataTable id="tblPersonas"
+							value="#{controladorPersonal.lstGesPersona}"
 							widgetVar="personasTable" emptyMessage="No existen registros"
 							paginator="true" rows="20" var="persona">
 							<p:column headerText="Cédula" filterBy="#{persona.cedula}"
@@ -246,6 +255,43 @@
 							</p:column>
 						</p:dataTable>
 					</p:panel>
+
+					<p:dialog header="Crear Promoci''on" widgetVar="infPromo"
+						id="infPromo" modal="true" position="center" showEffect="fade"
+						hideEffect="fade" resizable="false" width="50%">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Nombre" />
+							<p:inputText
+								value="#{controladorPersonal.objGesPromocion.nombre}" />
+							<p:outputLabel value="Descripci'on" />
+							<p:inputText
+								value="#{controladorPersonal.objGesPromocion.descripcion}" />
+							<p:outputLabel value="Fecha Inicio Curso" />
+							<p:calendar pattern="dd/MM/yyyy"
+								value="#{controladorPersonal.objGesPromocion.fechaInicio}"
+								mask="99/99/9999" locale="es" maxdate="today" />
+							<p:outputLabel value="Fecha Fin Curso" />
+							<p:calendar pattern="dd/MM/yyyy"
+								value="#{controladorPersonal.objGesPromocion.fechaFinal}"
+								mask="99/99/9999" locale="es" maxdate="today" />
+							<p:outputLabel value="Promoci'on" />
+							<p:spinner min="1"
+								value="#{controladorPersonal.objGesPromocion.promocion}" />
+							<p:outputLabel value="Antiguedad" />
+							<p:spinner min="1"
+								value="#{controladorPersonal.objGesPromocion.antiguedad}" />
+							<p:outputLabel value="Tipo Grado" />
+							<p:selectOneMenu
+								value="#{controladorPersonal.objGesPromocion.gesTipoGrado.id}">
+								<f:selectItem itemLabel="Seleccione Tipo Grado" />
+								<f:selectItems value="#{controladorEstimulo.siTipoGrado()}" />
+							</p:selectOneMenu>
+						</p:panelGrid>
+						<p:commandButton value="Ingresar"
+							actionListener="#{controladorPersonal.ingresarPromocion()}"
+							update="@form" />
+						<p:commandButton value="Cancelar" update="@form" />
+					</p:dialog>
 					<p:dialog header="Registrar Baja" widgetVar="infBaja" id="infBaja"
 						modal="true" position="center" showEffect="fade" hideEffect="fade"
 						resizable="false" width="50%">

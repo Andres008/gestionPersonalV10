@@ -13,6 +13,7 @@ import ec.mil.model.dao.entidades.AutMenu;
 import ec.mil.model.dao.entidades.AutPerfile;
 import ec.mil.model.dao.entidades.AutRolPerfil;
 import ec.mil.model.dao.entidades.AutRole;
+import ec.mil.model.dao.entidades.AutUsuario;
 import ec.mil.model.dao.entidades.GesDependencia;
 import ec.mil.model.dao.entidades.GesDependenciaPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
@@ -536,6 +537,16 @@ public class ManagerGestionPersonal {
 
 	public void actualizarTipoEstimulo(GesEstimulo objEstimulo) throws Exception {
 		managerDAOGestionPersonal.actualizar(objEstimulo);
+	}
+
+	public void ingresarPromocion(GesPromocion objGesPromocion) throws Exception {
+		managerDAOGestionPersonal.insertar(objGesPromocion);
+		
+	}
+
+	public void actualizarUsuario(AutUsuario usuario) throws Exception {
+		managerDAOGestionPersonal.actualizar(usuario);
+		
 	}
 
 }

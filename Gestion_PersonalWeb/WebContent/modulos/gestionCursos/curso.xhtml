@@ -78,7 +78,7 @@
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Tipo Curso" />
-							<p:selectOneMenu value="#{controladorCursos.objAcaCurso.acaTipoCurso.id}">
+							<p:selectOneMenu value="#{controladorCursos.objAcaCurso.acaTipoCurso.id}" required="true" requiredMessage="Favor seleccione tipo de curso.">
 								<f:selectItem itemLabel="Tipo Curso" noSelectionOption="true" />
 								<f:selectItems value="#{controladorCursos.siTipoCursoActivo()}" />
 							</p:selectOneMenu>

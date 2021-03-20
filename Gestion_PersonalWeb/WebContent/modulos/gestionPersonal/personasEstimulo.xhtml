@@ -114,7 +114,7 @@
 							</p:panelGrid>
 							<p:outputLabel value="Fecha Acción"
 								rendered="#{controladorPersonal.busqueda}" />
-								<p:calendar value="#{controladorPersonal.objGesEstimuloPersona.fechaEvento}" />
+								<p:calendar value="#{controladorPersonal.objGesEstimuloPersona.fechaEvento}" locale="es" maxdate="today" rendered="#{controladorPersonal.busqueda}"/>
 						</p:panelGrid>
 						<p:commandButton value="Ingresar"
 							rendered="#{controladorPersonal.busqueda}"

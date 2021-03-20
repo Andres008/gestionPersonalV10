@@ -37,7 +37,7 @@ public class ManagerUsuarios {
 	@SuppressWarnings("unchecked")
 	public List<AutRole> findRoleActivo() throws Exception {
 		try {
-			return managerDAOGestionPersonal.findWhere(AutRole.class, "o.estado='A'", "o.nombre ASC");
+			return managerDAOGestionPersonal.findWhere(AutRole.class, "o.estado='A'", "o.id DESC");
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Roles activos.");
 		}

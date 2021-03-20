@@ -19,6 +19,8 @@ import ec.mil.model.dao.entidades.AcaCurso;
 import ec.mil.model.dao.entidades.AcaPersonasCurso;
 import ec.mil.model.dao.entidades.AcaTitulo;
 import ec.mil.model.dao.entidades.AcaTituloPersona;
+import ec.mil.model.dao.entidades.AutRole;
+import ec.mil.model.dao.entidades.AutUsuario;
 import ec.mil.model.dao.entidades.GesDependencia;
 import ec.mil.model.dao.entidades.GesDependenciaPersona;
 import ec.mil.model.dao.entidades.GesEstadoCivil;
@@ -34,6 +36,7 @@ import ec.mil.model.dao.entidades.GesTipoGrado;
 import ec.mil.model.dao.entidades.GesTipoSangre;
 import ec.mil.model.modulos.ModelUtil.JSFUtil;
 import ec.mil.model.modulos.ModelUtil.ModelUtil;
+import ec.mil.model.modulos.autUsuarios.ManagerUsuarios;
 import ec.mil.model.modulos.cursos.ManagerCurso;
 import ec.mil.model.modulos.gestioPersonal.ManagerGestionPersonal;
 import ec.mil.model.modulos.log.ManagerLog;
@@ -63,6 +66,10 @@ public class ControladorPersonal {
 	private List<GesEstimuloPersona> lstGesEstimuloPersona;
 	private GesGradosPersona objGesGradosPersona;
 	private List<GesGradosPersona> lstGesGradosPersona;
+	private AutUsuario objAutUsuario;
+	@EJB
+	private ManagerUsuarios managerUsuarios;
+	private GesPromocion objGesPromocion;
 
 	/**
 	 * 
@@ -94,6 +101,18 @@ public class ControladorPersonal {
 			lstGesDependenciaPersona = managerGestionPersonal.findAllGesDependenciaPersonal();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void inicializarUsuario() {
+		try {
+			objAutUsuario = new AutUsuario();
+			objAutUsuario.setGesPersona(new GesPersona());
+			objAutUsuario.setAutRole(new AutRole());
+		} catch (Exception e) {
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "inicializarUsuario",
+					e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -162,6 +181,8 @@ public class ControladorPersonal {
 		objGesPersona.setGesGrado(new GesGrado());
 		objGesPersona.setGesTipoSangre(new GesTipoSangre());
 		objGesPersona.setGesPromocion(new GesPromocion());
+		inicializarPromocion();
+		inicializarUsuario();
 		try {
 			lstGesPersona = managerGestionPersonal.buscarPersonas();
 		} catch (Exception e) {
@@ -171,6 +192,12 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
+	
+	public void inicializarPromocion() {
+		objGesPromocion = new GesPromocion();
+		objGesPromocion.setGesTipoGrado(new GesTipoGrado());
+	}
+	
 
 	public void inicializarAP7() {
 		try {
@@ -179,6 +206,17 @@ public class ControladorPersonal {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void ingresarPromocion() {
+		try {
+			managerGestionPersonal.ingresarPromocion(objGesPromocion);
+			inicializarPromocion();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void cargarCursoSeleccion(AcaCurso acaCursoSel) {
@@ -658,8 +696,8 @@ public class ControladorPersonal {
 
 	public void ingresarPersona() {
 		try {
-			ModelUtil.esSoloLetras(objGesPersona.getApellido());
-			ModelUtil.esSoloLetras(objGesPersona.getNombre());
+			//ModelUtil.esSoloLetras(objGesPersona.getApellido());
+			//ModelUtil.esSoloLetras(objGesPersona.getNombre());
 			objGesPersona.setApellido(ModelUtil.cambiarMayusculas(objGesPersona.getApellido()));
 			objGesPersona.setNombre(ModelUtil.cambiarMayusculas(objGesPersona.getNombre()));
 			objGesPersona.setCorreo(ModelUtil.cambiarMinusculas(objGesPersona.getCorreo()));
@@ -668,8 +706,10 @@ public class ControladorPersonal {
 			else {
 
 				valoresInicialesPersona(objGesPersona);
-
 				managerGestionPersonal.ingresarPersona(objGesPersona);
+				objAutUsuario.setCedula(objGesPersona.getCedula());
+				objAutUsuario.setGesPersona(objGesPersona);
+				ingresarUsuario();
 			}
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarPersona",
 					"Se ingreso persona id " + objGesPersona.getCedula());
@@ -679,6 +719,21 @@ public class ControladorPersonal {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarPersona",
 					e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void ingresarUsuario() {
+		try {
+			objAutUsuario.setClave(ModelUtil.md5(objAutUsuario.getCedula()));
+			objAutUsuario.setFechaCreacion(new Date());
+			objAutUsuario.setPrimerInicio("SI");
+			objAutUsuario.setEstado("A");
+			managerUsuarios.ingresarUsuario(objAutUsuario);
+			JSFUtil.crearMensajeINFO("Atención", "Usuario creado correctamente");
+			inicializarUsuario();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Atención", e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -827,6 +882,22 @@ public class ControladorPersonal {
 
 	public void setLstGesGradosPersona(List<GesGradosPersona> lstGesGradosPersona) {
 		this.lstGesGradosPersona = lstGesGradosPersona;
+	}
+
+	public GesPromocion getObjGesPromocion() {
+		return objGesPromocion;
+	}
+
+	public void setObjGesPromocion(GesPromocion objGesPromocion) {
+		this.objGesPromocion = objGesPromocion;
+	}
+
+	public AutUsuario getObjAutUsuario() {
+		return objAutUsuario;
+	}
+
+	public void setObjAutUsuario(AutUsuario objAutUsuario) {
+		this.objAutUsuario = objAutUsuario;
 	}
 
 }

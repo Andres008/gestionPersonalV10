@@ -117,12 +117,12 @@
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:calendar
 								value="#{controladorPersonal.objAcaPersonasCurso.fechaInicial}"
-								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
+								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es" rendered="#{controladorPersonal.busqueda}"
 								maxdate="today" />
 							<p:outputLabel value="Fecha Final"
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:calendar
-								value="#{controladorPersonal.objAcaPersonasCurso.fechaFinal}"
+								value="#{controladorPersonal.objAcaPersonasCurso.fechaFinal}" rendered="#{controladorPersonal.busqueda}"
 								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
 								maxdate="today" />
 						</p:panelGrid>
