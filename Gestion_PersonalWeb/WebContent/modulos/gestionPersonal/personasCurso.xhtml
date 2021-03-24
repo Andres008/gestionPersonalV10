@@ -191,6 +191,12 @@
 							<p:column headerText="Fecha de Registro">
 								<p:outputLabel value="#{usuario.fechaInicial}" />
 							</p:column>
+							<p:column headerText="Promoción">
+								<p:outputLabel value="#{usuario.gesPersona.gesPromocion.promocion}" />
+							</p:column>
+							<p:column headerText="Antiguedad Actual">
+								<p:outputLabel value="#{usuario.gesPersona.antiguedad}" />
+							</p:column>
 						</p:dataTable>
 					</p:panel>
 					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"

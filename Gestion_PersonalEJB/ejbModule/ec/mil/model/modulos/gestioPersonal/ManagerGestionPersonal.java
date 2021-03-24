@@ -174,7 +174,7 @@ public class ManagerGestionPersonal {
 	@SuppressWarnings("unchecked")
 	public List<AcaPersonasCurso> buscarTodoPersonaCurso() throws Exception {
 		try {
-			return managerDAOGestionPersonal.findAll(AcaPersonasCurso.class, "o.acaCurso.nombre ASC");
+			return managerDAOGestionPersonal.findAll(AcaPersonasCurso.class, "o.gesPersona.gesPromocion.promocion ASC, o.gesPersona.antiguedad ASC");
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Curso Persona.");
 		}

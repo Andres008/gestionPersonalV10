@@ -421,6 +421,7 @@ public class ControladorPersonal {
 			objGesGradosPersona.setEstado("A");
 			managerGestionPersonal.ingresarGradoPersona(objGesGradosPersona);
 			objGesGradosPersona.getGesPersona().setGesGrado(objGesGradosPersona.getGesGrado());
+			objGesGradosPersona.setAntiguedad(objGesGradosPersona.getAntiguedad());
 			managerGestionPersonal.actualizarPersona(objGesGradosPersona.getGesPersona());
 			inicializarGradoPersona();
 		} catch (Exception e) {
