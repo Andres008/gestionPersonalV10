@@ -58,7 +58,7 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 
@@ -67,7 +67,7 @@
 				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -77,7 +77,7 @@
 			<div id="posicion" align="center">
 				<h:form>
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Ingresar Dependencias" toggleable="true"
+					<p:panel header="Ingresar las Dependencias" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="3" styleClass="ui-noborder">
 							<p:outputLabel value="Reparto" />
@@ -89,10 +89,10 @@
 							<p:commandButton icon="	ui-icon-plusthick"
 								actionListener="#{controladorGestion.inicializarReparto()}"
 								update="@form:infReparto" oncomplete="PF('infReparto').show()" />
-							<p:outputLabel value="Region" />
+							<p:outputLabel value="Región" />
 							<p:selectOneMenu
 								value="#{controladorGestion.objGesDependencia.gesRegione.id}">
-								<f:selectItem itemLabel="Seleccione Region" />
+								<f:selectItem itemLabel="Seleccione Región" />
 								<f:selectItems value="#{controladorGestion.siRegionesActivas()}" />
 							</p:selectOneMenu>
 							<p:commandButton icon="	ui-icon-plusthick"
@@ -103,7 +103,7 @@
 								value="#{controladorGestion.objGesDependencia.nombre}"
 								style="text-transform: uppercase" />
 							<p:outputLabel value="" />
-							<p:outputLabel value="Descripcion" />
+							<p:outputLabel value="Descripción" />
 							<p:inputText
 								value="#{controladorGestion.objGesDependencia.descripcion}"
 								style="text-transform: uppercase" />
@@ -122,7 +122,7 @@
 							<p:column headerText="Nombre">
 								<p:outputLabel value="#{dependencia.nombre}" />
 							</p:column>
-							<p:column headerText="Region">
+							<p:column headerText="Región">
 								<p:outputLabel value="#{dependencia.gesRegione.nombre}" />
 							</p:column>
 							<p:column headerText="Descripción">
@@ -143,7 +143,7 @@
 							</p:column>
 						</p:dataTable>
 					</p:panel>
-					<p:dialog header="Nueva Region" widgetVar="infRegion"
+					<p:dialog header="Nueva Región" widgetVar="infRegion"
 						id="infRegion" modal="true" position="center" showEffect="fade"
 						hideEffect="fade" resizable="false" width="1100">
 						<p:panelGrid columns="2">

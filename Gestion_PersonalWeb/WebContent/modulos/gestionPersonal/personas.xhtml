@@ -58,7 +58,7 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 
@@ -67,7 +67,7 @@
 				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -77,10 +77,10 @@
 			<div id="posicion" align="center">
 				<h:form>
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Ingreso de Informacion" toggleable="true"
+					<p:panel header="Ingreso de Información" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Cédula" />
+							<p:outputLabel value="Cedula" />
 							<p:inputMask value="#{controladorPersonal.objGesPersona.cedula}"
 								mask="9999999999" />
 							<p:outputLabel value="Apellidos" />
@@ -93,7 +93,7 @@
 								value="#{controladorPersonal.objGesPersona.nombre}">
 								<p:keyFilter regEx="/[QWERTYUIOPÑLKJHGFDSAZXCVBNMÁÉÍÓÚ ]/i" />
 							</p:inputText>
-							<p:outputLabel value="Fecha Nacimiento" />
+							<p:outputLabel value="Fecha de Nacimiento" />
 							<p:calendar pattern="dd/MM/yyyy"
 								value="#{controladorPersonal.objGesPersona.fechaNacimiento}"
 								mask="99/99/9999" locale="es" maxdate="today" />
@@ -124,7 +124,7 @@
 							<p:outputLabel value="Antiguedad" />
 							<p:spinner min="1"
 								value="#{controladorPersonal.objGesPersona.antiguedad}" />
-							<p:outputLabel value="Fecha Alta" />
+							<p:outputLabel value="Fecha de Alta" />
 							<p:calendar
 								value="#{controladorPersonal.objGesPersona.fechaAlta}"
 								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
@@ -132,13 +132,13 @@
 							<p:outputLabel value="Tipo de Sangre" />
 							<p:selectOneMenu
 								value="#{controladorPersonal.objGesPersona.gesTipoSangre.id}">
-								<f:selectItem itemLabel="Tipo Sangre" noSelectionOption="true" />
+								<f:selectItem itemLabel="Tipo de Sangre" noSelectionOption="true" />
 								<f:selectItems value="#{controladorPersonal.SITipoSangre()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Dirección" />
 							<p:inputText
 								value="#{controladorPersonal.objGesPersona.direccion}" />
-							<p:outputLabel value="Telefono" />
+							<p:outputLabel value="Teléfono" />
 							<p:inputText
 								value="#{controladorPersonal.objGesPersona.telefono}" />
 							<p:outputLabel value="Correo Electrónico" />
@@ -156,7 +156,7 @@
 					<p:panel header="Personas Ingresadas">
 						<div align="center">
 							<div>
-								<h2>Exportar</h2>
+								<h4>Exportar a Excel</h4>
 								<h:commandLink>
 									<p:graphicImage name="/images/excel.png" width="24" />
 									<p:dataExporter type="xls" target="tblPersonas"
@@ -206,12 +206,12 @@
 								filterMatchMode="contains">
 								<p:outputLabel value="#{persona.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha Nacimiento">
+							<p:column headerText="Fecha de Nacimiento">
 								<p:outputLabel value="#{persona.fechaNacimiento}">
 									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
 								</p:outputLabel>
 							</p:column>
-							<p:column headerText="Fecha Alta">
+							<p:column headerText="Fecha de Alta">
 								<p:outputLabel value="#{persona.fechaAlta}">
 									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
 								</p:outputLabel>
@@ -221,13 +221,13 @@
 									<f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
 								</p:outputLabel>
 							</p:column>
-							<p:column headerText="Telefono">
+							<p:column headerText="Teléfono">
 								<p:outputLabel value="#{persona.telefono}" />
 							</p:column>
 							<p:column headerText="Correo">
 								<p:outputLabel value="#{persona.correo}" />
 							</p:column>
-							<p:column headerText="Tipo Sangre"
+							<p:column headerText="Tipo de Sangre"
 								filterBy="#{persona.gesTipoSangre.id}" filterMatchMode="exact">
 								<f:facet name="filter">
 									<p:selectOneMenu onchange="PF('personasTable').filter()"

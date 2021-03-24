@@ -58,12 +58,12 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -74,15 +74,15 @@
 				<h1>TÍTULOS</h1>
 				<h:form>
 					<p:growl id="msgs" showDetail="true" />
-					<p:panel header="Ingreso de Informacion" toggleable="true"
+					<p:panel header="Ingreso de Información" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Titulo" />
+							<p:outputLabel value="Título" />
 							<p:inputText value="#{controladorCursos.objAcaTitulo.titulo}"
 								style="text-transform: uppercase" />
-							<p:outputLabel value="Tipo Titulo"/>
+							<p:outputLabel value="Tipo de Título"/>
 							<p:selectOneMenu value="#{controladorCursos.objAcaTitulo.acaTipoTitulo.id}" filter="true" filterMatchMode="contains">
-								<f:selectItem itemLabel="Seleccione Tipo Título" noSelectionOption="true"/>
+								<f:selectItem itemLabel="Seleccione Tipo de Título" noSelectionOption="true"/>
 								<f:selectItems value="#{controladorCursos.tipoTituloSI()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Universidad"/>
@@ -95,7 +95,7 @@
 							actionListener="#{controladorCursos.ingresarTitulo()}"
 							update="@form" />
 					</p:panel>
-					<p:panel header="Tipo Título Ingresados">
+					<p:panel header="Tipo de Título Ingresados">
 						<p:dataTable value="#{controladorCursos.lstAcaTitulo}"
 							emptyMessage="No existe títulos ingresados" editable="true"
 							var="curso">
@@ -103,7 +103,7 @@
 								update="@form:msgs" />
 							<p:ajax event="rowEditCancel"
 								listener="#{dtEditView.onRowCancel}" update="@form:msgs" />
-							<p:column headerText="Titulo" filterBy="#{curso.titulo}" filterMatchMode="contains" >
+							<p:column headerText="Título" filterBy="#{curso.titulo}" filterMatchMode="contains" >
 								<p:cellEditor>
 									<f:facet name="output">
 										<p:outputLabel value="#{curso.titulo}" />
@@ -117,7 +117,7 @@
 							<p:column headerText="Institución Educativa" filterBy="#{curso.acaInstitucionEducativa.nombre}"  >
 								<p:outputLabel value="#{curso.acaInstitucionEducativa.nombre}"/>
 							</p:column>
-							<p:column headerText="Tipo Título">
+							<p:column headerText="Tipo de Título">
 								<p:outputLabel value="#{curso.acaTipoTitulo.nombre}"/>
 							</p:column>
 							<p:column headerText="Fecha Inicial">

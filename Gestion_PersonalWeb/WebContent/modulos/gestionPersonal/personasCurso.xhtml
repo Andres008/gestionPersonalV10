@@ -58,7 +58,7 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 
@@ -67,7 +67,7 @@
 				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -75,13 +75,13 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
-				<h1>REGISTRO DE CURSOS</h1>
+				
 				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Ingresar Cursos Realizados" toggleable="true"
+					<p:panel header="Ingresar los Cursos Realizados" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Ingrese cedula" />
+							<p:outputLabel value="Ingrese la cedula" />
 							<p:panelGrid columns="2">
 								<p:inputText
 									value="#{controladorPersonal.objAcaPersonasCurso.gesPersona.cedula}">
@@ -115,13 +115,13 @@
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
-							<p:outputLabel value="Fecha Inicio"
+							<p:outputLabel value="Fecha de Inicio"
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:calendar
 								value="#{controladorPersonal.objAcaPersonasCurso.fechaInicial}"
 								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
 								rendered="#{controladorPersonal.busqueda}" maxdate="today" />
-							<p:outputLabel value="Fecha Final"
+							<p:outputLabel value="Fecha de Finalización"
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:calendar
 								value="#{controladorPersonal.objAcaPersonasCurso.fechaFinal}"
@@ -137,7 +137,7 @@
 					<p:panel header="Cursos Registrados">
 						<div align="center">
 							<div>
-								<h2>Exportar</h2>
+								<h4>Exportar a Excel</h4>
 								<h:commandLink>
 									<p:graphicImage name="/images/excel.png" width="24" />
 									<p:dataExporter type="xls" target="tblCursosRealizados"
@@ -149,7 +149,7 @@
 							value="#{controladorPersonal.lstAcaPersonasCurso}"
 							widgetVar="usuariosTable" var="usuario"
 							emptyMessage="No existen registros">
-							<p:column headerText="Cédula"
+							<p:column headerText="Cedula"
 								filterBy="#{usuario.gesPersona.cedula}">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
@@ -188,7 +188,7 @@
 								</f:facet>
 								<p:outputLabel value="#{usuario.acaCurso.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha Registro">
+							<p:column headerText="Fecha de Registro">
 								<p:outputLabel value="#{usuario.fechaInicial}" />
 							</p:column>
 						</p:dataTable>

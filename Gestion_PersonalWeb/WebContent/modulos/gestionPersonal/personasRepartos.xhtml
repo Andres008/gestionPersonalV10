@@ -58,7 +58,7 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 
@@ -67,7 +67,7 @@
 				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -77,10 +77,10 @@
 			<div id="posicion" align="center">
 				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Ingresar Pase Persona" toggleable="true"
+					<p:panel header="Ingresar los Pases del Personal" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
-							<p:outputLabel value="Ingrese cedula" />
+							<p:outputLabel value="Ingrese la cedula" />
 							<p:panelGrid columns="2">
 								<p:inputText
 									value="#{controladorPersonal.objGesDependenciaPersona.gesPersona.cedula}"> 
@@ -114,7 +114,7 @@
 								<p:commandButton icon="ui-icon-search"
 									oncomplete="PF('infCurso').show()" update="@form" />
 							</p:panelGrid>
-							<p:outputLabel value="Fecha Inicio Pase"
+							<p:outputLabel value="Fecha Inicial del Pase"
 								rendered="#{controladorPersonal.busqueda}" />
 							<p:calendar rendered="#{controladorPersonal.busqueda}" mask="99/99/9999"
 								locale="es" pattern="dd/MM/yyyy"
@@ -125,12 +125,12 @@
 							actionListener="#{controladorPersonal.ingresarDependenciaPersona()}"
 							update="@form" />
 					</p:panel>
-					<p:panel header="Pases Persona Ingresados">
+					<p:panel header="Pases del Personal Ingresados">
 						<p:dataTable
 							value="#{controladorPersonal.lstGesDependenciaPersona}"
 							emptyMessage="No existen registros" var="usuario"
 							widgetVar="consolidadoTbl">
-							<p:column headerText="Cédula" 
+							<p:column headerText="Cedula" 
 								filterBy="#{usuario.gesPersona.cedula}"
 								filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />

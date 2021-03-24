@@ -76,7 +76,7 @@
 			<div id="posicion" align="center">
 				<h:form>
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel header="Ingreso de Informacion"  toggleable="true"
+					<p:panel header="Ingreso de Información"  toggleable="true"
 				collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Cédula"  />
@@ -89,9 +89,9 @@
 							<p:outputLabel value="Nombres" />
 							<p:inputText required="true" requiredMessage="Ingrese Nombre" style="text-transform: uppercase"
 								value="#{controllerPersonal.objGesPersona.nombre}" />
-							<p:outputLabel value="Fecha Nacimiento" />
+							<p:outputLabel value="Fecha de Nacimiento" />
 							<p:calendar required="true"
-								requiredMessage="Ingrese Fecha Nacimiento" pattern="dd/MM/yyyy"
+								requiredMessage="Ingrese Fecha de Nacimiento" pattern="dd/MM/yyyy"
 								value="#{controllerPersonal.objGesPersona.fechaNacimiento}"
 								mask="99/99/9999" locale="es" maxdate="today" />
 							<p:outputLabel value="Estado Civil" />
@@ -102,13 +102,13 @@
 								<f:selectItems value="#{controllerPersonal.SIestadoCivil()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Grado" />
-							<p:selectOneMenu required="true" requiredMessage="Ingrese grado"
+							<p:selectOneMenu required="true" requiredMessage="Ingrese el grado"
 								value="#{controllerPersonal.objGesPersona.gesGrado.id}">
 								<f:selectItem itemLabel="Grado Actual" noSelectionOption="true" />
 								<f:selectItems value="#{controllerPersonal.SIgrados()}" />
 							</p:selectOneMenu>
-							<p:outputLabel value="Fecha Alta" />
-							<p:calendar required="true" requiredMessage="Ingrese fecha alta"
+							<p:outputLabel value="Fecha de Alta" />
+							<p:calendar required="true" requiredMessage="Ingrese fecha de alta"
 								value="#{controllerPersonal.objGesPersona.fechaAlta}"
 								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
 								maxdate="today" />
@@ -116,7 +116,7 @@
 							<p:selectOneMenu required="true"
 								requiredMessage="Ingrese tipo de sangre"
 								value="#{controllerPersonal.objGesPersona.gesTipoSangre.id}">
-								<f:selectItem itemLabel="Tipo Sangre" noSelectionOption="true" />
+								<f:selectItem itemLabel="Tipo de Sangre" noSelectionOption="true" />
 								<f:selectItems value="#{controllerPersonal.SITipoSangre()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Dirección" />
@@ -145,19 +145,19 @@
 							<p:column headerText="Nombres">
 								<p:outputLabel value="#{persona.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha Nacimiento" >
+							<p:column headerText="Fecha de Nacimiento" >
 							<p:outputLabel value="#{persona.fechaNacimiento}" > <f:convertDateTime pattern="dd/MM/yyyy" locale="es"/> </p:outputLabel>
 							</p:column>
-							<p:column headerText="Fecha Alta">
+							<p:column headerText="Fecha de Alta">
 							<p:outputLabel value="#{persona.fechaAlta}" > <f:convertDateTime pattern="dd/MM/yyyy" locale="es"/> </p:outputLabel>
 							</p:column>
-							<p:column headerText="Fecha Baja">
+							<p:column headerText="Fecha de Baja">
 							<p:outputLabel value="#{persona.fechaBaja}" > <f:convertDateTime pattern="dd/MM/yyyy" locale="es"/> </p:outputLabel>
 							</p:column>
 							<p:column headerText="Correo">
 								<p:outputLabel value="#{persona.correo}" />
 							</p:column>
-							<p:column headerText="Tipo Sangre">
+							<p:column headerText="Tipo de Sangre">
 								<p:outputLabel value="#{persona.gesTipoSangre.nombre}" />
 							</p:column>
 							<p:column headerText="Dirección">

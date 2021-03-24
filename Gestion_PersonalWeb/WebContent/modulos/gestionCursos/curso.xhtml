@@ -58,12 +58,12 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -71,15 +71,15 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
-				<h1>CURSOS</h1>
+				<h3>CURSOS</h3>
 				<h:form>
 					<p:growl id="msgs" showDetail="true" />
-					<p:panel header="Ingreso de Informacion" toggleable="true"
+					<p:panel header="Ingreso de Información" toggleable="true"
 						collapsed="true">
 						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Tipo Curso" />
 							<p:selectOneMenu value="#{controladorCursos.objAcaCurso.acaTipoCurso.id}" required="true" requiredMessage="Favor seleccione tipo de curso.">
-								<f:selectItem itemLabel="Tipo Curso" noSelectionOption="true" />
+								<f:selectItem itemLabel="Tipo de Curso" noSelectionOption="true" />
 								<f:selectItems value="#{controladorCursos.siTipoCursoActivo()}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Nombre" />
@@ -103,7 +103,7 @@
 								update="@form:msgs" />
 							<p:ajax event="rowEditCancel"
 								update="@form:msgs" />
-								<p:column headerText="Tipo Curso"> 
+								<p:column headerText="Tipo de Curso"> 
 									<p:outputLabel value="#{curso.acaTipoCurso.nombre}" />
 								</p:column>
 							<p:column headerText="Nombre">

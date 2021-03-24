@@ -58,12 +58,12 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -71,7 +71,7 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
-				<h1>Cursos disponibles</h1>
+				<h3>CURSOS DISPONIBLES</h3>
 				<h:form>
 					<p:growl id="msgs" showDetail="true" />
 					<p:panel header="Cursos disponibles">
@@ -80,25 +80,25 @@
 							<p:column headerText="Curso">
 								<p:outputLabel value="#{curso.acaCurso.nombre}" />
 							</p:column>
-							<p:column headerText="Descripcion">
+							<p:column headerText="Descripción">
 								<p:outputLabel value="#{curso.acaCurso.descripcion}" />
 							</p:column>
 							<p:column headerText="Dependencia">
 								<p:outputLabel value="#{curso.gesReparto.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha Inicio Curso">
+							<p:column headerText="Fecha Inicio de Curso">
 								<p:outputLabel value="#{curso.fechaInicioCurso}" />
 							</p:column>
-							<p:column headerText="Fecha Fin Curso">
+							<p:column headerText="Fecha Fin de Curso">
 								<p:outputLabel value="#{curso.fechaFinal}" />
 							</p:column>
-							<p:column headerText="Fecha Inicio Inscripcion">
+							<p:column headerText="Fecha Inicio de Inscripcion">
 								<p:outputLabel value="#{curso.fechaInicioInscripcion}" />
 							</p:column>
-							<p:column headerText="Fecha Fin Inscripcion">
+							<p:column headerText="Fecha Fin de Inscripcion">
 								<p:outputLabel value="#{curso.fechaFinalInscripcion}" />
 							</p:column>
-							<p:column headerText="Prerequisito Curso">
+							<p:column headerText="Cursos de Prerequisitos">
 								<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
 									value="#{curso.acaPrerequisitoCursos}">
 									<p:column headerText="Curso">
@@ -106,7 +106,7 @@
 									</p:column>
 								</p:dataTable>
 							</p:column>
-							<p:column headerText="Prerequisito Grado">
+							<p:column headerText="Grados de Prerequisitos">
 								<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
 									value="#{curso.acaPrerequisitoGrados}">
 									<p:column headerText="Curso">

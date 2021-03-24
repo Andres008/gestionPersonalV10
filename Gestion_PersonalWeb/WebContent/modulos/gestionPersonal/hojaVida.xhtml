@@ -58,7 +58,7 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 
@@ -67,7 +67,7 @@
 				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -76,11 +76,11 @@
 			</h:form>
 			<div id="posicion" align="center">
 				<h:form>
-					<h1>AP-7-DA</h1>
+					<h3>AP-7 DEL PERSONAL DE LA DEFENSA AÉREA</h3>
 					<p:growl id="growl" showDetail="true" sticky="true" />
 					<p:panel header="Datos Personales">
 						<p:panelGrid columns="6" styleClass="ui-noborder">
-							<p:outputLabel value="Cédula" style="font-weight:bold" />
+							<p:outputLabel value="Cedula" style="font-weight:bold" />
 							<p:outputLabel
 								value="#{controladorPersonal.objGesPersona.cedula}" />
 							<p:outputLabel value="Grado Actual" style="font-weight:bold" />
@@ -90,13 +90,13 @@
 								style="font-weight:bold" />
 							<p:outputLabel
 								value="#{controladorPersonal.objGesPersona.apellido} #{controladorPersonal.objGesPersona.nombre}" />
-							<p:outputLabel value="Fecha Nacimiento" style="font-weight:bold" />
+							<p:outputLabel value="Fecha de Nacimiento" style="font-weight:bold" />
 							<p:outputLabel
 								value="#{controladorPersonal.objGesPersona.fechaNacimiento}" />
-							<p:outputLabel value="Fecha Alta" style="font-weight:bold" />
+							<p:outputLabel value="Fecha de Alta" style="font-weight:bold" />
 							<p:outputLabel
 								value="#{controladorPersonal.objGesPersona.fechaAlta}" />
-							<p:outputLabel value="Fecha Baja" style="font-weight:bold" />
+							<p:outputLabel value="Fecha de Baja" style="font-weight:bold" />
 							<p:outputLabel
 								value="#{controladorPersonal.objGesPersona.fechaBaja}" />
 							<p:outputLabel value="Estado Civil" style="font-weight:bold" />
@@ -139,7 +139,7 @@
 							<p:column headerText="Descripción">
 								<p:outputLabel value="#{curso.acaCurso.descripcion}" />
 							</p:column>
-							<p:column headerText="Tipo Curso">
+							<p:column headerText="Tipo de Curso">
 								<p:outputLabel value="#{curso.acaCurso.acaTipoCurso.nombre}" />
 							</p:column>
 							<p:column headerText="Horas">
@@ -153,24 +153,24 @@
 							</p:column>
 						</p:dataTable>
 					</p:panel>
-					<p:panel header="Titulos Obtenidos">
+					<p:panel header="Títulos Obtenidos">
 						<p:dataTable
 							value="#{controladorPersonal.objGesPersona.acaTituloPersonas}"
 							var="curso">
-							<p:column headerText="Titulo">
+							<p:column headerText="Título">
 								<p:outputLabel value="#{curso.acaTitulo.titulo}" />
 							</p:column>
 							<p:column headerText="Institución">
 								<p:outputLabel
 									value="#{curso.acaTitulo.acaInstitucionEducativa.nombre}" />
 							</p:column>
-							<p:column headerText="Tipo Titulo">
+							<p:column headerText="Tipo de Título">
 								<p:outputLabel value="#{curso.acaTitulo.acaTipoTitulo.nombre}" />
 							</p:column>
 							<p:column headerText="Registro">
 								<p:outputLabel value="#{curso.codigoRegistro}" />
 							</p:column>
-							<p:column headerText="Fecha Registor">
+							<p:column headerText="Fecha de Registro">
 								<p:outputLabel value="#{curso.fechaRefrendacion}" />
 							</p:column>
 						</p:dataTable>

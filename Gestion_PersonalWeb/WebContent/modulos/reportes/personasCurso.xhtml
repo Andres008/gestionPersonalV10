@@ -58,7 +58,7 @@
 			<div id="titulo_header"
 				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
 				<span>Sistema de Gestión de Personal - <h:outputText
-						value="correo" /></span>
+						value="COAD -" /></span>
 			</div>
 			<h:form style="width:100%;font-size:80%">
 
@@ -67,7 +67,7 @@
 				</p:messages>
 				<p:menubar style="font-size:12px;">
 					<f:facet name="options">
-						<p:commandButton value="Menu principal" icon="ui-icon-home"
+						<p:commandButton value="Menú principal" icon="ui-icon-home"
 							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
 						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
 							value="Salir" icon="ui-icon-extlink" />
@@ -75,13 +75,13 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
-				<h1>CURSOS PERSONAS</h1>
+				<h3>CURSOS PERSONAS</h3>
 				<h:form id="principal">
 					<p:growl id="growl" showDetail="true" sticky="true" />
 					<p:panel header="Cursos Registrados">
 						<div align="center">
 							<div>
-								<h2>Exportar</h2>
+								<h4>Exportar a Excel</h4>
 								<h:commandLink>
 									<p:graphicImage name="/images/excel.png" width="24" />
 									<p:dataExporter type="xls" target="tblCursosRealizados"
