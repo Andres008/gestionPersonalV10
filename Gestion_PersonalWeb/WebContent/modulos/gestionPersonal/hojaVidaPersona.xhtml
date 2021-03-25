@@ -123,18 +123,9 @@
 						</p:panelGrid>
 					</p:panel>
 					<p:panel header="Grados">
-						<p:dataTable
+						<p:dataTable emptyMessage="Grados no registrados"
 							value="#{controladorPersonal.objGesPersona.gesGradosPersonas}"
 							var="usuario">
-							<p:column headerText="Cedula">
-								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
-							</p:column>
-							<p:column headerText="Apellidos">
-								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
-							</p:column>
-							<p:column headerText="Nombres">
-								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
-							</p:column>
 							<p:column headerText="Grado">
 								<p:outputLabel value="#{usuario.gesGrado.grado}" />
 							</p:column>
@@ -150,7 +141,7 @@
 						</p:dataTable>
 					</p:panel>
 					<p:panel header="Cursos Realizados">
-						<p:dataTable sortOrder="#{curso.fechaFinal}"
+						<p:dataTable sortBy="#{curso.fechaFinal}"
 							value="#{controladorPersonal.objGesPersona.acaPersonasCursos}"
 							var="curso">
 							<p:column headerText="Curso">
@@ -168,12 +159,12 @@
 							<p:column headerText="Fecha Inicial">
 								<p:outputLabel value="#{curso.fechaInicial}" />
 							</p:column>
-							<p:column headerText="Fecha Final">
+							<p:column headerText="Fecha Final"  sortable="true" sortBy="#{curso.fechaFinal}">
 								<p:outputLabel value="#{curso.fechaFinal}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
-					<p:panel header="Titulos Obtenidos">
+					<p:panel header="Títulos Obtenidos">
 						<p:dataTable
 							value="#{controladorPersonal.objGesPersona.acaTituloPersonas}"
 							var="curso">
@@ -181,7 +172,8 @@
 								<p:outputLabel value="#{curso.acaTitulo.titulo}" />
 							</p:column>
 							<p:column headerText="Institución">
-								<p:outputLabel value="#{curso.acaTitulo.acaInstitucionEducativa.nombre}" />
+								<p:outputLabel
+									value="#{curso.acaTitulo.acaInstitucionEducativa.nombre}" />
 							</p:column>
 							<p:column headerText="Tipo de Título">
 								<p:outputLabel value="#{curso.acaTitulo.acaTipoTitulo.nombre}" />
@@ -189,7 +181,7 @@
 							<p:column headerText="Registro">
 								<p:outputLabel value="#{curso.codigoRegistro}" />
 							</p:column>
-							<p:column headerText="Fecha de Registro">
+							<p:column headerText="Fecha de Registro" sortable="true" sortBy="#{curso.fechaRefrendacion}">
 								<p:outputLabel value="#{curso.fechaRefrendacion}" />
 							</p:column>
 						</p:dataTable>
@@ -205,13 +197,13 @@
 								<p:outputLabel
 									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha">
+							<p:column headerText="Fecha" sortable="true" sortBy="#{usuario.fechaEvento}" >
 								<p:outputLabel value="#{usuario.fechaEvento}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
 					<p:panel header="Pases">
-						<p:dataTable sortBy="#{usuario.fechaFinal}"
+						<p:dataTable sortBy="#{usuario.fechaFinal}" 
 							value="#{controladorPersonal.objGesPersona.gesDependenciaPersonas}"
 							emptyMessage="No existen registros" var="usuario">
 							<p:column headerText="Dependencia">
@@ -225,10 +217,10 @@
 								<p:outputLabel
 									value="#{usuario.gesDependencia.gesRegione.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha de Inicio">
+							<p:column headerText="Fecha Inicial"  >
 								<p:outputLabel value="#{usuario.fechaInicial}" />
 							</p:column>
-							<p:column headerText="Fecha de Final">
+							<p:column headerText="Fecha Final" sortable="true" sortBy="#{usuario.fechaInicial}"  >
 								<p:outputLabel value="#{usuario.fechaFinal}" />
 							</p:column>
 						</p:dataTable>

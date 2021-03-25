@@ -17,6 +17,11 @@ public class VReporteConsolidado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String cedula;
+	
+	@Column(name="antiguedad_actual")
+	private BigDecimal antiguedadActual;
+	
+	private BigDecimal promocion;
 
 	private String dependencia;
 
@@ -177,6 +182,22 @@ public class VReporteConsolidado implements Serializable {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public BigDecimal getAntiguedadActual() {
+		return antiguedadActual;
+	}
+
+	public void setAntiguedadActual(BigDecimal antiguedadActual) {
+		this.antiguedadActual = antiguedadActual;
+	}
+
+	public BigDecimal getPromocion() {
+		return promocion;
+	}
+
+	public void setPromocion(BigDecimal promocion) {
+		this.promocion = promocion;
 	}
 
 }

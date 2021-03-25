@@ -28,7 +28,7 @@ public class ManagerReportes {
 
 	@SuppressWarnings("unchecked")
 	public List<VReporteConsolidado> buscarReporteConsolidado() throws Exception {
-		return managerDAOGestionPersonal.findAll(VReporteConsolidado.class, "o.tipoGrado ASC, o.ordenGrado DESC");
+		return managerDAOGestionPersonal.findAll(VReporteConsolidado.class, "o.promocion ASC, o.antiguedadActual ASC");
 	}
 
 	

@@ -394,6 +394,7 @@ public class ControladorPersonal {
 			for (GesDependenciaPersona pase : managerGestionPersonal
 					.buscarDependenciaPersonaActiva(objGesDependenciaPersona.getGesPersona().getCedula())) {
 				pase.setFechaFinal(ModelUtil.getSumarDias(objGesDependenciaPersona.getFechaInicial(), -1));
+				pase.setEstado("I");
 				managerGestionPersonal.actualizarGesDependenciaPersona(pase);
 			}
 			objGesDependenciaPersona.setEstado("A");
