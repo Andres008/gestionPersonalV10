@@ -202,12 +202,12 @@
 					<p:dialog header="Cursos" widgetVar="infCurso" id="inf"
 						modal="true" position="top" showEffect="fade" hideEffect="fade"
 						resizable="false" width="1100">
-						<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}"
+						<p:dataTable value="#{controladorPersonal.listAcaCursoActivo}" rows="7" paginator="true"
 							var="curso">
-							<p:column headerText="Curso">
+							<p:column headerText="Curso" filterBy="#{curso.nombre}" filterMatchMode="contains">
 								<p:outputLabel value="#{curso.nombre}" />
 							</p:column>
-							<p:column headerText="Descripción">
+							<p:column headerText="Descripción" filterBy="#{curso.descripcion}" filterMatchMode="contains">
 								<p:outputLabel value="#{curso.descripcion}" />
 							</p:column>
 							<p:column headerText="Horas">

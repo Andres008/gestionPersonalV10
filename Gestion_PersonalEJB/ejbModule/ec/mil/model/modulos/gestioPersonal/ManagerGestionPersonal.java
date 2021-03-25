@@ -61,7 +61,8 @@ public class ManagerGestionPersonal {
 	@SuppressWarnings("unchecked")
 	public List<GesPersona> buscarPersonas() throws Exception {
 		try {
-			return managerDAOGestionPersonal.findAll(GesPersona.class, "o.apellido ASC, o.nombre ASC ");
+			return managerDAOGestionPersonal.findAll(GesPersona.class,
+					"o.gesPromocion.promocion ASC, o.antiguedad ASC ");
 		} catch (Exception e) {
 			throw new Exception("Error al buscar personas");
 		}
@@ -161,10 +162,10 @@ public class ManagerGestionPersonal {
 			v_persona.getGesGradosPersonas().forEach(grados -> {
 				grados.getGesGrado().getGesTipoGrado().getDescripcion();
 			});
-			v_persona.getAcaTituloPersonas().forEach(titulo->{
+			v_persona.getAcaTituloPersonas().forEach(titulo -> {
 				titulo.getAcaTitulo().getAcaTipoTitulo().getNombre();
 			});
-			
+
 			return v_persona;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -174,7 +175,8 @@ public class ManagerGestionPersonal {
 	@SuppressWarnings("unchecked")
 	public List<AcaPersonasCurso> buscarTodoPersonaCurso() throws Exception {
 		try {
-			return managerDAOGestionPersonal.findAll(AcaPersonasCurso.class, "o.gesPersona.gesPromocion.promocion ASC, o.gesPersona.antiguedad ASC");
+			return managerDAOGestionPersonal.findAll(AcaPersonasCurso.class,
+					"o.gesPersona.gesPromocion.promocion ASC, o.gesPersona.antiguedad ASC");
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Curso Persona.");
 		}
@@ -183,7 +185,8 @@ public class ManagerGestionPersonal {
 	@SuppressWarnings("unchecked")
 	public List<AcaTituloPersona> findAllAcaTituloPersona() throws Exception {
 		try {
-			return managerDAOGestionPersonal.findAll(AcaTituloPersona.class, "o.gesPersona.apellido ASC");
+			return managerDAOGestionPersonal.findAll(AcaTituloPersona.class,
+					"o.gesPersona.gesPromocion.promocion ASC, o.gesPersona.antiguedad ASC");
 		} catch (Exception e) {
 			throw new Exception("Error al buscar Titulos Persona");
 		}
@@ -350,7 +353,8 @@ public class ManagerGestionPersonal {
 	@SuppressWarnings("unchecked")
 	public List<GesDependenciaPersona> findAllGesDependenciaPersonal() throws Exception {
 		try {
-			return managerDAOGestionPersonal.findAll(GesDependenciaPersona.class, "o.gesDependencia.id ASC");
+			return managerDAOGestionPersonal.findAll(GesDependenciaPersona.class,
+					"o.gesPersona.gesPromocion.promocion ASC, o.gesPersona.antiguedad ASC");
 		} catch (Exception e) {
 			throw new Exception("Error al buscar GesDependenciaPersona. " + e.getMessage());
 		}
@@ -528,15 +532,15 @@ public class ManagerGestionPersonal {
 	public AcaTituloPersona buscarTituloNA(GesPersona gesPersona) throws Exception {
 		@SuppressWarnings("unchecked")
 		List<AcaTituloPersona> lstAcaTituloPersona = managerDAOGestionPersonal.findWhere(AcaTituloPersona.class,
-				"o.gesPersona.cedula='"+gesPersona.getCedula()+"' and o.acaTitulo.titulo='N/A'", null);
-		if ( lstAcaTituloPersona.size()==1)
+				"o.gesPersona.cedula='" + gesPersona.getCedula() + "' and o.acaTitulo.titulo='N/A'", null);
+		if (lstAcaTituloPersona.size() == 1)
 			return lstAcaTituloPersona.get(0);
 		return null;
 	}
 
 	public void eliminarTituloNA(AcaTituloPersona objAcaTituloPers) throws Exception {
 		managerDAOGestionPersonal.eliminar(AcaTituloPersona.class, objAcaTituloPers.getId());
-		
+
 	}
 
 	public void actualizarTipoEstimulo(GesEstimulo objEstimulo) throws Exception {
@@ -545,12 +549,12 @@ public class ManagerGestionPersonal {
 
 	public void ingresarPromocion(GesPromocion objGesPromocion) throws Exception {
 		managerDAOGestionPersonal.insertar(objGesPromocion);
-		
+
 	}
 
 	public void actualizarUsuario(AutUsuario usuario) throws Exception {
 		managerDAOGestionPersonal.actualizar(usuario);
-		
+
 	}
 
 }

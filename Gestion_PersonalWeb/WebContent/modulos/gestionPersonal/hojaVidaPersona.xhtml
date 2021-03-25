@@ -150,7 +150,7 @@
 						</p:dataTable>
 					</p:panel>
 					<p:panel header="Cursos Realizados">
-						<p:dataTable
+						<p:dataTable sortOrder="#{curso.fechaFinal}"
 							value="#{controladorPersonal.objGesPersona.acaPersonasCursos}"
 							var="curso">
 							<p:column headerText="Curso">
@@ -211,7 +211,7 @@
 						</p:dataTable>
 					</p:panel>
 					<p:panel header="Pases">
-						<p:dataTable
+						<p:dataTable sortBy="#{usuario.fechaFinal}"
 							value="#{controladorPersonal.objGesPersona.gesDependenciaPersonas}"
 							emptyMessage="No existen registros" var="usuario">
 							<p:column headerText="Dependencia">
