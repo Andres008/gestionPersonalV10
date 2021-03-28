@@ -42,9 +42,10 @@ public class ControladorEstimulo {
 	}
 
 	public void inicializarGesEstimulo() {
-		objGesEstimulo = new GesEstimulo();
-		objGesEstimulo.setGesTipoEstimulo(new GesTipoEstimulo());
 		try {
+			beanLogin.verificarCredencial();
+			objGesEstimulo = new GesEstimulo();
+			objGesEstimulo.setGesTipoEstimulo(new GesTipoEstimulo());
 			lstGesEstimulo = managerGesPersonal.buscarAllEstimulos();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -84,7 +85,7 @@ public class ControladorEstimulo {
 			return null;
 		}
 	}
-	
+
 	public void inactivarEstimulo(GesEstimulo objEstimulo) {
 		objEstimulo.setEstado("I");
 		objEstimulo.setFechaFinal(new Date());
@@ -97,8 +98,9 @@ public class ControladorEstimulo {
 	}
 
 	public void inicializarGesTipoEstimulo() {
-		objGesTipoEstimulo = new GesTipoEstimulo();
 		try {
+			beanLogin.verificarCredencial();
+			objGesTipoEstimulo = new GesTipoEstimulo();
 			lstGesTipoEstimulo = managerGesPersonal.buscarTodoGesTipoEstimulo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -139,11 +141,10 @@ public class ControladorEstimulo {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public void onRowEditGesTipoEstimulo(RowEditEvent<GesEstimulo> event) {
 		try {
-			GesEstimulo objGesEsti=event.getObject();
+			GesEstimulo objGesEsti = event.getObject();
 			objGesEsti.setEstado("A");
 			managerGesPersonal.actualizarTipoEstimulo(objGesEsti);
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "onRowEditGesTipoEstimulo",

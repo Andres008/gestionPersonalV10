@@ -80,12 +80,14 @@ public class ControladorPersonal {
 	}
 
 	public void inicializarTituloPersona() {
-		objAcaTituloPersona = new AcaTituloPersona();
-		objAcaTituloPersona.setAcaTitulo(new AcaTitulo());
-		objAcaTituloPersona.setGesPersona(new GesPersona());
-		busqueda = false;
-		editar = false;
 		try {
+			beanLogin.verificarCredencial();
+			objAcaTituloPersona = new AcaTituloPersona();
+			objAcaTituloPersona.setAcaTitulo(new AcaTitulo());
+			objAcaTituloPersona.setGesPersona(new GesPersona());
+			busqueda = false;
+			editar = false;
+
 			lstAcaTituloPersona = managerGestionPersonal.findAllAcaTituloPersona();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -94,6 +96,7 @@ public class ControladorPersonal {
 
 	public void inicializarRepartoPersona() {
 		try {
+			beanLogin.verificarCredencial();
 			objGesDependenciaPersona = new GesDependenciaPersona();
 			objGesDependenciaPersona.setGesPersona(new GesPersona());
 			objGesDependenciaPersona.setGesDependencia(new GesDependencia());
@@ -105,7 +108,7 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void inicializarUsuario() {
 		try {
 			objAutUsuario = new AutUsuario();
@@ -119,11 +122,12 @@ public class ControladorPersonal {
 	}
 
 	public void inicializarEstimuloPersona() {
-		objGesEstimuloPersona = new GesEstimuloPersona();
-		objGesEstimuloPersona.setGesPersona(new GesPersona());
-		objGesEstimuloPersona.setGesEstimulo(new GesEstimulo());
-		busqueda = false;
 		try {
+			beanLogin.verificarCredencial();
+			objGesEstimuloPersona = new GesEstimuloPersona();
+			objGesEstimuloPersona.setGesPersona(new GesPersona());
+			objGesEstimuloPersona.setGesEstimulo(new GesEstimulo());
+			busqueda = false;
 			lstGesEstimuloPersona = managerGestionPersonal.buscarAllEstimuloPersona();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -133,11 +137,12 @@ public class ControladorPersonal {
 	}
 
 	public void inicializarGradoPersona() {
-		objGesGradosPersona = new GesGradosPersona();
-		objGesGradosPersona.setGesPersona(new GesPersona());
-		objGesGradosPersona.setGesGrado(new GesGrado());
-		busqueda = false;
 		try {
+			beanLogin.verificarCredencial();
+			objGesGradosPersona = new GesGradosPersona();
+			objGesGradosPersona.setGesPersona(new GesPersona());
+			objGesGradosPersona.setGesGrado(new GesGrado());
+			busqueda = false;
 			lstGesGradosPersona = managerGestionPersonal.buscarAllGradoPersona();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -161,8 +166,8 @@ public class ControladorPersonal {
 	}
 
 	public void inicializarAcaPersonasCurso() {
-
 		try {
+			beanLogin.verificarCredencial();
 			lstAcaPersonasCurso = managerGestionPersonal.buscarTodoPersonaCurso();
 			objAcaPersonasCurso = new AcaPersonasCurso();
 			objAcaPersonasCurso.setGesPersona(new GesPersona());
@@ -177,14 +182,15 @@ public class ControladorPersonal {
 	}
 
 	public void inicializarPersona() {
-		objGesPersona = new GesPersona();
-		objGesPersona.setGesEstadoCivil(new GesEstadoCivil());
-		objGesPersona.setGesGrado(new GesGrado());
-		objGesPersona.setGesTipoSangre(new GesTipoSangre());
-		objGesPersona.setGesPromocion(new GesPromocion());
-		inicializarPromocion();
-		inicializarUsuario();
 		try {
+			beanLogin.verificarCredencial();
+			objGesPersona = new GesPersona();
+			objGesPersona.setGesEstadoCivil(new GesEstadoCivil());
+			objGesPersona.setGesGrado(new GesGrado());
+			objGesPersona.setGesTipoSangre(new GesTipoSangre());
+			objGesPersona.setGesPromocion(new GesPromocion());
+			inicializarPromocion();
+			inicializarUsuario();
 			lstGesPersona = managerGestionPersonal.buscarPersonas();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -193,22 +199,23 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void inicializarPromocion() {
 		objGesPromocion = new GesPromocion();
 		objGesPromocion.setGesTipoGrado(new GesTipoGrado());
 	}
-	
 
 	public void inicializarAP7() {
+
 		try {
+			beanLogin.verificarCredencial();
 			objGesPersona = managerGestionPersonal.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ingresarPromocion() {
 		try {
 			managerGestionPersonal.ingresarPromocion(objGesPromocion);
@@ -217,7 +224,7 @@ public class ControladorPersonal {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void cargarCursoSeleccion(AcaCurso acaCursoSel) {
@@ -369,7 +376,7 @@ public class ControladorPersonal {
 	public void ingresarTituloPersona() {
 		try {
 			managerGestionCurso.ingresarTituloPersona(objAcaTituloPersona);
-			AcaTituloPersona objAcaTituloPers =eliminarTituloNA(objAcaTituloPersona);
+			AcaTituloPersona objAcaTituloPers = eliminarTituloNA(objAcaTituloPersona);
 			if (objAcaTituloPers != null)
 				managerGestionPersonal.eliminarTituloNA(objAcaTituloPers);
 			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
@@ -386,7 +393,7 @@ public class ControladorPersonal {
 
 	private AcaTituloPersona eliminarTituloNA(AcaTituloPersona objAcaTituloPersona2) throws Exception {
 		return managerGestionPersonal.buscarTituloNA(objAcaTituloPersona2.getGesPersona());
-		
+
 	}
 
 	public void ingresarDependenciaPersona() {
@@ -436,7 +443,7 @@ public class ControladorPersonal {
 			objGesEstimuloPersona.setFechaRegistro(new Date());
 			managerGestionPersonal.ingresarEstimuloPersona(objGesEstimuloPersona);
 			GesEstimuloPersona objGesEstimuloPers = eliminarEstimuloNA(objGesEstimuloPersona);
-			if (objGesEstimuloPers!=null) {
+			if (objGesEstimuloPers != null) {
 				managerGestionPersonal.eliminarEstimuloNA(objGesEstimuloPers);
 			}
 			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
@@ -646,11 +653,11 @@ public class ControladorPersonal {
 		}
 		return lstSiCurso;
 	}
-	
+
 	public List<SelectItem> SITipoTitulo() {
 		List<SelectItem> lstSiCurso = new ArrayList<SelectItem>();
 		try {
-			List<AcaTipoTitulo> lstCurso = managerGestionCurso.findAllTipoTitulo() ;
+			List<AcaTipoTitulo> lstCurso = managerGestionCurso.findAllTipoTitulo();
 			for (AcaTipoTitulo acaCurso : lstCurso) {
 				SelectItem siCursoLst = new SelectItem();
 				siCursoLst.setLabel(acaCurso.getNombre());
@@ -717,8 +724,8 @@ public class ControladorPersonal {
 
 	public void ingresarPersona() {
 		try {
-			//ModelUtil.esSoloLetras(objGesPersona.getApellido());
-			//ModelUtil.esSoloLetras(objGesPersona.getNombre());
+			// ModelUtil.esSoloLetras(objGesPersona.getApellido());
+			// ModelUtil.esSoloLetras(objGesPersona.getNombre());
 			objGesPersona.setApellido(ModelUtil.cambiarMayusculas(objGesPersona.getApellido()));
 			objGesPersona.setNombre(ModelUtil.cambiarMayusculas(objGesPersona.getNombre()));
 			objGesPersona.setCorreo(ModelUtil.cambiarMinusculas(objGesPersona.getCorreo()));
@@ -743,7 +750,7 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ingresarUsuario() {
 		try {
 			objAutUsuario.setClave(ModelUtil.md5(objAutUsuario.getCedula()));

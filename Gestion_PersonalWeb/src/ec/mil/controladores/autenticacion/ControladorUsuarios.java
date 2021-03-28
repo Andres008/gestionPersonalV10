@@ -60,25 +60,29 @@ public class ControladorUsuarios {
 	}
 
 	public void inicializarPerfil() {
-		objAutRole= new AutRole();
-		objAutPerfile = new AutPerfile();
-		objAutPerfile.setAutMenu(new AutMenu());
-		inicializarMenu();
-		objAutPerfile.setOrden(new BigDecimal(1));
 		try {
+			beanLogin.verificarCredencial();
+			objAutRole = new AutRole();
+			objAutPerfile = new AutPerfile();
+			objAutPerfile.setAutMenu(new AutMenu());
+			inicializarMenu();
+			objAutPerfile.setOrden(new BigDecimal(1));
 			lstAutPerfile = managerGestionPersonal.findAllPerfil();
-			
+
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
 		}
 	}
+
 	public void inicializarPerfilRol() {
-		objAutRole= new AutRole();
-		objAutPerfile = new AutPerfile();
-		objAutPerfile.setAutMenu(new AutMenu());
-		inicializarMenu();
 		try {
+			beanLogin.verificarCredencial();
+			objAutRole = new AutRole();
+			objAutPerfile = new AutPerfile();
+			objAutPerfile.setAutMenu(new AutMenu());
+			inicializarMenu();
+
 			lstAutPerfile = managerGestionPersonal.findAllPerfilActivos();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -89,7 +93,7 @@ public class ControladorUsuarios {
 	public void inicializarMenu() {
 		objAutMenu = new AutMenu();
 	}
-	
+
 	public void onRowEditTipoTitulo(RowEditEvent<AutUsuario> event) {
 		try {
 			AutUsuario usuario = event.getObject();
@@ -111,6 +115,7 @@ public class ControladorUsuarios {
 	public void inicializarRol() {
 		objAutRole = new AutRole();
 		try {
+			beanLogin.verificarCredencial();
 			lstAutRole = managerGestionPersonal.findAllRol();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -142,20 +147,17 @@ public class ControladorUsuarios {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public List<AutRolPerfil> filtrarRolPerfilActios(List<AutRolPerfil> lstAutRolPerfil) {
-		List<AutRolPerfil> lstAutRolPerAct = new ArrayList<AutRolPerfil>(); 
-		lstAutRolPerfil.forEach(autRolPerfil ->
-		{
+		List<AutRolPerfil> lstAutRolPerAct = new ArrayList<AutRolPerfil>();
+		lstAutRolPerfil.forEach(autRolPerfil -> {
 			if (autRolPerfil.getEstado().equals("A"))
 				lstAutRolPerAct.add(autRolPerfil);
 		});
 		return lstAutRolPerAct;
 	}
-	
-	public void desactivarRolPerfil(AutRolPerfil rolPerfil)
-	{
+
+	public void desactivarRolPerfil(AutRolPerfil rolPerfil) {
 		rolPerfil.setEstado("I");
 		rolPerfil.setFechaFinal(new Date());
 		try {
@@ -204,10 +206,10 @@ public class ControladorUsuarios {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public void inicializarUsuario() {
 		try {
+			beanLogin.verificarCredencial();
 			objAutUsuario = new AutUsuario();
 			objAutUsuario.setGesPersona(new GesPersona());
 			objAutUsuario.setAutRole(new AutRole());
@@ -325,7 +327,7 @@ public class ControladorUsuarios {
 		objAutPerfile.setEstado("A");
 		System.out.println(objAutPerfile.getOrden());
 		try {
-			if ( objAutPerfile.getId()>0 )
+			if (objAutPerfile.getId() > 0)
 				managerGestionPersonal.actualizarAutPerfil(objAutPerfile);
 			else
 				managerGestionPersonal.ingresarPerfil(objAutPerfile);

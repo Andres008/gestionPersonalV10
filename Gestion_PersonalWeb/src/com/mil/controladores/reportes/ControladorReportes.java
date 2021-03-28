@@ -64,6 +64,7 @@ public class ControladorReportes {
 	public void inicializarReporteConsolidado() {
 		busquedaAvanzadaR=true;
 		try {
+			beanLogin.verificarCredencial();
 			lstConsolidado = managerReportes.buscarReporteConsolidado();
 			
 		} catch (Exception e) {

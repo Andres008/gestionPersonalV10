@@ -44,12 +44,13 @@ public class ControladorGestion {
 	}
 
 	public void inicailizarDependencias() {
-		inicializarRegion();
-		inicializarReparto();
-		objGesDependencia = new GesDependencia();
-		objGesDependencia.setGesRegione(new GesRegione());
-		objGesDependencia.setGesReparto(new GesReparto());
 		try {
+			beanLogin.verificarCredencial();
+			inicializarRegion();
+			inicializarReparto();
+			objGesDependencia = new GesDependencia();
+			objGesDependencia.setGesRegione(new GesRegione());
+			objGesDependencia.setGesReparto(new GesReparto());
 			lstGesDependencia = managerGestionPersonal.buscarAllGesDependencia();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Atención", "Error al buscar Dependencias. " + e.getMessage());
@@ -63,6 +64,7 @@ public class ControladorGestion {
 
 	public void inicializarGrado() {
 		try {
+			beanLogin.verificarCredencial();
 			objGesGrado = new GesGrado();
 			objGesGrado.setGesTipoGrado(new GesTipoGrado());
 			lstGesGrado = managerGestionPersonal.buscarAllGrado();
@@ -147,7 +149,6 @@ public class ControladorGestion {
 		}
 		return lstReparto;
 	}
-	
 
 	public void ingresarGrado() {
 		objGesGrado.setEstado("A");

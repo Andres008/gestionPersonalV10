@@ -1,10 +1,12 @@
 package ec.mil.controladores.session;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import ec.mil.model.modulos.ModelUtil.ModelUtil;
@@ -41,7 +43,13 @@ public class BeanLogin implements Serializable {
 		return "/index.xhtml?faces-redirect=true"; 
 	}
 	
-	
+	public void verificarCredencial() throws IOException {
+		if (credencial == null) {
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
+		}
+	}
 	
 	public int anioActual()
 	{

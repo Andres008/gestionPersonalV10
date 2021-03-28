@@ -62,7 +62,7 @@ public class ControladorCursos {
 	private List<AcaPlanificacionCurso> lstAcaPlanificacionCurso;
 	private AcaPlanificacionCurso objAcaPlanificacionCurso;
 	private AcaInscripcionPersona objAcaInscripcionPersona;
-	
+
 	@ManagedProperty(value = "#{beanLogin}")
 	private BeanLogin beanLogin;
 
@@ -72,6 +72,7 @@ public class ControladorCursos {
 
 	public void inicializarCursoDisponible() {
 		try {
+			beanLogin.verificarCredencial();
 			lstAcaPlanificacionCurso = managerCurso.buscarCursoDisponible();
 			lstAcaPlanificacionCurso = verificarPrerequisitoGrado(lstAcaPlanificacionCurso);
 			lstAcaPlanificacionCurso = verificarPrerequisitoCursos(lstAcaPlanificacionCurso);
@@ -221,8 +222,9 @@ public class ControladorCursos {
 	}
 
 	public void inicializarTipoTitulo() {
-		objAcaTipoTitulo = new AcaTipoTitulo();
 		try {
+			beanLogin.verificarCredencial();
+			objAcaTipoTitulo = new AcaTipoTitulo();
 			lstAcaTipoTitulo = managerCurso.findAllTipoTitulo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -230,10 +232,11 @@ public class ControladorCursos {
 	}
 
 	public void inicializarTitulo() {
-		objAcaTitulo = new AcaTitulo();
-		objAcaTitulo.setAcaTipoTitulo(new AcaTipoTitulo());
-		objAcaTitulo.setAcaInstitucionEducativa(new AcaInstitucionEducativa());
 		try {
+			beanLogin.verificarCredencial();
+			objAcaTitulo = new AcaTitulo();
+			objAcaTitulo.setAcaTipoTitulo(new AcaTipoTitulo());
+			objAcaTitulo.setAcaInstitucionEducativa(new AcaInstitucionEducativa());
 			lstAcaTitulo = managerCurso.findAllTitulo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -243,6 +246,7 @@ public class ControladorCursos {
 
 	public void inicializarAcaCurso() {
 		try {
+			beanLogin.verificarCredencial();
 			objAcaCurso = new AcaCurso();
 			objAcaCurso.setAcaTipoCurso(new AcaTipoCurso());
 			lstAcaCurso = managerCurso.findAllCurso();
@@ -270,23 +274,14 @@ public class ControladorCursos {
 	}
 
 	public void inicializarAcaPlanificacionCurso() {
+		try {
+			beanLogin.verificarCredencial();
 		objAcaInscripcionPersona = new AcaInscripcionPersona();
-		if (beanLogin.getCredencial() == null) {
-			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-			try {
-				externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
-			} catch (IOException e) {
-				JSFUtil.crearMensajeERROR("Error", e.getMessage());
-				e.printStackTrace();
-			}
-		}
 		objAcaPlanificacionCurso = new AcaPlanificacionCurso();
 		objAcaPlanificacionCurso.setAcaCurso(new AcaCurso());
 		objAcaPlanificacionCurso.setGesReparto(new GesReparto());
 		objAcaPlanificacionCurso.setAcaPrerequisitoCursos(new ArrayList<AcaPrerequisitoCurso>());
 		objAcaPlanificacionCurso.setAcaPrerequisitoGrados(new ArrayList<AcaPrerequisitoGrado>());
-		try {
 			lstAcaPlanificacionCurso = managerCurso.buscarTodasPlanificacion();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -296,7 +291,7 @@ public class ControladorCursos {
 
 	public void inicializarAcaPlanificacionCursoAceptados() {
 		try {
-			verificarCredencial();
+			beanLogin.verificarCredencial();
 			lstAcaPlanificacionCurso = managerCurso.buscarTodasPlanificacion();
 			lstAcaPlanificacionCurso.forEach(planificados -> {
 				planificados.setAcaInscripcionPersonas(planificados.getAcaInscripcionPersonas().stream()
@@ -308,32 +303,15 @@ public class ControladorCursos {
 		}
 	}
 
-	public void verificarCredencial() throws IOException {
-		if (beanLogin.getCredencial() == null) {
-			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-			externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
-		}
-	}
-
 	public void inicializarAcaPlanificacionFinalizados() {
 		objAcaInscripcionPersona = new AcaInscripcionPersona();
-		if (beanLogin.getCredencial() == null) {
-			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-			try {
-				externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
-			} catch (IOException e) {
-				JSFUtil.crearMensajeERROR("Error", e.getMessage());
-				e.printStackTrace();
-			}
-		}
 		objAcaPlanificacionCurso = new AcaPlanificacionCurso();
 		objAcaPlanificacionCurso.setAcaCurso(new AcaCurso());
 		objAcaPlanificacionCurso.setGesReparto(new GesReparto());
 		objAcaPlanificacionCurso.setAcaPrerequisitoCursos(new ArrayList<AcaPrerequisitoCurso>());
 		objAcaPlanificacionCurso.setAcaPrerequisitoGrados(new ArrayList<AcaPrerequisitoGrado>());
 		try {
+			beanLogin.verificarCredencial();
 			lstAcaPlanificacionCurso = managerCurso.buscarPlanificacionFinalizados();
 			for (AcaPlanificacionCurso acaCurso : lstAcaPlanificacionCurso) {
 				acaCurso.setAcaInscripcionPersonas(acaCurso.getAcaInscripcionPersonas().stream()
@@ -348,6 +326,7 @@ public class ControladorCursos {
 
 	public void inicializarInstituciones() {
 		try {
+			beanLogin.verificarCredencial();
 			objAcaInstitucionEducativa = new AcaInstitucionEducativa();
 			lstAcaInstitucionEducativa = managerCurso.findAllInstituciones();
 		} catch (Exception e) {
@@ -447,6 +426,7 @@ public class ControladorCursos {
 
 	public void inicializarTipoCurso() {
 		try {
+			beanLogin.verificarCredencial();
 			objAcaTipoCurso = new AcaTipoCurso();
 			lstAcaTipoCurso = managerCurso.findAllTipoCurso();
 		} catch (Exception e) {
