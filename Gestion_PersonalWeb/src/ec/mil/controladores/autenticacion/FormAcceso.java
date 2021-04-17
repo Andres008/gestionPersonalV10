@@ -172,7 +172,7 @@ public class FormAcceso  {
 
     public StreamedContent getFile() {
     	return DefaultStreamedContent.builder()
-                .name("GuiaUsuario.jpg")
+                .name("GuiaUsuario.pdf")
                 .contentType("application/pdf")
                 .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/archivos/GuiaUsuario.pdf"))
                 .build();
