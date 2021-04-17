@@ -49,8 +49,8 @@
 	<div id="div_menu" align="left"
 		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
 		<div id="logo" align="center">
-			<p:graphicImage url="/imagenes/bannerGestionPersonal.png" alt="Defensa Aérea"
-				style="width:100%"></p:graphicImage>
+			<p:graphicImage url="/imagenes/bannerGestionPersonal.png"
+				alt="Defensa Aérea" style="width:100%"></p:graphicImage>
 		</div>
 
 		<div align="center"
@@ -101,7 +101,8 @@
 								style="font-weight:bold" />
 							<p:outputLabel
 								value="#{controladorPersonal.objGesPersona.apellido} #{controladorPersonal.objGesPersona.nombre}" />
-							<p:outputLabel value="Fecha de Nacimiento" style="font-weight:bold" />
+							<p:outputLabel value="Fecha de Nacimiento"
+								style="font-weight:bold" />
 							<p:outputLabel
 								value="#{controladorPersonal.objGesPersona.fechaNacimiento}" />
 							<p:outputLabel value="Fecha de Alta" style="font-weight:bold" />
@@ -159,7 +160,8 @@
 							<p:column headerText="Fecha Inicial">
 								<p:outputLabel value="#{curso.fechaInicial}" />
 							</p:column>
-							<p:column headerText="Fecha Final"  sortable="true" sortBy="#{curso.fechaFinal}">
+							<p:column headerText="Fecha Final" sortable="true"
+								sortBy="#{curso.fechaFinal}">
 								<p:outputLabel value="#{curso.fechaFinal}" />
 							</p:column>
 						</p:dataTable>
@@ -181,7 +183,8 @@
 							<p:column headerText="Registro">
 								<p:outputLabel value="#{curso.codigoRegistro}" />
 							</p:column>
-							<p:column headerText="Fecha de Registro" sortable="true" sortBy="#{curso.fechaRefrendacion}">
+							<p:column headerText="Fecha de Registro" sortable="true"
+								sortBy="#{curso.fechaRefrendacion}">
 								<p:outputLabel value="#{curso.fechaRefrendacion}" />
 							</p:column>
 						</p:dataTable>
@@ -197,13 +200,17 @@
 								<p:outputLabel
 									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha" sortable="true" sortBy="#{usuario.fechaEvento}" >
+							<p:column headerText="Descripción">
+								<p:outputLabel value="#{usuario.gesEstimulo.descripcion}" />
+							</p:column>
+							<p:column headerText="Fecha" sortable="true"
+								sortBy="#{usuario.fechaEvento}">
 								<p:outputLabel value="#{usuario.fechaEvento}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
 					<p:panel header="Pases">
-						<p:dataTable sortBy="#{usuario.fechaFinal}" 
+						<p:dataTable sortBy="#{usuario.fechaFinal}"
 							value="#{controladorPersonal.objGesPersona.gesDependenciaPersonas}"
 							emptyMessage="No existen registros" var="usuario">
 							<p:column headerText="Dependencia">
@@ -217,10 +224,11 @@
 								<p:outputLabel
 									value="#{usuario.gesDependencia.gesRegione.nombre}" />
 							</p:column>
-							<p:column headerText="Fecha Inicial"  >
+							<p:column headerText="Fecha Inicial">
 								<p:outputLabel value="#{usuario.fechaInicial}" />
 							</p:column>
-							<p:column headerText="Fecha Final" sortable="true" sortBy="#{usuario.fechaInicial}"  >
+							<p:column headerText="Fecha Final" sortable="true"
+								sortBy="#{usuario.fechaInicial}">
 								<p:outputLabel value="#{usuario.fechaFinal}" />
 							</p:column>
 						</p:dataTable>
@@ -231,8 +239,7 @@
 		<div id="footer" align="center">
 			<div
 				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
-				<span>Defensa Aérea -
-					#{beanLogin.anioActual()} - </span>
+				<span>Defensa Aérea - #{beanLogin.anioActual()} - </span>
 			</div>
 		</div>
 	</div>

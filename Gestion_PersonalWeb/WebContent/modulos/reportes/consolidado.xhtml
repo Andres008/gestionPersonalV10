@@ -76,7 +76,7 @@
 					<p:growl id="msgs" showDetail="true" />
 					<p:panel header="Busqueda Avanzada" toggleable="true"
 						collapsed="true">
-						<p:panelGrid columns="2">
+						<p:panelGrid columns="2" styleClass="ui-noborder">
 							<p:outputLabel value="Grados" />
 							<p:selectCheckboxMenu id="multiple"
 								value="#{controladorReportes.lstGradosSeleccionados}"
@@ -107,10 +107,18 @@
 									listener="#{controladorReportes.onItemUnselectTipoTitulo}" />
 								<f:selectItems value="#{controladorPersonal.SITipoTitulo()}" />
 							</p:selectCheckboxMenu>
-							<p:commandButton value="Buscar"
+							
+						</p:panelGrid>
+						<br/>
+						<p:panelGrid columns="2" styleClass="ui-noborder">
+						<p:commandButton value="Buscar"
 								actionListener="#{controladorReportes.busquedaAvanzada()}"
 								update="@form" />
-						</p:panelGrid>
+								<p:commandButton value="Nueva Busqueda"
+								actionListener="#{controladorReportes.inicializarReporteConsolidado()}"
+								update="@form" />
+						 </p:panelGrid>
+						
 					</p:panel>
 
 

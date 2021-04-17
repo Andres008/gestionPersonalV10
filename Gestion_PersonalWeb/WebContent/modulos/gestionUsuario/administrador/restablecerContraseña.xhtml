@@ -75,12 +75,13 @@
 				</p:menubar>
 			</h:form>
 			<div id="posicion" align="center">
+			<h3>ADMINISTRACIÓN RESTABLECER CONTRASEÑA</h3>
 				<h:form>
 					<p:growl id="growl" showDetail="true" sticky="true" />
 					<p:panel header="Usuarios Activos">
-						<p:dataTable value="#{controllerUsuarios.lstAutUsuario}"
+						<p:dataTable value="#{controladorUsuarios.lstAutUsuario}"
 							var="usuario">
-							<p:column headerText="Id Usuario">
+							<p:column headerText="Id Usuario" filterBy="#{usuario.cedula}" filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.cedula}" />
 							</p:column>
 							<p:column headerText="Apellido">
@@ -99,7 +100,7 @@
 								<p:outputLabel value="#{usuario.estado}" />
 							</p:column>
 							<p:column headerText="Restablecer Contraseña">
-								<p:commandButton icon="ui-icon-arrowrefresh-1-n" action="#{controllerUsuarios.restablercerContrasenia(usuario)}" update="@form" >
+								<p:commandButton icon="ui-icon-arrowrefresh-1-n" action="#{controladorUsuarios.restablercerContrasenia(usuario)}" update="@form" >
 									<p:confirm header="Confirmación"
 										message="Desea restablecer la contraseña?"
 										icon="pi pi-exclamation-triangle" />

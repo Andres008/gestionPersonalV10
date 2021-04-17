@@ -93,6 +93,11 @@ public class ControladorPersonal {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
 	}
+	
+	public void cargarGesDependenciaPersona(GesDependenciaPersona auxGesDependenciaPersona) {
+		objGesDependenciaPersona = auxGesDependenciaPersona;
+		busqueda = true;
+	}
 
 	public void inicializarRepartoPersona() {
 		try {
@@ -399,6 +404,7 @@ public class ControladorPersonal {
 
 	public void ingresarDependenciaPersona() {
 		try {
+			if (objGesDependenciaPersona.getId()==0) {
 			for (GesDependenciaPersona pase : managerGestionPersonal
 					.buscarDependenciaPersonaActiva(objGesDependenciaPersona.getGesPersona().getCedula())) {
 				pase.setFechaFinal(ModelUtil.getSumarDias(objGesDependenciaPersona.getFechaInicial(), -1));
@@ -410,7 +416,16 @@ public class ControladorPersonal {
 			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
 			inicializarRepartoPersona();
 			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
-					"Se ingreso titulo persona: " + objGesDependenciaPersona.getId());
+					"Se ingreso pase persona: " + objGesDependenciaPersona.getId());
+			}
+			else
+			{
+				managerGestionPersonal.actualizarGesDependenciaPersona(objGesDependenciaPersona);
+				JSFUtil.crearMensajeINFO("Atención", "Se actualizó correctamente.");
+				inicializarRepartoPersona();
+				managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
+						"Se actualizó pase persona: " + objGesDependenciaPersona.getId());
+			}
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
@@ -642,6 +657,24 @@ public class ControladorPersonal {
 		try {
 			List<GesReparto> lstCurso = managerGestionPersonal.buscarRepartoActivo();
 			for (GesReparto acaCurso : lstCurso) {
+				SelectItem siCursoLst = new SelectItem();
+				siCursoLst.setLabel(acaCurso.getNombre());
+				siCursoLst.setValue(acaCurso.getNombre());
+				lstSiCurso.add(siCursoLst);
+			}
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR("Error", e.getMessage());
+			managerLog.generarLogErrorGeneral(beanLogin.getCredencial(), this.getClass(), "SIgrados", e.getMessage());
+			e.printStackTrace();
+		}
+		return lstSiCurso;
+	}
+	
+	public List<SelectItem> SIDependenciaNombre() {
+		List<SelectItem> lstSiCurso = new ArrayList<SelectItem>();
+		try {
+			List<GesDependencia> lstCurso = managerGestionPersonal.buscarAllGesDependencia();
+			for (GesDependencia acaCurso : lstCurso) {
 				SelectItem siCursoLst = new SelectItem();
 				siCursoLst.setLabel(acaCurso.getNombre());
 				siCursoLst.setValue(acaCurso.getNombre());
