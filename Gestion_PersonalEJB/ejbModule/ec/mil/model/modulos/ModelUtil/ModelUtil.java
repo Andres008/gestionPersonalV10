@@ -21,8 +21,32 @@ public class ModelUtil {
 	 * @param cadena Cadena que va a verificarse.
 	 * @return
 	 */
+	public static boolean isEmptyDate(Date date) {
+		if (date == null)
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Verifica si una cadena es igual a null o tiene longitud igual a cero (0).
+	 * 
+	 * @param cadena Cadena que va a verificarse.
+	 * @return
+	 */
 	public static boolean isEmpty(String cadena) {
 		if (cadena == null || cadena.length() == 0)
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Verifica si una cadena es igual a null o tiene longitud igual a cero (0).
+	 * 
+	 * @param cadena Cadena que va a verificarse.
+	 * @return
+	 */
+	public static boolean isEmptyLong(long id) {
+		if (id ==0)
 			return true;
 		return false;
 	}
@@ -338,5 +362,55 @@ public class ModelUtil {
 				throw new Exception("Error Cadena contiene numeros.");
 		}
 	}
+	
+	// Esta función servirá para validar la longitud de la cadena de texto
+    private static boolean stringLength(String string, int length) {
+        if (string.length() == length)
+            return true;
+        return false;
+    }
+	
+	// Función principal que hace uso de las anteriores funciones
+    public static boolean verificarCedulaEcuador(String idCard) throws Exception {
+            if (stringLength(idCard, 10)) {
+                String[] data = idCard.split("");
+                byte verifier = Byte.parseByte(data[0] + data[1]);
+                byte[] digits = new byte[9];
+                for (byte i = 0; i < 9; i++)
+                    digits[i] = Byte.parseByte(data[i]);        
+                if (verifier >= 1 && verifier <= 24) {
+                    verifier = digits[2];
+                    if (verifier <= 6) {
+                        if (sumDigits(digits) == Byte.parseByte(data[9]))
+                            return true;
+                    }
+                }
+            }
+            else
+            	throw new Exception("Número digitos cédula invalido.");
+        return false;
+    }
+    
+ // Esta función sumará y multiplicará los primeros 9 dígitos de la cédula
+    // Aquí se multiplica los dígitos impares por 2 y los pares por 1
+    // Se usa el siguiente patrón 2.1.2.1.2.1.2.1.2
+    // Se retorna la resta de la decena superior de la suma menos la suma
+    // Es decir si sale la suma de todos los dígitos 36 entonces la decena superior es 40
+    // Por lo tanto debemos hacer lo siguiente (40-36)
+    private static byte sumDigits(byte[] digits) {
+        byte verifier;
+        byte sum = 0;
+        for (byte i = 0; i < digits.length; i = (byte) (i + 2)) {
+            verifier = (byte) (digits[i] * 2);
+            if (verifier > 9)
+                verifier = (byte) (verifier - 9);
+            sum = (byte) (sum + verifier);
+        }
+        for (byte i = 1; i < digits.length; i = (byte) (i + 2)) {
+            verifier = (byte) (digits[i] * 1);
+            sum = (byte) (sum + verifier);
+        }
+        return (byte) ((sum - (sum % 10) + 10) - sum);
+    }
 
 }

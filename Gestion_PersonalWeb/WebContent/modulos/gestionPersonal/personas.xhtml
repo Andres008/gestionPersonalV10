@@ -79,7 +79,7 @@
 					<p:growl id="growl" showDetail="true" sticky="true" />
 					<p:panel header="Ingreso de Información" toggleable="true"
 						collapsed="true">
-						<p:panelGrid columns="2" styleClass="ui-noborder">
+						<p:panelGrid columns="4" styleClass="ui-noborder">
 							<p:outputLabel value="Cedula" />
 							<p:inputMask value="#{controladorPersonal.objGesPersona.cedula}"
 								mask="9999999999" />
@@ -93,16 +93,6 @@
 								value="#{controladorPersonal.objGesPersona.nombre}">
 								<p:keyFilter regEx="/[QWERTYUIOPÑLKJHGFDSAZXCVBNMÁÉÍÓÚ ]/i" />
 							</p:inputText>
-							<p:outputLabel value="Fecha de Nacimiento" />
-							<p:calendar pattern="dd/MM/yyyy"
-								value="#{controladorPersonal.objGesPersona.fechaNacimiento}"
-								mask="99/99/9999" locale="es" maxdate="today" />
-							<p:outputLabel value="Estado Civil" />
-							<p:selectOneMenu
-								value="#{controladorPersonal.objGesPersona.gesEstadoCivil.id}">
-								<f:selectItem itemLabel="Estado Civil" noSelectionOption="true" />
-								<f:selectItems value="#{controladorPersonal.SIestadoCivil()}" />
-							</p:selectOneMenu>
 							<p:outputLabel value="Grado" />
 							<p:selectOneMenu
 								value="#{controladorPersonal.objGesPersona.gesGrado.id}">
@@ -124,11 +114,21 @@
 							<p:outputLabel value="Antiguedad" />
 							<p:spinner min="1"
 								value="#{controladorPersonal.objGesPersona.antiguedad}" />
-							<p:outputLabel value="Fecha de Alta" />
+								<p:outputLabel value="Fecha de Alta" />
 							<p:calendar
 								value="#{controladorPersonal.objGesPersona.fechaAlta}"
 								pattern="dd/MM/yyyy" mask="99/99/9999" locale="es"
 								maxdate="today" />
+							<p:outputLabel value="Fecha de Nacimiento" />
+							<p:calendar pattern="dd/MM/yyyy"
+								value="#{controladorPersonal.objGesPersona.fechaNacimiento}"
+								mask="99/99/9999" locale="es" maxdate="today" />
+							<p:outputLabel value="Estado Civil" />
+							<p:selectOneMenu
+								value="#{controladorPersonal.objGesPersona.gesEstadoCivil.id}">
+								<f:selectItem itemLabel="Estado Civil" noSelectionOption="true" />
+								<f:selectItems value="#{controladorPersonal.SIestadoCivil()}" />
+							</p:selectOneMenu>
 							<p:outputLabel value="Tipo de Sangre" />
 							<p:selectOneMenu
 								value="#{controladorPersonal.objGesPersona.gesTipoSangre.id}">
@@ -152,6 +152,8 @@
 						</p:panelGrid>
 						<p:commandButton value="Guardar" update="@form"
 							action="#{controladorPersonal.ingresarPersona()}" />
+							<p:commandButton value="Limpiar Formulario" update="@form"
+							action="#{controladorPersonal.inicializarPersona()}" />
 					</p:panel>
 					<p:panel header="Personas Ingresadas">
 						<div align="center">
@@ -256,7 +258,7 @@
 						</p:dataTable>
 					</p:panel>
 
-					<p:dialog header="Crear Promoci''on" widgetVar="infPromo"
+					<p:dialog header="Crear Promoción" widgetVar="infPromo"
 						id="infPromo" modal="true" position="center" showEffect="fade"
 						hideEffect="fade" resizable="false" width="50%">
 						<p:panelGrid columns="2">

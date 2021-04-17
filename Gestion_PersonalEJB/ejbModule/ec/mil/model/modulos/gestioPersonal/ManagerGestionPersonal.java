@@ -172,6 +172,10 @@ public class ManagerGestionPersonal {
 		}
 	}
 
+	public GesPersona verificarPersonaByCedula(String cedula) throws Exception {
+			return (GesPersona) managerDAOGestionPersonal.findById(GesPersona.class, cedula);
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<AcaPersonasCurso> buscarTodoPersonaCurso() throws Exception {
 		try {

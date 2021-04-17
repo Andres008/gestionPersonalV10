@@ -191,6 +191,7 @@ public class ControladorPersonal {
 			objGesPersona.setGesPromocion(new GesPromocion());
 			inicializarPromocion();
 			inicializarUsuario();
+			editar=false;
 			lstGesPersona = managerGestionPersonal.buscarPersonas();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -724,15 +725,36 @@ public class ControladorPersonal {
 
 	public void ingresarPersona() {
 		try {
-			// ModelUtil.esSoloLetras(objGesPersona.getApellido());
-			// ModelUtil.esSoloLetras(objGesPersona.getNombre());
+			if (!ModelUtil.verificarCedulaEcuador(objGesPersona.getCedula()))
+				throw new Exception("Cédula Incorrecta.");
+			if (ModelUtil.isEmptyLong(objGesPersona.getGesTipoSangre().getId()))
+				throw new Exception("Favor ingrese Tipo de sangre.");
+			if (ModelUtil.isEmptyLong(objGesPersona.getGesEstadoCivil().getId()))
+				throw new Exception("Favor ingrese Estado Civil.");
+			if (ModelUtil.isEmptyLong(objGesPersona.getGesGrado().getId()))
+				throw new Exception("Favor ingrese Grado.");
+			if (ModelUtil.isEmptyLong(objGesPersona.getGesPromocion().getId()))
+				throw new Exception("Favor ingrese Promoción.");
+			if (ModelUtil.isEmpty(objGesPersona.getNombre()))
+				throw new Exception("Favor ingrese Nombres.");
+			if (ModelUtil.isEmpty(objGesPersona.getApellido()))
+				throw new Exception("Favor ingrese Apellidos.");
+			if (ModelUtil.isEmpty(objGesPersona.getDireccion()))
+				throw new Exception("Favor ingrese Direccion.");
+			if (ModelUtil.isEmptyDate(objGesPersona.getFechaAlta()))
+				throw new Exception("Favor ingrese fecha alta.");
+			if (ModelUtil.isEmptyDate(objGesPersona.getFechaNacimiento()))
+				throw new Exception("Favor ingrese fecha nacimiento.");
+			
 			objGesPersona.setApellido(ModelUtil.cambiarMayusculas(objGesPersona.getApellido()));
 			objGesPersona.setNombre(ModelUtil.cambiarMayusculas(objGesPersona.getNombre()));
 			objGesPersona.setCorreo(ModelUtil.cambiarMinusculas(objGesPersona.getCorreo()));
 			if (editar)
 				managerGestionPersonal.actualizarPersona(objGesPersona);
 			else {
-
+				System.out.println("Ingresa a ingresar persona: "+objGesPersona.getCedula());
+				if (managerGestionPersonal.verificarPersonaByCedula(objGesPersona.getCedula())!=null)
+					throw new Exception("Atención, persona ya se encuentra registrada en la base de datos.");
 				valoresInicialesPersona(objGesPersona);
 				managerGestionPersonal.ingresarPersona(objGesPersona);
 				objAutUsuario.setCedula(objGesPersona.getCedula());
@@ -750,6 +772,8 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	public void ingresarUsuario() {
 		try {
