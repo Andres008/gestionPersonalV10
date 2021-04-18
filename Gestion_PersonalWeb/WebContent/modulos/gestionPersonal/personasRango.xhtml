@@ -136,13 +136,13 @@
 					<p:panel header="Ascensos Ingresados del Personal ">
 						<p:dataTable value="#{controladorPersonal.lstGesGradosPersona}"
 							emptyMessage="No existen registros" var="usuario">
-							<p:column headerText="Cedula" >
+							<p:column headerText="Cedula" filterBy="#{usuario.gesPersona.cedula}" filterMatchMode="exact" >
 								<p:outputLabel value="#{usuario.gesPersona.cedula}" />
 							</p:column>
-							<p:column headerText="Apellido">
+							<p:column headerText="Apellido" filterBy="#{usuario.gesPersona.apellido}" filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.apellido}" />
 							</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre" filterBy="#{usuario.gesPersona.nombre}" filterMatchMode="contains">
 								<p:outputLabel value="#{usuario.gesPersona.nombre}" />
 							</p:column>
 							<p:column headerText="Grado">

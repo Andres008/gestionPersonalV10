@@ -3,8 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
+	xmlns:p="http://primefaces.org/ui"> <h:head>
 	<title>GESTION PERSONAL</title>
 	<h:outputStylesheet library="css" name="estilos.css" />
 	<script type="text/javascript">
@@ -35,213 +34,192 @@
         allDayText: 'Todo el día'
     };
 </script>
-</h:head>
-<body onload="#{controladorPersonal.inicializarAP7()}"
-	style="font-size: 70%">
-	<h:form id="statusBar">
-		<p:ajaxStatus onstart="PF('statusDialog').show()"
-			onsuccess="PF('statusDialog').hide()" />
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
-			closable="false" resizable="false" showHeader="false">
-			<img src="../../imagenes/espera.gif" />
-		</p:dialog>
-	</h:form>
-	<div id="div_menu" align="left"
-		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
-		<div id="logo" align="center">
-			<p:graphicImage url="/imagenes/bannerGestionPersonal.png"
-				alt="Defensa Aérea" style="width:100%"></p:graphicImage>
-		</div>
+</h:head> <body onload="#{controladorPersonal.inicializarAP7()}"
+	style="font-size: 70%"> <h:form id="statusBar">
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+		closable="false" resizable="false" showHeader="false">
+		<img src="../../imagenes/espera.gif" />
+	</p:dialog>
+</h:form> <div id="div_menu" align="left"
+	style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
+<div id="logo" align="center"> <p:graphicImage
+	url="/imagenes/bannerGestionPersonal.png" alt="Defensa Aérea"
+	style="width:100%"></p:graphicImage> </div> <div align="center"
+	style="width: 99.9%; min-height: 99.9%; background-image:"> <div
+	id="titulo_header"
+	style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
+<span>Sistema de Gestión de Personal - <h:outputText
+	value="Defensa Aérea -" /></span> </div> <h:form style="width:100%;font-size:80%">
 
-		<div align="center"
-			style="width: 99.9%; min-height: 99.9%; background-image:">
-			<div id="titulo_header"
-				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
-				<span>Sistema de Gestión de Personal - <h:outputText
-						value="Defensa Aérea -" /></span>
-			</div>
-			<h:form style="width:100%;font-size:80%">
-
-				<p:messages id="messages" showDetail="true" closable="true">
-					<p:autoUpdate />
-				</p:messages>
-				<p:menubar style="font-size:12px;">
-					<f:facet name="options">
-						<p:commandButton value="Menú principal" icon="ui-icon-home"
-							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
-						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
-							value="Salir" icon="ui-icon-extlink" />
-					</f:facet>
-				</p:menubar>
-			</h:form>
-			<div id="posicion" align="center">
-				<h:form>
-					<h3>AP-7 DEL PERSONAL DE LA DEFENSA AÉREA</h3>
-					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panelGrid columns="2" styleClass="ui-noborder">
-						<p:outputLabel value="Ingrese la cédula" />
-						<p:panelGrid columns="2">
-							<p:inputText value="#{controladorPersonal.objGesPersona.cedula}">
-								<p:keyFilter regEx="/[0123456789]/" />
-							</p:inputText>
-							<p:commandButton icon="ui-icon-search"
-								actionListener="#{controladorPersonal.buscarPersonaAP7()}"
-								update="@form" />
-						</p:panelGrid>
-					</p:panelGrid>
-					<p:panel header="Datos Personales">
-						<p:panelGrid columns="6" styleClass="ui-noborder">
-							<p:outputLabel value="Cedula" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.cedula}" />
-							<p:outputLabel value="Grado Actual" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.gesGrado.grado}" />
-							<p:outputLabel value="Apellidos y Nombres"
-								style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.apellido} #{controladorPersonal.objGesPersona.nombre}" />
-							<p:outputLabel value="Fecha de Nacimiento"
-								style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.fechaNacimiento}" />
-							<p:outputLabel value="Fecha de Alta" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.fechaAlta}" />
-							<p:outputLabel value="Fecha de Baja" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.fechaBaja}" />
-							<p:outputLabel value="Estado Civil" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.gesEstadoCivil.nombre}" />
-							<p:outputLabel value="Dirección" style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.direccion}" />
-							<p:outputLabel value="Correo Electrónico"
-								style="font-weight:bold" />
-							<p:outputLabel
-								value="#{controladorPersonal.objGesPersona.correo}" />
-						</p:panelGrid>
-					</p:panel>
-					<p:panel header="Grados">
-						<p:dataTable emptyMessage="Grados no registrados"
-							value="#{controladorPersonal.objGesPersona.gesGradosPersonas}"
-							var="usuario">
-							<p:column headerText="Grado">
-								<p:outputLabel value="#{usuario.gesGrado.grado}" />
-							</p:column>
-							<p:column headerText="Antiguedad">
-								<p:outputLabel value="#{usuario.antiguedad}" />
-							</p:column>
-							<p:column headerText="Fecha Inicial">
-								<p:outputLabel value="#{usuario.fechaInicial}" />
-							</p:column>
-							<p:column headerText="Fecha Final">
-								<p:outputLabel value="#{usuario.fechaFinal}" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-					<p:panel header="Cursos Realizados">
-						<p:dataTable sortBy="#{curso.fechaFinal}"
-							value="#{controladorPersonal.objGesPersona.acaPersonasCursos}"
-							var="curso">
-							<p:column headerText="Curso">
-								<p:outputLabel value="#{curso.acaCurso.nombre}" />
-							</p:column>
-							<p:column headerText="Descripción">
-								<p:outputLabel value="#{curso.acaCurso.descripcion}" />
-							</p:column>
-							<p:column headerText="Tipo de Curso">
-								<p:outputLabel value="#{curso.acaCurso.acaTipoCurso.nombre}" />
-							</p:column>
-							<p:column headerText="Horas">
-								<p:outputLabel value="#{curso.acaCurso.horas}" />
-							</p:column>
-							<p:column headerText="Fecha Inicial">
-								<p:outputLabel value="#{curso.fechaInicial}" />
-							</p:column>
-							<p:column headerText="Fecha Final" sortable="true"
-								sortBy="#{curso.fechaFinal}">
-								<p:outputLabel value="#{curso.fechaFinal}" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-					<p:panel header="Títulos Obtenidos">
-						<p:dataTable
-							value="#{controladorPersonal.objGesPersona.acaTituloPersonas}"
-							var="curso">
-							<p:column headerText="Título">
-								<p:outputLabel value="#{curso.acaTitulo.titulo}" />
-							</p:column>
-							<p:column headerText="Institución">
-								<p:outputLabel
-									value="#{curso.acaTitulo.acaInstitucionEducativa.nombre}" />
-							</p:column>
-							<p:column headerText="Tipo de Título">
-								<p:outputLabel value="#{curso.acaTitulo.acaTipoTitulo.nombre}" />
-							</p:column>
-							<p:column headerText="Registro">
-								<p:outputLabel value="#{curso.codigoRegistro}" />
-							</p:column>
-							<p:column headerText="Fecha de Registro" sortable="true"
-								sortBy="#{curso.fechaRefrendacion}">
-								<p:outputLabel value="#{curso.fechaRefrendacion}" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-					<p:panel header="Estímulos y Sanciones">
-						<p:dataTable
-							value="#{controladorPersonal.objGesPersona.gesEstimuloPersonas}"
-							emptyMessage="No existen registros" var="usuario">
-							<p:column headerText="Nombre">
-								<p:outputLabel value="#{usuario.gesEstimulo.nombre}" />
-							</p:column>
-							<p:column headerText="Tipo">
-								<p:outputLabel
-									value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
-							</p:column>
-							<p:column headerText="Descripción">
-								<p:outputLabel value="#{usuario.gesEstimulo.descripcion}" />
-							</p:column>
-							<p:column headerText="Fecha" sortable="true"
-								sortBy="#{usuario.fechaEvento}">
-								<p:outputLabel value="#{usuario.fechaEvento}" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-					<p:panel header="Pases">
-						<p:dataTable sortBy="#{usuario.fechaFinal}"
-							value="#{controladorPersonal.objGesPersona.gesDependenciaPersonas}"
-							emptyMessage="No existen registros" var="usuario">
-							<p:column headerText="Dependencia">
-								<p:outputLabel value="#{usuario.gesDependencia.nombre}" />
-							</p:column>
-							<p:column headerText="Reparto">
-								<p:outputLabel
-									value="#{usuario.gesDependencia.gesReparto.nombre}" />
-							</p:column>
-							<p:column headerText="Región">
-								<p:outputLabel
-									value="#{usuario.gesDependencia.gesRegione.nombre}" />
-							</p:column>
-							<p:column headerText="Fecha Inicial">
-								<p:outputLabel value="#{usuario.fechaInicial}" />
-							</p:column>
-							<p:column headerText="Fecha Final" sortable="true"
-								sortBy="#{usuario.fechaInicial}">
-								<p:outputLabel value="#{usuario.fechaFinal}" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-				</h:form>
-			</div>
-		</div>
-		<div id="footer" align="center">
-			<div
-				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
-				<span>Defensa Aérea - #{beanLogin.anioActual()} - </span>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+	<p:messages id="messages" showDetail="true" closable="true">
+		<p:autoUpdate />
+	</p:messages>
+	<p:menubar style="font-size:12px;">
+		<f:facet name="options">
+			<p:commandButton value="Menú principal" icon="ui-icon-home"
+				action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+			<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+				value="Salir" icon="ui-icon-extlink" />
+		</f:facet>
+	</p:menubar>
+</h:form> <div id="posicion" align="center"> <h:form>
+	<h3>AP-7 DEL PERSONAL DE LA DEFENSA AÉREA</h3>
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<p:panelGrid columns="2" styleClass="ui-noborder">
+		<p:outputLabel value="Ingrese la cédula" />
+		<p:panelGrid columns="2">
+			<p:inputText value="#{controladorPersonal.objGesPersona.cedula}">
+				<p:keyFilter regEx="/[0123456789]/" />
+			</p:inputText>
+			<p:commandButton icon="ui-icon-search"
+				actionListener="#{controladorPersonal.buscarPersonaAP7()}"
+				update="@form" />
+		</p:panelGrid>
+	</p:panelGrid>
+	<p:commandButton oncomplete="PF('infReporte').show()" update="@form"
+		value="Imprimir"
+		actionListener="#{controladorPersonal.imprimirAP7(controladorPersonal.objGesPersona)}" />
+	<p:panel header="Datos Personales">
+		<p:panelGrid columns="6" styleClass="ui-noborder">
+			<p:outputLabel value="Cedula" style="font-weight:bold" />
+			<p:outputLabel value="#{controladorPersonal.objGesPersona.cedula}" />
+			<p:outputLabel value="Grado Actual" style="font-weight:bold" />
+			<p:outputLabel
+				value="#{controladorPersonal.objGesPersona.gesGrado.grado}" />
+			<p:outputLabel value="Apellidos y Nombres" style="font-weight:bold" />
+			<p:outputLabel
+				value="#{controladorPersonal.objGesPersona.apellido} #{controladorPersonal.objGesPersona.nombre}" />
+			<p:outputLabel value="Fecha de Nacimiento" style="font-weight:bold" />
+			<p:outputLabel
+				value="#{controladorPersonal.objGesPersona.fechaNacimiento}" />
+			<p:outputLabel value="Fecha de Alta" style="font-weight:bold" />
+			<p:outputLabel value="#{controladorPersonal.objGesPersona.fechaAlta}" />
+			<p:outputLabel value="Fecha de Baja" style="font-weight:bold" />
+			<p:outputLabel value="#{controladorPersonal.objGesPersona.fechaBaja}" />
+			<p:outputLabel value="Estado Civil" style="font-weight:bold" />
+			<p:outputLabel
+				value="#{controladorPersonal.objGesPersona.gesEstadoCivil.nombre}" />
+			<p:outputLabel value="Dirección" style="font-weight:bold" />
+			<p:outputLabel value="#{controladorPersonal.objGesPersona.direccion}" />
+			<p:outputLabel value="Correo Electrónico" style="font-weight:bold" />
+			<p:outputLabel value="#{controladorPersonal.objGesPersona.correo}" />
+		</p:panelGrid>
+	</p:panel>
+	<p:panel header="Grados">
+		<p:dataTable emptyMessage="Grados no registrados"
+			value="#{controladorPersonal.objGesPersona.gesGradosPersonas}"
+			var="usuario">
+			<p:column headerText="Grado">
+				<p:outputLabel value="#{usuario.gesGrado.grado}" />
+			</p:column>
+			<p:column headerText="Antiguedad">
+				<p:outputLabel value="#{usuario.antiguedad}" />
+			</p:column>
+			<p:column headerText="Fecha Inicial">
+				<p:outputLabel value="#{usuario.fechaInicial}" />
+			</p:column>
+			<p:column headerText="Fecha Final">
+				<p:outputLabel value="#{usuario.fechaFinal}" />
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+	<p:panel header="Cursos Realizados">
+		<p:dataTable sortBy="#{curso.fechaFinal}"
+			value="#{controladorPersonal.objGesPersona.acaPersonasCursos}"
+			var="curso">
+			<p:column headerText="Curso">
+				<p:outputLabel value="#{curso.acaCurso.nombre}" />
+			</p:column>
+			<p:column headerText="Descripción">
+				<p:outputLabel value="#{curso.acaCurso.descripcion}" />
+			</p:column>
+			<p:column headerText="Tipo de Curso">
+				<p:outputLabel value="#{curso.acaCurso.acaTipoCurso.nombre}" />
+			</p:column>
+			<p:column headerText="Horas">
+				<p:outputLabel value="#{curso.acaCurso.horas}" />
+			</p:column>
+			<p:column headerText="Fecha Inicial">
+				<p:outputLabel value="#{curso.fechaInicial}" />
+			</p:column>
+			<p:column headerText="Fecha Final" sortable="true"
+				sortBy="#{curso.fechaFinal}">
+				<p:outputLabel value="#{curso.fechaFinal}" />
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+	<p:panel header="Títulos Obtenidos">
+		<p:dataTable
+			value="#{controladorPersonal.objGesPersona.acaTituloPersonas}"
+			var="curso">
+			<p:column headerText="Título">
+				<p:outputLabel value="#{curso.acaTitulo.titulo}" />
+			</p:column>
+			<p:column headerText="Institución">
+				<p:outputLabel
+					value="#{curso.acaTitulo.acaInstitucionEducativa.nombre}" />
+			</p:column>
+			<p:column headerText="Tipo de Título">
+				<p:outputLabel value="#{curso.acaTitulo.acaTipoTitulo.nombre}" />
+			</p:column>
+			<p:column headerText="Registro">
+				<p:outputLabel value="#{curso.codigoRegistro}" />
+			</p:column>
+			<p:column headerText="Fecha de Registro" sortable="true"
+				sortBy="#{curso.fechaRefrendacion}">
+				<p:outputLabel value="#{curso.fechaRefrendacion}" />
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+	<p:panel header="Estímulos y Sanciones">
+		<p:dataTable
+			value="#{controladorPersonal.objGesPersona.gesEstimuloPersonas}"
+			emptyMessage="No existen registros" var="usuario">
+			<p:column headerText="Nombre">
+				<p:outputLabel value="#{usuario.gesEstimulo.nombre}" />
+			</p:column>
+			<p:column headerText="Tipo">
+				<p:outputLabel value="#{usuario.gesEstimulo.gesTipoEstimulo.nombre}" />
+			</p:column>
+			<p:column headerText="Descripción">
+				<p:outputLabel value="#{usuario.gesEstimulo.descripcion}" />
+			</p:column>
+			<p:column headerText="Fecha" sortable="true"
+				sortBy="#{usuario.fechaEvento}">
+				<p:outputLabel value="#{usuario.fechaEvento}" />
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+	<p:panel header="Pases">
+		<p:dataTable sortBy="#{usuario.fechaFinal}"
+			value="#{controladorPersonal.objGesPersona.gesDependenciaPersonas}"
+			emptyMessage="No existen registros" var="usuario">
+			<p:column headerText="Dependencia">
+				<p:outputLabel value="#{usuario.gesDependencia.nombre}" />
+			</p:column>
+			<p:column headerText="Reparto">
+				<p:outputLabel value="#{usuario.gesDependencia.gesReparto.nombre}" />
+			</p:column>
+			<p:column headerText="Región">
+				<p:outputLabel value="#{usuario.gesDependencia.gesRegione.nombre}" />
+			</p:column>
+			<p:column headerText="Fecha Inicial">
+				<p:outputLabel value="#{usuario.fechaInicial}" />
+			</p:column>
+			<p:column headerText="Fecha Final" sortable="true"
+				sortBy="#{usuario.fechaInicial}">
+				<p:outputLabel value="#{usuario.fechaFinal}" />
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+	<p:dialog header="Títulos" widgetVar="infReporte" id="inf" modal="true"
+		position="top" showEffect="fade" hideEffect="fade" resizable="false"
+		width="95%" height="600">
+		<p:media cache="false" value="#{controladorPersonal.report}"
+			width="100%" height="100%" player="pdf"></p:media>
+	</p:dialog>
+</h:form> </div> </div> <div id="footer" align="center"> <div
+	style="background-color: navy; width: 100%; color: white; font-size: 12px;">
+<span>Defensa Aérea - #{beanLogin.anioActual()} - </span> </div> </div> </div> </body> </html>

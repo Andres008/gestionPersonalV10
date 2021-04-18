@@ -3,9 +3,15 @@
  */
 package ec.mil.controladores.gestionPersonal;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -13,6 +19,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
+import com.sun.glass.events.SwipeGesture;
 
 import ec.mil.controladores.session.BeanLogin;
 import ec.mil.model.dao.entidades.AcaCurso;
@@ -41,6 +52,11 @@ import ec.mil.model.modulos.autUsuarios.ManagerUsuarios;
 import ec.mil.model.modulos.cursos.ManagerCurso;
 import ec.mil.model.modulos.gestioPersonal.ManagerGestionPersonal;
 import ec.mil.model.modulos.log.ManagerLog;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @ManagedBean
 @SessionScoped
@@ -71,6 +87,7 @@ public class ControladorPersonal {
 	@EJB
 	private ManagerUsuarios managerUsuarios;
 	private GesPromocion objGesPromocion;
+	private static byte[] reportPdf;
 
 	/**
 	 * 
@@ -93,7 +110,7 @@ public class ControladorPersonal {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 		}
 	}
-	
+
 	public void cargarGesDependenciaPersona(GesDependenciaPersona auxGesDependenciaPersona) {
 		objGesDependenciaPersona = auxGesDependenciaPersona;
 		busqueda = true;
@@ -196,7 +213,7 @@ public class ControladorPersonal {
 			objGesPersona.setGesPromocion(new GesPromocion());
 			inicializarPromocion();
 			inicializarUsuario();
-			editar=false;
+			editar = false;
 			lstGesPersona = managerGestionPersonal.buscarPersonas();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
@@ -231,6 +248,35 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void imprimirAP7(GesPersona objPersonaImprimir ) {
+		try {
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			Map<String, Object> parametros = new HashMap<String, Object>();
+			parametros.put("cedula", objPersonaImprimir.getCedula());
+			parametros.put("gradoAct", objPersonaImprimir.getGesGrado().getGrado());
+			parametros.put("nombres", objPersonaImprimir.getApellido()+" "+objPersonaImprimir.getNombre() );
+			parametros.put("fechaNac", formato.format(objPersonaImprimir.getFechaNacimiento()));
+			parametros.put("fechaAlt", formato.format(objPersonaImprimir.getFechaAlta()));
+			if ( objPersonaImprimir.getFechaBaja()!=null )
+				parametros.put("fechaBaj", formato.format(objPersonaImprimir.getFechaBaja()));
+			else
+				parametros.put("fechaBaj","");
+			parametros.put("estadoCivil", objPersonaImprimir.getGesEstadoCivil().getNombre());
+			parametros.put("direccion", objPersonaImprimir.getDireccion());
+			parametros.put("correoEle", objPersonaImprimir.getCorreo());
+			List<GesPersona> lstPersona = new ArrayList<GesPersona>();
+			lstPersona.add(objPersonaImprimir);
+			JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(lstPersona);
+			File jasper = new File("/opt/reportes/ap7.jasper");
+			JasperPrint jasperPrint;
+				jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, beanCollectionDataSource);
+				reportPdf = JasperExportManager.exportReportToPdf(jasperPrint);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void cargarCursoSeleccion(AcaCurso acaCursoSel) {
@@ -404,22 +450,20 @@ public class ControladorPersonal {
 
 	public void ingresarDependenciaPersona() {
 		try {
-			if (objGesDependenciaPersona.getId()==0) {
-			for (GesDependenciaPersona pase : managerGestionPersonal
-					.buscarDependenciaPersonaActiva(objGesDependenciaPersona.getGesPersona().getCedula())) {
-				pase.setFechaFinal(ModelUtil.getSumarDias(objGesDependenciaPersona.getFechaInicial(), -1));
-				pase.setEstado("I");
-				managerGestionPersonal.actualizarGesDependenciaPersona(pase);
-			}
-			objGesDependenciaPersona.setEstado("A");
-			managerGestionPersonal.ingresarDependenciaPersona(objGesDependenciaPersona);
-			JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
-			inicializarRepartoPersona();
-			managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
-					"Se ingreso pase persona: " + objGesDependenciaPersona.getId());
-			}
-			else
-			{
+			if (objGesDependenciaPersona.getId() == 0) {
+				for (GesDependenciaPersona pase : managerGestionPersonal
+						.buscarDependenciaPersonaActiva(objGesDependenciaPersona.getGesPersona().getCedula())) {
+					pase.setFechaFinal(ModelUtil.getSumarDias(objGesDependenciaPersona.getFechaInicial(), -1));
+					pase.setEstado("I");
+					managerGestionPersonal.actualizarGesDependenciaPersona(pase);
+				}
+				objGesDependenciaPersona.setEstado("A");
+				managerGestionPersonal.ingresarDependenciaPersona(objGesDependenciaPersona);
+				JSFUtil.crearMensajeINFO("Atención", "Se ingresó correctamente.");
+				inicializarRepartoPersona();
+				managerLog.generarLogGeneral(beanLogin.getCredencial(), this.getClass(), "ingresarDependenciaPersona",
+						"Se ingreso pase persona: " + objGesDependenciaPersona.getId());
+			} else {
 				managerGestionPersonal.actualizarGesDependenciaPersona(objGesDependenciaPersona);
 				JSFUtil.crearMensajeINFO("Atención", "Se actualizó correctamente.");
 				inicializarRepartoPersona();
@@ -669,7 +713,7 @@ public class ControladorPersonal {
 		}
 		return lstSiCurso;
 	}
-	
+
 	public List<SelectItem> SIDependenciaNombre() {
 		List<SelectItem> lstSiCurso = new ArrayList<SelectItem>();
 		try {
@@ -778,17 +822,26 @@ public class ControladorPersonal {
 				throw new Exception("Favor ingrese fecha alta.");
 			if (ModelUtil.isEmptyDate(objGesPersona.getFechaNacimiento()))
 				throw new Exception("Favor ingrese fecha nacimiento.");
-			
+
 			objGesPersona.setApellido(ModelUtil.cambiarMayusculas(objGesPersona.getApellido()));
 			objGesPersona.setNombre(ModelUtil.cambiarMayusculas(objGesPersona.getNombre()));
 			objGesPersona.setCorreo(ModelUtil.cambiarMinusculas(objGesPersona.getCorreo()));
 			if (editar)
 				managerGestionPersonal.actualizarPersona(objGesPersona);
 			else {
-				System.out.println("Ingresa a ingresar persona: "+objGesPersona.getCedula());
-				if (managerGestionPersonal.verificarPersonaByCedula(objGesPersona.getCedula())!=null)
+				System.out.println("Ingresa a ingresar persona: " + objGesPersona.getCedula());
+				if (managerGestionPersonal.verificarPersonaByCedula(objGesPersona.getCedula()) != null)
 					throw new Exception("Atención, persona ya se encuentra registrada en la base de datos.");
 				valoresInicialesPersona(objGesPersona);
+				objGesPersona.setGesGradosPersonas(new ArrayList<GesGradosPersona>());
+				GesGradosPersona gradoPersona = new GesGradosPersona();
+				gradoPersona.setGesGrado(new GesGrado());
+				gradoPersona.setEstado("A");
+				gradoPersona.setAntiguedad(objGesPersona.getAntiguedad());
+				gradoPersona.setFechaInicial(objGesPersona.getFechaAlta());
+				gradoPersona.setGesPersona(objGesPersona);
+				gradoPersona.setGesGrado(objGesPersona.getGesGrado());
+				objGesPersona.getGesGradosPersonas().add(gradoPersona);
 				managerGestionPersonal.ingresarPersona(objGesPersona);
 				objAutUsuario.setCedula(objGesPersona.getCedula());
 				objAutUsuario.setGesPersona(objGesPersona);
@@ -805,8 +858,6 @@ public class ControladorPersonal {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	public void ingresarUsuario() {
 		try {
@@ -850,6 +901,15 @@ public class ControladorPersonal {
 		objEstimulo.setGesPersona(objGesPersona2);
 		objEstimulo.setGesEstimulo(managerGestionCurso.buscarDisciplinaNA());
 		objGesPersona2.getGesEstimuloPersonas().add(objEstimulo);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public StreamedContent getReport() {
+		if (reportPdf != null) {
+			InputStream fis = new ByteArrayInputStream(reportPdf);
+			return new DefaultStreamedContent(fis, "application/pdf; charset=UTF-8", "miArchivo.pdf");
+		}
+		return null;
 	}
 
 	/*
