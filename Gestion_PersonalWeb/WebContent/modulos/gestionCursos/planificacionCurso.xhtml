@@ -170,9 +170,9 @@
 						</p:panel>
 					</p:panel>
 
-					<p:panel header="Cursos Planificados" toggleable="true"
+					<p:panel id="pnlPlanificados" header="Cursos Planificados" toggleable="true"
 						collapsed="true">
-						<p:dataTable value="#{controladorCursos.lstAcaPlanificacionCurso}"
+						<p:dataTable id="dtPlanificados" value="#{controladorCursos.lstAcaPlanificacionCurso}"
 							rows="5" paginator="8" var="curso">
 							<f:facet name="header">
 							Expanda la fila para detalles de inscritos
@@ -227,7 +227,7 @@
 							</p:column>
 							<p:rowExpansion>
 								<p:panel header="Inscritos curso #{curso.acaCurso.nombre}">
-									<p:dataTable id="inscriPer"
+									<p:dataTable id="tbInscriPer"
 										emptyMessage="No existe personal Inscrito"
 										value="#{curso.acaInscripcionPersonas}" var="persona">
 										<p:column headerText="Grado">
@@ -247,18 +247,18 @@
 											<p:outputLabel
 												value="#{persona.acaEstadoInscripcion.descripcion}" />
 										</p:column>
-										<p:column headerText="Aceptar o Negar">
-											<p:panelGrid columns="2" styleClass="ui-noborder"
+										<p:column  headerText="Aceptar o Negar">
+											<p:panelGrid id="pnlAceptar" columns="2" styleClass="ui-noborder"
 												rendered="#{persona.acaEstadoInscripcion.id==1}">
 												<p:commandButton icon="ui-icon-check"
 													actionListener="#{controladorCursos.ingresarAceptacionInscripcion(persona)}"
-													update="principal:j_idt126">
+													update=":principal:dtPlanificados:tbInscriPer">
 													<p:confirm header="Confirmación"
 														message="Desea registrar la aceptación de la inscripción?"
 														icon="pi pi-exclamation-triangle" />
 												</p:commandButton>
 												<p:commandButton icon="ui-icon-closethick"
-													update="@form:infInscr" oncomplete="PF('infNegar').show()"
+													update=":principal:dtPlanificados:tbInscriPer" oncomplete="PF('infNegar').show()"
 													actionListener="#{controladorCursos.cargarInscripcion(persona)}">
 													<p:confirm header="Confirmación"
 														message="Desea negar la inscripción?"
@@ -267,7 +267,7 @@
 											</p:panelGrid>
 											<p:commandButton value="Regresar"
 												actionListener="#{controladorCursos.regresarAceptacionInscripcion(persona)}"
-												update="principal:j_idt126"
+												update=":principal:dtPlanificados:tbInscriPer"
 												rendered="#{persona.acaEstadoInscripcion.id==2 || persona.acaEstadoInscripcion.id==3}">
 												<p:confirm header="Confirmación"
 													message="Desea cancelar la acción de la inscripción?"
@@ -293,7 +293,7 @@
 						<div align="center">
 							<p:panelGrid columns="2" styleClass="ui-noborder">
 								<p:outputLabel value="Curso" />
-								<p:outputLabel
+							<p:outputLabel
 									value="#{controladorCursos.objAcaInscripcionPersona.acaPlanificacionCurso.acaCurso.descripcion}" />
 								<p:outputLabel value="Solicita Inscripción:" />
 								<p:outputLabel
@@ -304,7 +304,7 @@
 							</p:panelGrid>
 							<p:commandButton value="Ingresar"
 								actionListener="#{controladorCursos.ingresarNegacionInscripcion()}"
-								update="@form:infInscr principal:j_idt126 @form:msgs">
+								update="@form:infInscr principal:j_idt122 @form:msgs">
 								<p:confirm header="Confirmación"
 									message="Desea negar la inscripción?"
 									icon="pi pi-exclamation-triangle" />

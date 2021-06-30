@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da75a5a0-8255-47e2-a2ba-d159d3fe2fff">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="cedula" class="java.lang.String"/>
+	<parameter name="gradoAct" class="java.lang.String"/>
+	<parameter name="nombres" class="java.lang.String"/>
+	<parameter name="fechaNac" class="java.lang.String"/>
+	<parameter name="fechaAlt" class="java.lang.String"/>
+	<parameter name="fechaBaj" class="java.lang.String"/>
+	<parameter name="estadoCivil" class="java.lang.String"/>
+	<parameter name="direccion" class="java.lang.String"/>
+	<parameter name="correoEle" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="acaTituloPersonas" class="java.util.List">
+		<fieldDescription><![CDATA[acaTituloPersonas]]></fieldDescription>
+	</field>
+	<field name="fechaBaja" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaBaja]]></fieldDescription>
+	</field>
+	<field name="fechaAlta" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaAlta]]></fieldDescription>
+	</field>
+	<field name="gesDependenciaPersonas" class="java.util.List">
+		<fieldDescription><![CDATA[gesDependenciaPersonas]]></fieldDescription>
+	</field>
+	<field name="fechaNacimiento" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaNacimiento]]></fieldDescription>
+	</field>
+	<field name="gesGrado" class="ec.mil.model.dao.entidades.GesGrado">
+		<fieldDescription><![CDATA[gesGrado]]></fieldDescription>
+	</field>
+	<field name="acaPersonasCursos" class="java.util.List">
+		<fieldDescription><![CDATA[acaPersonasCursos]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[cedula]]></fieldDescription>
+	</field>
+	<field name="gesPromocion" class="ec.mil.model.dao.entidades.GesPromocion">
+		<fieldDescription><![CDATA[gesPromocion]]></fieldDescription>
+	</field>
+	<field name="antiguedad" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[antiguedad]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[direccion]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[nombre]]></fieldDescription>
+	</field>
+	<field name="gesEstadoCivil" class="ec.mil.model.dao.entidades.GesEstadoCivil">
+		<fieldDescription><![CDATA[gesEstadoCivil]]></fieldDescription>
+	</field>
+	<field name="gesEstimuloPersonas" class="java.util.List">
+		<fieldDescription><![CDATA[gesEstimuloPersonas]]></fieldDescription>
+	</field>
+	<field name="apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[apellido]]></fieldDescription>
+	</field>
+	<field name="correo" class="java.lang.String">
+		<fieldDescription><![CDATA[correo]]></fieldDescription>
+	</field>
+	<field name="gesTipoSangre" class="ec.mil.model.dao.entidades.GesTipoSangre">
+		<fieldDescription><![CDATA[gesTipoSangre]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono]]></fieldDescription>
+	</field>
+	<field name="autUsuario" class="ec.mil.model.dao.entidades.AutUsuario">
+		<fieldDescription><![CDATA[autUsuario]]></fieldDescription>
+	</field>
+	<field name="gesGradosPersonas" class="java.util.List">
+		<fieldDescription><![CDATA[gesGradosPersonas]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="72" y="0" width="474" height="40" uuid="4a8bb5c8-79eb-4ba2-a1c7-60b40228525f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AP-7 DEL PERSONAL DE LA DEFENSA AEREA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="70" height="60" uuid="50d26070-6b81-4097-91ff-7bf1747699c0"/>
+				<imageExpression><![CDATA["/opt/reportes/imagen/fae.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="10" width="50" height="20" uuid="2787baa5-e19a-4fde-b910-9e60654b1295"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="10" width="60" height="20" uuid="10e9db49-036e-4db9-ba22-e2b551f51f94"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grado Actual: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="10" width="90" height="20" uuid="626999a8-019e-4d6a-9b80-2fbb35c0c388"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellidos y Nombres: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="30" width="80" height="20" uuid="26216ca9-38d6-47b0-bb93-f75fb31aa0fb"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="30" width="60" height="20" uuid="137d5e9d-a10c-4ec8-9e93-11e6267261a8"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Alta: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="30" width="90" height="20" uuid="d546ad2d-da3e-4fc0-895a-8ad8e6bed951"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Baja: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="50" width="80" height="20" uuid="ce9fb6ad-a370-4b7c-99d9-515a39c555ec"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado Civil: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="50" width="60" height="20" uuid="804d98b1-bd58-4bbd-9ebd-ffae186f50b2"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="50" width="90" height="20" uuid="f32c4bfe-cf3b-4c2d-bb7e-e98838b62671"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo Electronico: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="10" width="70" height="20" uuid="7e9947b2-6ed8-4b4e-8afd-e5bc602a14a6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="30" width="70" height="20" uuid="e4e26d7b-ba04-4657-90e1-a5e77daf5695"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaNac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="50" width="70" height="20" uuid="cb9556c8-4977-49a8-ac50-ee4becfba801"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estadoCivil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="10" width="100" height="20" uuid="b750b635-e375-4ed6-9b11-aca5f15d4b04"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{gradoAct}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="30" width="100" height="20" uuid="e6915685-6e5e-40c8-8bbe-e9a4569a53aa"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaAlt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="212" y="50" width="100" height="30" uuid="6d9b6ae8-fc22-49e0-afad-9b464995ed47"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="10" width="144" height="20" uuid="1b0925a4-ccb1-496d-a82c-a8f97e6a1ea9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="30" width="144" height="20" uuid="c9e6101b-5dc6-4be5-badd-ea1929e3f88f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaBaj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="50" width="144" height="20" uuid="1cad8e8a-49e3-4720-bdf4-2b3b331a955c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{correoEle}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="67">
+			<subreport>
+				<reportElement x="0" y="10" width="555" height="57" uuid="6655138e-dde7-4fd9-b2bd-262a29bc321c"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{gesGradosPersonas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["subGrados.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="66">
+			<subreport>
+				<reportElement x="0" y="10" width="555" height="56" uuid="8c48ca3c-991c-486d-a47d-4304676902af"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{acaPersonasCursos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["subCursos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="66">
+			<subreport>
+				<reportElement x="0" y="10" width="555" height="56" uuid="39f9e8dd-2163-4294-b205-03bc604ae39f"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{acaTituloPersonas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["subTitulos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="66">
+			<subreport>
+				<reportElement x="0" y="10" width="555" height="56" uuid="475f76fb-15fc-4b88-acdc-0b74a7139d41"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{gesEstimuloPersonas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["subEstimulos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="66">
+			<subreport>
+				<reportElement x="0" y="10" width="555" height="56" uuid="ce93b2fd-fdc8-4f58-8a2a-72991d0829cc"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{gesDependenciaPersonas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["subPases.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="180" y="0" width="100" height="20" uuid="2de1f573-4dff-4bb2-a04f-ee516e663138"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="280" y="0" width="100" height="20" uuid="d0faf855-8ac2-4932-a490-796059ca02e0"/>
+				<textElement textAlignment="Left">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

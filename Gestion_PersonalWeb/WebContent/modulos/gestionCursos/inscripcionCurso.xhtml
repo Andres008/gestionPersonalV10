@@ -3,8 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
+	xmlns:p="http://primefaces.org/ui"> <h:head>
 	<title>GESTION PERSONAL</title>
 	<h:outputStylesheet library="css" name="estilos.css" />
 	<script type="text/javascript">
@@ -35,102 +34,94 @@
         allDayText: 'Todo el día'
     };
 </script>
-</h:head>
-<body style="font-size: 70%"
-	onload="#{controladorCursos.inicializarCursoDisponible()}">
-	<h:form id="statusBar">
-		<p:ajaxStatus onstart="PF('statusDialog').show()"
-			onsuccess="PF('statusDialog').hide()" />
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
-			closable="false" resizable="false" showHeader="false">
-			<img src="../../imagenes/login.png" />
-		</p:dialog>
-	</h:form>
-	<div id="div_menu" align="left"
-		style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
-		<div id="logo" align="center">
-			<p:graphicImage url="/imagenes/bannerGestionPersonal.png" alt="Defensa Aérea"
-				style="width:100%"></p:graphicImage>
-		</div>
-
-		<div align="center"
-			style="width: 99.9%; min-height: 99.9%; background-image:">
-			<div id="titulo_header"
-				style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
-				<span>Sistema de Gestión de Personal - <h:outputText
-						value="Defensa Aérea -" /></span>
-			</div>
-			<h:form style="width:100%;font-size:80%">
-				<p:menubar style="font-size:12px;">
-					<f:facet name="options">
-						<p:commandButton value="Menú principal" icon="ui-icon-home"
-							action="#{beanLogin.actionMostrarMenuPrincipal()}" />
-						<p:commandButton action="#{beanLogin.actionSalirSistema()}"
-							value="Salir" icon="ui-icon-extlink" />
-					</f:facet>
-				</p:menubar>
-			</h:form>
-			<div id="posicion" align="center">
-				<h3>CURSOS DISPONIBLES</h3>
-				<h:form>
-					<p:growl id="msgs" showDetail="true" />
-					<p:panel header="Cursos disponibles">
-						<p:dataTable value="#{controladorCursos.lstAcaPlanificacionCurso}"
-							rows="5" paginator="8" var="curso" emptyMessage="No existe cursos disponibles." >
-							<p:column headerText="Curso">
-								<p:outputLabel value="#{curso.acaCurso.nombre}" />
-							</p:column>
-							<p:column headerText="Descripción">
-								<p:outputLabel value="#{curso.acaCurso.descripcion}" />
-							</p:column>
-							<p:column headerText="Dependencia">
-								<p:outputLabel value="#{curso.gesReparto.nombre}" />
-							</p:column>
-							<p:column headerText="Fecha Inicio de Curso">
-								<p:outputLabel value="#{curso.fechaInicioCurso}" />
-							</p:column>
-							<p:column headerText="Fecha Fin de Curso">
-								<p:outputLabel value="#{curso.fechaFinal}" />
-							</p:column>
-							<p:column headerText="Fecha Inicio de Inscripcion">
-								<p:outputLabel value="#{curso.fechaInicioInscripcion}" />
-							</p:column>
-							<p:column headerText="Fecha Fin de Inscripcion">
-								<p:outputLabel value="#{curso.fechaFinalInscripcion}" />
-							</p:column>
-							<p:column headerText="Cursos de Prerequisitos">
-								<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
-									value="#{curso.acaPrerequisitoCursos}">
-									<p:column headerText="Curso">
-										<p:outputLabel value="#{cur.acaCurso.nombre}" />
-									</p:column>
-								</p:dataTable>
-							</p:column>
-							<p:column headerText="Grados de Prerequisitos">
-								<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
-									value="#{curso.acaPrerequisitoGrados}">
-									<p:column headerText="Curso">
-										<p:outputLabel value="#{cur.gesGrado.grado}" />
-									</p:column>
-								</p:dataTable>
-							</p:column>
-							<p:column headerText="Inscribirse">
-								<p:commandButton icon="ui-icon-pencil" value="Inscribirme"
-									actionListener="#{controladorCursos.ingresarInscripcionCurso(curso)}"
-									update="@form" />
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-				</h:form>
-			</div>
-		</div>
-		<div id="footer" align="center">
-			<div
-				style="background-color: navy; width: 100%; color: white; font-size: 12px;">
-				<span>Defensa Aérea -
-					#{beanLogin.anioActual()} - </span>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+</h:head> <body style="font-size: 70%"
+	onload="#{controladorCursos.inicializarCursoDisponible()}"> <h:form
+	id="statusBar">
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+		closable="false" resizable="false" showHeader="false">
+		<img src="../../imagenes/login.png" />
+	</p:dialog>
+</h:form> <div id="div_menu" align="left"
+	style="border: 0px groove navy; width: 99.4%; height: 81.9%; position: absolute; top: 0px; left: 5px;">
+<div id="logo" align="center"> <p:graphicImage
+	url="/imagenes/bannerGestionPersonal.png" alt="Defensa Aérea"
+	style="width:100%"></p:graphicImage> </div> <div align="center"
+	style="width: 99.9%; min-height: 99.9%; background-image:"> <div
+	id="titulo_header"
+	style="width: 99.9%; font-size: 14px; line-height: 30px; background-color: navy; color: white; border: 1px groove navy">
+<span>Sistema de Gestión de Personal - <h:outputText
+	value="Defensa Aérea -" /></span> </div> <h:form style="width:100%;font-size:80%">
+	<p:menubar style="font-size:12px;">
+		<f:facet name="options">
+			<p:commandButton value="Menú principal" icon="ui-icon-home"
+				action="#{beanLogin.actionMostrarMenuPrincipal()}" />
+			<p:commandButton action="#{beanLogin.actionSalirSistema()}"
+				value="Salir" icon="ui-icon-extlink" />
+		</f:facet>
+	</p:menubar>
+</h:form> <div id="posicion" align="center"> <h3>CURSOS DISPONIBLES</h3> <h:form>
+	<p:growl id="msgs" showDetail="true" />
+	<p:panel header="Cursos disponibles">
+		<p:dataTable value="#{controladorCursos.lstAcaPlanificacionCurso}"
+			rows="5" paginator="8" var="curso"
+			emptyMessage="No existe cursos disponibles.">
+			<p:column headerText="Curso">
+				<p:outputLabel value="#{curso.acaCurso.nombre}" />
+			</p:column>
+			<p:column headerText="Descripción">
+				<p:outputLabel value="#{curso.acaCurso.descripcion}" />
+			</p:column>
+			<p:column headerText="Dependencia">
+				<p:outputLabel value="#{curso.gesReparto.nombre}" />
+			</p:column>
+			<p:column headerText="Fecha Inicio de Curso">
+				<p:outputLabel value="#{curso.fechaInicioCurso}" />
+			</p:column>
+			<p:column headerText="Fecha Fin de Curso">
+				<p:outputLabel value="#{curso.fechaFinal}" />
+			</p:column>
+			<p:column headerText="Fecha Inicio de Inscripcion">
+				<p:outputLabel value="#{curso.fechaInicioInscripcion}" />
+			</p:column>
+			<p:column headerText="Fecha Fin de Inscripcion">
+				<p:outputLabel value="#{curso.fechaFinalInscripcion}" />
+			</p:column>
+			<p:column headerText="Cursos de Prerequisitos">
+				<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
+					value="#{curso.acaPrerequisitoCursos}">
+					<p:column headerText="Curso">
+						<p:outputLabel value="#{cur.acaCurso.nombre}" />
+					</p:column>
+				</p:dataTable>
+			</p:column>
+			<p:column headerText="Grados de Prerequisitos">
+				<p:dataTable var="cur" emptyMessage="No Tiene prerequisitos"
+					value="#{curso.acaPrerequisitoGrados}">
+					<p:column headerText="Curso">
+						<p:outputLabel value="#{cur.gesGrado.grado}" />
+					</p:column>
+				</p:dataTable>
+			</p:column>
+			<p:column headerText="Inscribirse">
+				<p:commandButton icon="ui-icon-pencil" value="Inscribirme"
+					actionListener="#{controladorCursos.ingresarInscripcionCurso(curso)}"
+					update="@form">
+					<p:confirm header="Confirmación"
+						message="Desea realizar la inscripción a este curso?"
+						icon="pi pi-exclamation-triangle" />
+				</p:commandButton>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true" width="350">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no ui-button-flat" />
+			</p:confirmDialog>
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+</h:form> </div> </div> <div id="footer" align="center"> <div
+	style="background-color: navy; width: 100%; color: white; font-size: 12px;">
+<span>Defensa Aérea - #{beanLogin.anioActual()} - </span> </div> </div> </div> </body> </html>

@@ -89,9 +89,13 @@ public class ControladorCursos {
 		GesPersona persona = managerCurso.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario());
 		for (AcaPlanificacionCurso acaPlanificacionCurso : lstPlanifCur) {
 			grado = false;
-			for (AcaPrerequisitoGrado prerequisitoGrado : acaPlanificacionCurso.getAcaPrerequisitoGrados()) {
-				if (prerequisitoGrado.getGesGrado().getId() == persona.getGesGrado().getId())
-					grado = true;
+			if (acaPlanificacionCurso.getAcaPrerequisitoGrados().isEmpty())
+				grado = true;
+			else {
+				for (AcaPrerequisitoGrado prerequisitoGrado : acaPlanificacionCurso.getAcaPrerequisitoGrados()) {
+					if (prerequisitoGrado.getGesGrado().getId() == persona.getGesGrado().getId())
+						grado = true;
+				}
 			}
 			if (grado)
 				lstAuxPlaniCurso.add(acaPlanificacionCurso);
@@ -178,17 +182,19 @@ public class ControladorCursos {
 	}
 
 	public void ingresarInscripcionCurso(AcaPlanificacionCurso planificacionCurso) {
-		AcaInscripcionPersona inscripcion = new AcaInscripcionPersona();
-		inscripcion.setAcaPlanificacionCurso(planificacionCurso);
-		inscripcion.setAcaEstadoInscripcion(new AcaEstadoInscripcion());
+		System.out.println("Llega Inscripcion");
 		try {
+			AcaInscripcionPersona inscripcion = new AcaInscripcionPersona();
+			inscripcion.setAcaPlanificacionCurso(planificacionCurso);
+			inscripcion.setAcaEstadoInscripcion(new AcaEstadoInscripcion());
 			inscripcion.getAcaEstadoInscripcion().setId(1);
 			inscripcion.setGesPersona(managerCurso.buscarPersonaByCedula(beanLogin.getCredencial().getIdUsuario()));
 			managerCurso.ingresarInscripcion(inscripcion);
-			JSFUtil.crearMensajeINFO("Atención", "Inscripcion Realizada.");
 			managerLog.generarLogUsabilidad(beanLogin.getCredencial(), this.getClass(), "ingresarInscripcionCurso",
 					"Se inscribio: " + inscripcion.getId());
+			JSFUtil.crearMensajeINFO("Atención", "Inscripcion Realizada.");
 			inicializarCursoDisponible();
+			System.out.println("Inscripcion Realizada");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
 			e.printStackTrace();
@@ -276,12 +282,12 @@ public class ControladorCursos {
 	public void inicializarAcaPlanificacionCurso() {
 		try {
 			beanLogin.verificarCredencial();
-		objAcaInscripcionPersona = new AcaInscripcionPersona();
-		objAcaPlanificacionCurso = new AcaPlanificacionCurso();
-		objAcaPlanificacionCurso.setAcaCurso(new AcaCurso());
-		objAcaPlanificacionCurso.setGesReparto(new GesReparto());
-		objAcaPlanificacionCurso.setAcaPrerequisitoCursos(new ArrayList<AcaPrerequisitoCurso>());
-		objAcaPlanificacionCurso.setAcaPrerequisitoGrados(new ArrayList<AcaPrerequisitoGrado>());
+			objAcaInscripcionPersona = new AcaInscripcionPersona();
+			objAcaPlanificacionCurso = new AcaPlanificacionCurso();
+			objAcaPlanificacionCurso.setAcaCurso(new AcaCurso());
+			objAcaPlanificacionCurso.setGesReparto(new GesReparto());
+			objAcaPlanificacionCurso.setAcaPrerequisitoCursos(new ArrayList<AcaPrerequisitoCurso>());
+			objAcaPlanificacionCurso.setAcaPrerequisitoGrados(new ArrayList<AcaPrerequisitoGrado>());
 			lstAcaPlanificacionCurso = managerCurso.buscarTodasPlanificacion();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR("Error", e.getMessage());
