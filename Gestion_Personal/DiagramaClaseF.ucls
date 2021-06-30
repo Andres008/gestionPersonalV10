@@ -1,0 +1,1410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="ec.mil.model.dao.entidades.GesDependencia" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesDependencia.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="574" width="520" x="2447" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="ec.mil.model.modulos.reportes.ManagerReportes" project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/reportes/ManagerReportes.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="106" width="355" x="2506" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="ec.mil.model.dao.entidades.AcaPrerequisitoCurso" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaPrerequisitoCurso.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="232" width="338" x="1346" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="ec.mil.model.dao.entidades.GesGradosPersona" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesGradosPersona.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="448" width="222" x="3049" y="3030"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="ec.mil.model.dao.entidades.AutUsuario" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AutUsuario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="448" width="222" x="4401" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="ec.mil.model.dao.entidades.AcaTipoCurso" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaTipoCurso.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="502" width="250" x="1056" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ec.mil.model.modulos.autUsuarios.ManagerUsuarios" project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/autUsuarios/ManagerUsuarios.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="178" width="263" x="2901" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="ec.mil.model.dao.entidades.AcaPlanificacionCurso" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaPlanificacionCurso.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1951" y="247"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="ec.mil.model.dao.entidades.AcaTituloPersona" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaTituloPersona.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="340" width="222" x="4139" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="ec.mil.model.dao.entidades.GesPromocion" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesPromocion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="592" width="295" x="2988" y="3716"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="ec.mil.model.dao.entidades.AutMenu" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AutMenu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="556" width="247" x="5029" y="3716"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="ec.mil.model.dao.entidades.AcaTitulo" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaTitulo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="520" width="385" x="4771" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="ec.mil.model.dao.entidades.VReporteConsolidado" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/VReporteConsolidado.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="1024" width="246" x="210" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="ec.mil.model.dao.entidades.GesEstimuloPersona" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesEstimuloPersona.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="340" width="228" x="5261" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="ec.mil.model.dao.entidades.GesRegione" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesRegione.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="502" width="376" x="2508" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="ec.mil.model.dao.entidades.LogGeneral" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/LogGeneral.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="466" width="308" x="4423" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="ec.mil.model.dao.entidades.GesTipoSangre" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesTipoSangre.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="502" width="295" x="3469" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="ec.mil.model.dao.entidades.GesEstadoCivil" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesEstadoCivil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="448" width="295" x="3804" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="ec.mil.model.modulos.ModelUtil.ModelUtil" project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/ModelUtil/ModelUtil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="520" width="362" x="496" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="ec.mil.model.dao.entidades.AcaPersonasCurso" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaPersonasCurso.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="448" width="222" x="1724" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="ec.mil.model.modulos.cursos.ManagerCurso" project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/cursos/ManagerCurso.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="736" width="425" x="3204" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="ec.mil.model.dao.entidades.AcaInscripcionPersona" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaInscripcionPersona.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="322" width="338" x="3091" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="ec.mil.model.dao.manager.ManagerDAOGestionPersonal" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/manager/ManagerDAOGestionPersonal.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="322" width="275" x="3590" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="ec.mil.model.dao.entidades.VAutMenuRol" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/VAutMenuRol.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="322" width="179" x="898" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="ec.mil.model.modulos.gestioPersonal.ManagerGestionPersonal" 
+    project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/gestioPersonal/ManagerGestionPersonal.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="1150" width="453" x="3669" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="ec.mil.model.dao.entidades.AcaCurso" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaCurso.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1154" y="1405"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="ec.mil.model.dao.entidades.GesTipoGrado" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesTipoGrado.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="538" width="294" x="2487" y="3030"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="ec.mil.model.dao.entidades.LogCategoriaEvento" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/LogCategoriaEvento.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="340" width="277" x="4986" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="ec.mil.model.dao.entidades.AcaTipoTitulo" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaTipoTitulo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="502" width="241" x="5303" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="ec.mil.model.dao.entidades.GesTipoEstimulo" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesTipoEstimulo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="502" width="304" x="5529" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="ec.mil.model.modulos.ModelUtil.JSFUtil" project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/ModelUtil/JSFUtil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="196" width="259" x="1117" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="ec.mil.model.dao.entidades.AutPerfile" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AutPerfile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="646" width="283" x="5029" y="3030"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="ec.mil.model.dao.entidades.AutRolPerfil" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AutRolPerfil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="394" width="190" x="5031" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="ec.mil.model.dao.entidades.GesEstimulo" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesEstimulo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="538" width="448" x="5529" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="ec.mil.model.dao.entidades.AutRole" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AutRole.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="574" width="293" x="5196" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="ec.mil.model.dao.entidades.GesGrado" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesGrado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="754" width="421" x="1986" y="2236"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="ec.mil.model.modulos.autorizaciones.ManagerAutorizacion" 
+    project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/autorizaciones/ManagerAutorizacion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="178" width="373" x="4162" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="ec.mil.model.modulos.log.ManagerLog" project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/log/ManagerLog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="286" width="371" x="4575" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="ec.mil.model.dao.entidades.AcaPrerequisitoGrado" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaPrerequisitoGrado.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="232" width="338" x="1672" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="ec.mil.model.modulos.autorizaciones.Credencial" project="Gestion_PersonalEJB" 
+    file="/Gestion_PersonalEJB/ejbModule/ec/mil/model/modulos/autorizaciones/Credencial.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="358" width="216" x="1416" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="ec.mil.model.dao.entidades.AcaEstadoInscripcion" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaEstadoInscripcion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="340" width="478" x="3905" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="42" language="java" name="ec.mil.model.dao.entidades.AcaInstitucionEducativa" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/AcaInstitucionEducativa.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="502" width="241" x="5584" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="43" language="java" name="ec.mil.model.dao.entidades.GesPersona" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesPersona.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1150" width="520" x="3030" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="44" language="java" name="ec.mil.model.dao.entidades.GesDependenciaPersona" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesDependenciaPersona.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="394" width="276" x="2190" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="45" language="java" name="ec.mil.model.dao.entidades.GesReparto" project="GestionPersonal_DS" 
+    file="/GestionPersonal_DS/ejbModule/ec/mil/model/dao/entidades/GesReparto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="502" width="376" x="2050" y="1046"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="46">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="47" name="managerDAOGestionPersonal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="48" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="49">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="50" name="gesTipoGrado">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="51" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="53" name="gesPersona">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="54" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <bendpoint x="3039" y="2236"/>    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="56" name="gesGradosPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <bendpoint x="2935" y="1046"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="59" name="acaPlanificacionCurso">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="60" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="62" name="gesPersona">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="63" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="64">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="65" name="gesEstimulos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="66" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="67">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="68" name="acaPlanificacionCursos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="69" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="71" name="gesEstadoCivil">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="72" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="73">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="74" name="acaPrerequisitoCursos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="75" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="77" name="autPerfiles">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="78" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="80" name="managerDAOGestionPersonal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="81" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="83" name="logCategoriaEvento">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="84" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="86" name="autRolPerfils">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="87" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="89" name="autUsuarios">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="90" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="92" name="gesEstimulo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="93" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="95" name="logGenerals">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="96" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="97">    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="98" name="gesGrado">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="99" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="100">    
+    <end type="SOURCE" refId="45" navigable="false">      
+      <attribute id="101" name="gesDependencias">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="102" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="104" name="autRole">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="105" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="107" name="acaTituloPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="108" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="110" name="autPerfile">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="111" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="112">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="113" name="acaTituloPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="114" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="115">    
+    <bendpoint x="3018" y="3030"/>    
+    <bendpoint x="3018" y="2236"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="116" name="gesPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="117" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="118">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="119" name="acaInscripcionPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="120" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="121">    
+    <bendpoint x="2477" y="1046"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="122" name="gesDependenciaPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="123" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="44" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="125" name="gesPersona">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="126" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="128" name="managerDAOGestionPersonal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="129" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="131" name="gesReparto">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="132" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="133">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="134" name="autUsuario">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="135" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="136">    
+    <bendpoint x="2997" y="2236"/>    
+    <bendpoint x="2997" y="3030"/>    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="137" name="gesPromocion">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="138" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="140" name="acaTipoCurso">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="141" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="143" name="gesDependencias">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="144" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="146" name="acaCursos">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </attribute>      
+      <multiplicity id="147" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="148">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="149" name="gesEstimuloPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="150" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="151">    
+    <bendpoint x="2914" y="1046"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="152" name="acaInscripcionPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="153" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="154">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="155" name="gesPersona">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="156" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="157">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="158" name="managerDAOGestionPersonal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="159" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="160">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="161" name="gesPersona">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="162" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="163">    
+    <bendpoint x="1620" y="1046"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="164" name="acaPrerequisitoCursos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="165" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="166">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="167" name="acaInscripcionPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="168" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="169">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="170" name="acaCurso">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </attribute>      
+      <multiplicity id="171" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="172">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="173" name="autRolPerfils">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="174" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="175">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="176" name="gesGrados">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="177" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="178">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="179" name="acaTitulos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="180" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="181">    
+    <bendpoint x="3060" y="2236"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="182" name="gesPersona">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="183" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="184">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="185" name="gesGradosPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="186" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="187">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="188" name="gesPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="189" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="190">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="191" name="acaCurso">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </attribute>      
+      <multiplicity id="192" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="193">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="194" name="gesPersona">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="195" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="196">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="197" name="gesReparto">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="198" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="199">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="200" name="gesTipoSangre">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="201" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="202">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="203" name="gesDependenciaPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="204" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="44" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="205">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="206" name="autRole">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="207" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="208">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="209" name="autMenu">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="210" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="211">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="212" name="gesPromocions">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="213" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="214">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="215" name="acaInstitucionEducativa">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="216" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="217">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="218" name="acaEstadoInscripcion">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="219" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="41" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="220">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="221" name="acaTitulo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="222" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="223">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="224" name="gesRegione">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="225" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="226">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="227" name="gesEstimuloPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="228" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="229">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="230" name="managerDAOGestionPersonal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="231" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="232">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="233" name="acaPersonasCursos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="234" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="235">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="236" name="gesGrado">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="237" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="238">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="239" name="gesPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="240" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="241">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="242" name="managerDAOGestionPersonal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="243" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="244">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="245" name="gesPersonas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="246" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="247">    
+    <bendpoint x="1641" y="1046"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="248" name="acaPlanificacionCurso">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="249" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="250">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="251" name="gesGrado">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="252" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="253">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="254" name="acaPersonasCursos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="255" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="256">    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="257" name="acaPlanificacionCurso">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="258" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="259">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="260" name="acaTipoTitulo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="261" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="262">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="263" name="acaPrerequisitoGrados">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="264" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="265">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="266" name="gesTipoEstimulo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="267" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="268">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="269" name="acaTitulos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="270" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="271">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="272" name="gesTipoGrado">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="273" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="274">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="275" name="acaCurso">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </attribute>      
+      <multiplicity id="276" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-26" y="69"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="277">    
+    <bendpoint x="2456" y="1046"/>    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="278" name="gesDependencia">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="279" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="280">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="281" name="acaPrerequisitoGrados">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="282" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
