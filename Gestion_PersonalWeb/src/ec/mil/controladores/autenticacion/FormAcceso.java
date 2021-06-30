@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -36,6 +40,7 @@ public class FormAcceso  {
 	private String clave;
 	private MenuModel model;
 	private Boolean panelCambioContr;
+	private StreamedContent file;
 
 	@EJB
 	ManagerAutorizacion managerAutorizacion;
@@ -55,7 +60,12 @@ public class FormAcceso  {
 	}
 	
 	public FormAcceso() {
-		
+	}
+	
+	public void mensageCambioContrasenia() {
+		 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje", "Si requiere el cambios de su contraseña, favor comuniquese con el Departamente de Seguimiento y Evaluación. Mode 35095.");
+
+	        PrimeFaces.current().dialog().showMessageDynamic(message);
 	}
 
 	public void cambiarContraseniaPrimerAcceso() {
@@ -157,6 +167,16 @@ public class FormAcceso  {
 		}
 
 	}
+	
+	
+
+    public StreamedContent getFile() {
+    	return DefaultStreamedContent.builder()
+                .name("GuiaUsuario.pdf")
+                .contentType("application/pdf")
+                .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/archivos/GuiaUsuario.pdf"))
+                .build();
+    }
 
 	public String getClave() {
 		return clave;

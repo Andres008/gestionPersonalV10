@@ -50,6 +50,8 @@ public class ControladorReportes {
 	private List<String> lstGradosSeleccionados, lstCursosSeleccionados, lstTipoTituloSeleccionados;
 	
 	private boolean busquedaAvanzadaR;
+	
+	private String paseActual;
 
 	/**
 	 * 
@@ -62,6 +64,7 @@ public class ControladorReportes {
 	}
 
 	public void inicializarReporteConsolidado() {
+		paseActual="S";
 		busquedaAvanzadaR=true;
 		try {
 			beanLogin.verificarCredencial();
@@ -153,6 +156,8 @@ public class ControladorReportes {
 				lstConsolidado = lstConsolidadoResult;
 			}
 			lstConsolidado = lstConsolidado.stream().filter(conso-> conso.getFechaFinal()==null).collect(Collectors.toList());
+			
+			
 			eliminarDatosRepetidos(lstConsolidado);
 		}
 
@@ -215,6 +220,14 @@ public class ControladorReportes {
 
 	public void setBusquedaAvanzadaR(boolean busquedaAvanzada) {
 		this.busquedaAvanzadaR = busquedaAvanzada;
+	}
+
+	public String getPaseActual() {
+		return paseActual;
+	}
+
+	public void setPaseActual(String paseActual) {
+		this.paseActual = paseActual;
 	}
 
 }

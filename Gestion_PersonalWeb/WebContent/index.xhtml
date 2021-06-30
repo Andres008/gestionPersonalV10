@@ -8,41 +8,41 @@
 	<title>GESTION PERSONAL</title>
 	<h:outputStylesheet library="css" name="estilos.css" />
 	<style>
-
 #posicion {
 	margin: 120px auto;
 	width: 99%;
 	font-size: 12px;
 }
 
-
 .ui-noborder td {
 	border: none;
 }
-.ui-widget-content{
-background: 0px;
+
+.ui-widget-content {
+	background: 0px;
 }
-.ui-growl-item-container{
-		opacity: 1;
-		}
+
+.ui-growl-item-container {
+	opacity: 1;
+}
+
 .fondo {
-  background-image: url("imagenes/PORTADA.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+	background-image: url("imagenes/PORTADA.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 }
+
 .ui-button-icon-left {
-left: 30%;
+	left: 30%;
 }
-.ui-widget{
-	font-size:14px
-		}
 
-
-
-
+.ui-widget {
+	font-size: 14px
+}
 </style>
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css"
+		href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<script type="text/javascript">
     PrimeFaces.locales['es'] = {
         closeText: 'Cerrar',
@@ -99,7 +99,8 @@ left: 30%;
 			<div id="posicion">
 				<h:form id="form1">
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:panel id="pnlAcceso" header="ACCESO DE USUARIOS" rendered="#{!formAcceso.panelCambioContr}"
+					<p:panel id="pnlAcceso" header="ACCESO DE USUARIOS"
+						rendered="#{!formAcceso.panelCambioContr}"
 						style=";margin: auto; margin-top:20px; width: 35%;text-align:center;background:#ebfafa">
 						<br></br>
 						<p:graphicImage url="/resources/images/usuario.png" width="25%" />
@@ -113,13 +114,13 @@ left: 30%;
 									<h:panelGrid columns="2">
 										<p:inputText id="user" style="width:110%"
 											value="#{formAcceso.idUsuario}" rendered="true"
-											requiredMessage="Debe ingresar el usuario" required="true" />
+											requiredMessage="Debe ingresar el usuario" />
 									</h:panelGrid>
 									<p:outputLabel for="pwd" value="Clave" />
 									<h:panelGrid columns="2">
 										<p:password id="pwd" style="width:110%"
 											value="#{formAcceso.clave}" maxlength="20" rendered="true"
-											requiredMessage="Debe ingresar la contraseña" required="true" />
+											requiredMessage="Debe ingresar la contraseña" />
 									</h:panelGrid>
 									<p:outputLabel />
 									<p:commandButton value="Ingresar"
@@ -140,13 +141,16 @@ left: 30%;
 								<p:commandLink style=" font-size: 12px; font-weight:bold;"
 									onmouseover="this.style.opacity=0.6;this.filter.alpha(opacity=100)"
 									onmouseout="this.style.opacity=1;this.filter.alpha(opacity=40)"
-									value="Olvidó su usuario o contraseña">
+									update="@form" value="Olvidó su usuario o contraseña"
+									actionListener="#{formAcceso.mensageCambioContrasenia()}">
 								</p:commandLink>
-								<p:commandLink style=" font-size: 12px; font-weight:bold;"
+								<p:commandButton value="Manual Usuario" 
+									onclick="PrimeFaces.monitorDownload(start, stop);" styleClass="p-mr-2"
+									style="width:75%;height:35px;background: #0086b3;color: white; font-size:14px;border:1px solid  #0086b3"
 									onmouseover="this.style.opacity=0.6;this.filter.alpha(opacity=100)"
-									onmouseout="this.style.opacity=1;this.filter.alpha(opacity=40)"
-									value="Manual de usuario">
-								</p:commandLink>
+									onmouseout="this.style.opacity=1;this.filter.alpha(opacity=40)">
+									<p:fileDownload value="#{formAcceso.file}" />
+								</p:commandButton>
 							</h:panelGrid>
 						</div>
 					</p:panel>
@@ -158,8 +162,7 @@ left: 30%;
 							<tr>
 								<td width="80"><p:graphicImage url="/imagenes/login.png"
 										width="90%" /></td>
-								<td><p:panelGrid columns="2"
-										style="background-color: transparent !important;">
+								<td><p:panelGrid columns="2">
 										<h:outputLabel for="pwd1" value="Ingrese Nueva Contraseña:*" />
 										<p:password id="pwd1"
 											value="#{formAcceso.objAutUsuario.clave}" match="pwd2"

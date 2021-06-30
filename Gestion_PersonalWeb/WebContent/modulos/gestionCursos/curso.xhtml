@@ -82,7 +82,7 @@
 								<f:selectItem itemLabel="Tipo de Curso" noSelectionOption="true" />
 								<f:selectItems value="#{controladorCursos.siTipoCursoActivo()}" />
 							</p:selectOneMenu>
-							<p:outputLabel value="Nombre" />
+							<p:outputLabel value="Nombre"  />
 							<p:inputText value="#{controladorCursos.objAcaCurso.nombre}"
 								style="text-transform: uppercase" />
 							<p:outputLabel value="Descripción" />
@@ -96,17 +96,25 @@
 							update="@form" />
 					</p:panel>
 					<p:panel header="Cursos Ingresados">
-						<p:dataTable value="#{controladorCursos.lstAcaCurso}"
+						<p:dataTable value="#{controladorCursos.lstAcaCurso}" widgetVar="cursoTbl"
 							emptyMessage="No existe curso ingresados" editable="true"
 							var="curso">
 							<p:ajax event="rowEdit" listener="#{controladorCursos.onRowEditCurso}"
 								update="@form:msgs" />
 							<p:ajax event="rowEditCancel"
 								update="@form:msgs" />
-								<p:column headerText="Tipo de Curso"> 
+								<p:column headerText="Tipo de Curso" filterBy="#{curso.acaTipoCurso.id}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('cursoTbl').filter()"
+										styleClass="custom-filter">
+										<f:selectItem itemLabel="Todos" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{controladorCursos.siTipoCursoActivo()}" />
+									</p:selectOneMenu>
+								</f:facet> 
 									<p:outputLabel value="#{curso.acaTipoCurso.nombre}" />
 								</p:column>
-							<p:column headerText="Nombre">
+							<p:column headerText="Nombre" filterBy="#{curso.nombre}" filterMatchMode="contains" >
 								<p:cellEditor>
 									<f:facet name="output">
 										<p:outputLabel value="#{curso.nombre}" />
@@ -117,7 +125,7 @@
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
-							<p:column headerText="Descripción">
+							<p:column headerText="Descripción" filterBy="#{curso.descripcion}" filterMatchMode="contains">
 								<p:cellEditor>
 									<f:facet name="output">
 										<p:outputLabel value="#{curso.descripcion}" />
